@@ -1,0 +1,6 @@
+_site
+.sass-cache
+/design-sketch-event-api/jax-rs/event-api/target/
+/design-sketch-event-api/jax-rs-embedded/event-api-embedded/target/
+node_modules
+*.class
