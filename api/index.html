@@ -38,25 +38,37 @@ right to navigate to specific resources.</p>
 <h3 id="content-type">Content-type</h3>
 <p>The API uses the JSON format. Unless specified otherwise, all requests and 
 response should have the <code>Content-Type: application/json</code> header.</p>
-<h3 id="authentication">Authentication</h3>
-<p>To interact with the API, your client will need to be authenticated. This is done by using the <strong>Authorization</strong> header with the username and password of the client and gives something that looks like:</p>
-<pre><code><span class="hljs-attribute">Authorization</span>: <span class="hljs-string">Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==</span>
-</code></pre><h3 id="errors">Errors</h3>
-<p>In case of error, the API will send a JSON response with the list of errors. 
+<!--
+### Authentication
+
+To interact with the API, your client will need to be authenticated. This is done by using the **Authorization** header with the username and password of the client and gives something that looks like:
+
+    Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+
+
+### Errors
+
+In case of error, the API will send a JSON response with the list of errors. 
 Each error has a human-readable message and a code. The code identifies the 
 error type and can be used to handle specific errors differently or for 
-translation purposes.</p>
-<pre><code><span class="hljs-status">HTTP/1.1 <span class="hljs-number">400</span> Bad Request</span>
+translation purposes.
 
-<span class="json">{
-  "<span class="hljs-attribute">errors</span>": <span class="hljs-value">[
+
+```
+HTTP/1.1 400 Bad Request
+
+{
+  "errors": [
     { 
-      "<span class="hljs-attribute">message</span>": <span class="hljs-value"><span class="hljs-string">"JSON parsing error."</span></span>,
-      "<span class="hljs-attribute">code</span>": <span class="hljs-value"><span class="hljs-number">10000</span>
-    </span>}
+      "message": "JSON parsing error.",
+      "code": 10000
+    }
   ]
-</span>}</span>
-</code></pre><h3 id="dates">Dates</h3>
+}
+```
+-->
+
+<h3 id="dates">Dates</h3>
 <p>All dates used in the API are in UTC and use the <code>ISO-8601</code> format (ex: 
 <code>2015-02-15T05:21:07Z</code>).</p>
 </div>
@@ -69,7 +81,7 @@ translation purposes.</p>
       p 
        a(href="https://github.com/lotaris/apidoc-seed")=name
        | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
-      p Version: 0.0.1  |  Built January 12, 2015 7:20 AM
+      p Version: 0.0.1  |  Built January 12, 2015 8:03 AM
       
     -->
     <script type="text/javascript" src="/api/js/jquery.min.js"></script>

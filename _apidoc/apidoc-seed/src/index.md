@@ -11,10 +11,9 @@ right to navigate to specific resources.
 
 ### Content-type
 
-The API uses the JSON format. Unless specified otherwise, all requests and 
-response should have the `Content-Type: application/json` header.
+The API uses the JSON format.
 
-
+<!--
 ### Authentication
 
 To interact with the API, your client will need to be authenticated. This is done by using the **Authorization** header with the username and password of the client and gives something that looks like:
@@ -42,6 +41,7 @@ HTTP/1.1 400 Bad Request
   ]
 }
 ```
+-->
 
 ### Dates
 

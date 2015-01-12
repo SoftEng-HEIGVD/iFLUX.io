@@ -1,8 +1,8 @@
 #%RAML 0.8
 ---
-title: API Resource Example
-baseUri: https://localhost/api/{version}
-version: v1
+title: iFLUX API
+baseUri: https://api.iflux.io/{version}/
+version: v0.1
 protocols: [HTTPS]
 mediaType: application/json
 
@@ -10,37 +10,30 @@ traits:
   - private: !include _traits/private.raml
 
 /events:
-  description: This is my resource.
+  description: This endpoint is used by event sources (e.g. sensors) to notify the occurence of events.
   post:
-    description: Notify an event.
-    headers:
-      Content-type: 
+    description: Notify a list of events that have been captured by an event source. The events are processed asynchronously by the iFLUX service. The client must always send a list, even if it wants to notify a single event.
     body:
       application/json:
         example: |
           [
             {
-              "timestamp" : "a",
-              "source" : "http://www",
+              "timestamp" : "2015-01-12T05:21:07Z",
+              "source" : "/event-sources/JI8928JFK",
               "properties" : {
-                "temperature" : 37.5
+                "temperature" : 22.5,
+                "location" : "room 1"
               }
             },
             {
-              "timestamp" : "y" 
+              "timestamp" : "2015-01-12T05:22:07Z",
+              "source" : "/event-sources/JI8928JFK",
+              "properties" : {
+                "temperature" : 22.8,
+                "location" : "room 1"
+              }
             }
           ]
     responses:
-      201:
-        body:
-          application/json:
-            example: |
-              [
-                {
-                  "timestamp" : "a",
-                  "source" : "http://www"
-                },
-                {
-                  "timestamp" : "y" 
-                }
-              ]
+      202:
+        description: Accepted
