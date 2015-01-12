@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>List of resources</title>
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="An API documentation project using Grunt, Metalsmith and RAML.">
+    <link rel="stylesheet" href="/api/css/bootstrap.css">
+    <link rel="stylesheet" href="/api/css/app.css">
+    <link rel="stylesheet" href="/api/css/raml.css">
+    <link rel="stylesheet" href="/api/css/highlight.github.min.css">
+    <link rel="stylesheet" href="/api/css/styles.css">
+  </head>
+  <body>
+    <header id="header">
+      <h1><a href="/">iFlux.io</a></h1>
+      <nav id="nav">
+        <ul>
+          <li style="white-space: nowrap;"><a href="/blog.html">Blog</a></li>
+          <li style="white-space: nowrap;"><a href="/api/">API</a></li>
+        </ul>
+      </nav>
+    </header>
+    <div id="content" class="container">
+      <div class="row">
+        <div class="col-sm-3 col-sm-push-9">
+          <h3>Index</h3><a href="/api/">Overview</a>
+          <h3>Resources</h3>
+          <ul class="nav subnav">
+            <li><a href="/api/reference/#events"><span>/events</span></a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-pull-3"><a id="top"></a>
+          <h1>List of resources</h1>
+          <hr>
+          <div class="page-header"><small></small><b>Endpoint: &nbsp;&nbsp;</b>https://localhost/api/v1
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 id="events" class="panel-title">
+                /events
+                
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div class="resource-description"><p>This is my resource.</p>
+</div>
+              <div class="panel-group">
+                <div class="panel panel-white">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <!-- collapsed "buttons" (on the right side)--><a data-toggle="collapse" href="#panel_events" class="block collapsed"><span id="post_events" class="badge badge_post">post  </span><span class="parent"></span>/events
+                        </a>
+                    </h4>
+                  </div>
+                  <div id="panel_events" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <!-- extended "buttons" (list)-->
+                      <div class="list-group"><a href="#" data-toggle="modal" data-target="#events_post" class="list-group-item"><span class="badge badge_post">post  </span><span><p>Notify an event</p>
+</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="events_post" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                          <h4 class="modal-title"><span class="badge badge_post">post  </span>&nbsp;&nbsp;<span class="parent"></span>/events</h4>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Nav tabs-->
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a href="#events_post_description" data-toggle="tab">Description</a></li>
+                            <li><a href="#events_post_request" data-toggle="tab">Request</a></li>
+                            <li><a href="#events_post_response" data-toggle="tab">Response</a></li>
+                          </ul>
+                          <!-- Tab panes-->
+                          <div class="tab-content">
+                            <div id="events_post_description" class="tab-pane active"><span><p>Notify an event.</p>
+</span>
+                            </div>
+                            <div id="events_post_request" class="tab-pane">
+                              <h3>Headers</h3>
+                              <ul>
+                                <li class="markdown"><strong>Content-type</strong><em> (string)</em>
+                                </li>
+                              </ul>
+                              <h3>Body</h3>
+                              <p><strong>Type: application/json</strong></p><strong>Example:</strong>
+                              <pre>[
+  {
+    "<span class="hljs-attribute">timestamp</span>" : <span class="hljs-value"><span class="hljs-string">"a"</span></span>,
+    "<span class="hljs-attribute">source</span>" : <span class="hljs-value"><span class="hljs-string">"http://www"</span></span>,
+    "<span class="hljs-attribute">properties</span>" : <span class="hljs-value">{
+      "<span class="hljs-attribute">temperature</span>" : <span class="hljs-value"><span class="hljs-number">37.5</span>
+    </span>}
+  </span>},
+  {
+    "<span class="hljs-attribute">timestamp</span>" : <span class="hljs-value"><span class="hljs-string">"y"</span> 
+  </span>}
+]
+</pre>
+                            </div>
+                            <div id="events_post_response" class="tab-pane">
+                              <h2>HTTP status code&nbsp;<a href="http://httpstatus.es/201" target="_blank">201</a></h2>
+                              <h3>Body</h3>
+                              <p><strong>Type: application/json</strong></p><strong>Example:</strong>
+                              <pre>[
+  {
+    "<span class="hljs-attribute">timestamp</span>" : <span class="hljs-value"><span class="hljs-string">"a"</span></span>,
+    "<span class="hljs-attribute">source</span>" : <span class="hljs-value"><span class="hljs-string">"http://www"</span>
+  </span>},
+  {
+    "<span class="hljs-attribute">timestamp</span>" : <span class="hljs-value"><span class="hljs-string">"y"</span> 
+  </span>}
+]
+</pre>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer"><a href="#top" class="btn">Back to top</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--
+    .footer
+     .container
+      p 
+       a(href="https://github.com/lotaris/apidoc-seed")=name
+       | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
+      p Version: 0.0.1  |  Built January 12, 2015 7:20 AM
+      
+    -->
+    <script type="text/javascript" src="/api/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/api/js/bootstrap.js"></script>
+    <script type="text/javascript" src="/api/js/smoothscroll.js"></script>
+    <script type="text/javascript" src="/api/js/app.js"></script>
+  </body>
+</html>

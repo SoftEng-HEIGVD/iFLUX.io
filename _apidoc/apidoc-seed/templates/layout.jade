@@ -1,0 +1,65 @@
+doctype html
+html
+	head
+		title= title
+		meta(charset='utf8')
+		meta(name="viewport", content="width=device-width, initial-scale=1")
+		meta(name='description', content= description)
+		if minifyAssets
+			link(rel="stylesheet", href="/api/css/global.css")
+		else
+			link(rel="stylesheet", href="/api/css/bootstrap.css")
+			link(rel="stylesheet", href="/api/css/app.css")
+			link(rel="stylesheet", href="/api/css/raml.css")
+			link(rel="stylesheet", href="/api/css/highlight.github.min.css")
+			link(rel="stylesheet", href="/api/css/styles.css")
+
+	body
+
+		header#header
+			h1
+				a(href='/') iFlux.io
+			nav#nav
+				ul
+					li(style='white-space: nowrap;')
+						a(href='/blog.html') Blog
+					li(style='white-space: nowrap;')
+						a(href='/api/') API
+
+		.container#content
+			.row
+				.col-sm-3.col-sm-push-9
+					block menu
+						if section && subsections[section]
+							h1 Sections
+							hr
+							ul.nav.subnav
+								for subsection in subsections[section]
+									li(class="#{ title == subsection.title ? 'active' : '' }")
+										a(href=subsection.link)
+											| #{subsection.title}
+											if subsection.private
+												i.glyphicon.glyphicon-lock
+				.col-sm-9.col-sm-pull-3
+					a(id="top")
+					h1= title
+					hr
+					block body
+						div!= contents
+
+		//
+			.footer
+				.container
+					p 
+						a(href="https://github.com/lotaris/apidoc-seed")=name
+						| &nbsp;- #{description}
+					p Version: #{version}  |  Built #{creationDate}
+				
+
+		if minifyAssets
+			script(type="text/javascript", src="/js/global.js")
+		else
+			script(type="text/javascript", src="/api/js/jquery.min.js")
+			script(type="text/javascript", src="/api/js/bootstrap.js")
+			script(type="text/javascript", src="/api/js/smoothscroll.js")
+			script(type="text/javascript", src="/api/js/app.js")

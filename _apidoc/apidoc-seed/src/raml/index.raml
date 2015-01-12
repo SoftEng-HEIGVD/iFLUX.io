@@ -1,0 +1,46 @@
+#%RAML 0.8
+---
+title: API Resource Example
+baseUri: https://localhost/api/{version}
+version: v1
+protocols: [HTTPS]
+mediaType: application/json
+
+traits:
+  - private: !include _traits/private.raml
+
+/events:
+  description: This is my resource.
+  post:
+    description: Notify an event.
+    headers:
+      Content-type: 
+    body:
+      application/json:
+        example: |
+          [
+            {
+              "timestamp" : "a",
+              "source" : "http://www",
+              "properties" : {
+                "temperature" : 37.5
+              }
+            },
+            {
+              "timestamp" : "y" 
+            }
+          ]
+    responses:
+      201:
+        body:
+          application/json:
+            example: |
+              [
+                {
+                  "timestamp" : "a",
+                  "source" : "http://www"
+                },
+                {
+                  "timestamp" : "y" 
+                }
+              ]
