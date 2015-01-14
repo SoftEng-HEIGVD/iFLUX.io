@@ -51,7 +51,7 @@
 					<!-- Content -->
               {% for post in site.posts limit:1%}
 						<section id="content" class="box">
-                {{ post.date | date: "%b %-d, %Y" }}, by {{ post.author }}. <a href="{{ post.url}}#disqus_thread"></a>
+                {{ post.date | date: "%b %-d, %Y" }}, by {{ post.author }}. <a href="{{site.url}}{{ post.url}}#disqus_thread"></a>
                   <div class="row">
                             <div id="content" class="12u">
                               <header>
