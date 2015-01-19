@@ -2,7 +2,7 @@
 ---
 title: iFLUX API
 baseUri: https://api.iflux.io/{version}/
-version: v0.1
+version: v0.2
 protocols: [HTTPS]
 mediaType: application/json
 
@@ -39,3 +39,66 @@ traits:
     responses:
       202:
         description: Accepted
+
+/actions:
+  description: This endpoint is implemented by action targets (e.g. actuators) and invoked by the iFLUX middleware to trigger actions.
+  post:
+    description: Trigger a list of actions, after the evaluation of rules and in reaction to the notification of events. The actions can be processes asynchronously.
+    body:
+      application/json:
+        example: |
+          [
+            {
+              "context" : {
+                "event" : "not used in this version of the api",
+                "rule" : "not used in this version of the api",
+              },
+              "type" : "/actionTypes/sendAlertViaEmailSchema",
+              "properties" : {
+                "email" : "user.name@iflux.io",
+                "subject" : "Alert: something has happened!",
+                "body" : "An event has been notified to iFLUX by a source and a rule states that we should inform you about it."
+              }
+            },
+            {
+              "context" : {
+                "event" : "not used in this version of the api",
+                "rule" : "not used in this version of the api",
+              },
+              "type" : "/actionTypes/sendAlertViaEmailSchema",
+              "properties" : {
+                "email" : "user.name@iflux.io",
+                "subject" : "Alert: something has happened!",
+                "body" : "An event has been notified to iFLUX by a source and a rule states that we should inform you about it."
+              }
+            }
+          ]
+    responses:
+      202:
+        description: Accepted
+
+/rules:
+  description: This endpoint is used to manage the rules evaluated by iFLUX when events are notified.
+  post:
+    description: Create a new rule.
+    body:
+      application/json:
+        example: |
+          {
+            "description" : "When a temperature event is received, notify Bob by email.",
+            "if" : {
+              "source" : "/event-sources/JI8928JFK",
+              "eventType" : "/eventTypes/temperatureEventSchema",
+              "eventProperties" : {}
+            }
+            "then" : {
+              "target" : "http://mail-gateway.iflux.io/actions/",
+              "schema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"email\" : \"aware\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
+            }
+          }
+    responses:
+      201:
+        description: Created
+
+
+

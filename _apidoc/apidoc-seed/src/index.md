@@ -8,6 +8,21 @@ menuIndex: 4
 This pages contains general documentation about the API. Use the links on the
 right to navigate to specific resources.
 
+### System components
+
+An overview of a system built with iFLUX is shown in the diagram below:
+
+* **Event sources** (e.g. sensors) report **events** using the `/events` endpoint exposed by the iFLUX middleware. An event is defined by a type, a timestamp and a list of properties.
+
+* Event-Condition-Action **rules** are configured on the iFLUX middleware. Rules specifies what actions should be triggered when specific events are reported. Every rule has an associated schema (provided as a [handlebars](http://handlebarsjs.com/) template), which makes it possible to compute action properties from event properties.
+
+* **Action targets** expose a `/actions` endpoint, used by the iFLUX middleware to trigger actions when rules are evaluated positively. An **action** is defined by a type and a list of properties. The diagram shows two examples of action targets: gateways used to relay user notifications via the [Slack](http://www.slack.com) collaboration platform or via email.
+
+<center>
+	<img src="/images/diagrams/apidoc-overview.png" alt="System overview" style="width: 500px;"/>
+</center>
+
+
 
 ### Content-type
 

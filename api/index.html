@@ -28,6 +28,8 @@
           <h3>Resources</h3>
           <ul class="nav subnav">
             <li><a href="/api/reference/#events"><span>/events</span></a></li>
+            <li><a href="/api/reference/#actions"><span>/actions</span></a></li>
+            <li><a href="/api/reference/#rules"><span>/rules</span></a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-pull-3"><a id="top"></a>
@@ -35,6 +37,22 @@
           <hr>
           <div><p>This pages contains general documentation about the API. Use the links on the
 right to navigate to specific resources.</p>
+<h3 id="system-components">System components</h3>
+<p>An overview of a system built with iFLUX is shown in the diagram below:</p>
+<ul>
+<li><p><strong>Event sources</strong> (e.g. sensors) report <strong>events</strong> using the <code>/events</code> endpoint exposed by the iFLUX middleware. An event is defined by a type, a timestamp and a list of properties.</p>
+</li>
+<li><p>Event-Condition-Action <strong>rules</strong> are configured on the iFLUX middleware. Rules specifies what actions should be triggered when specific events are reported. Every rule has an associated schema (provided as a <a href="http://handlebarsjs.com/">handlebars</a> template), which makes it possible to compute action properties from event properties.</p>
+</li>
+<li><p><strong>Action targets</strong> expose a <code>/actions</code> endpoint, used by the iFLUX middleware to trigger actions when rules are evaluated positively. An <strong>action</strong> is defined by a type and a list of properties. The diagram shows two examples of action targets: gateways used to relay user notifications via the <a href="http://www.slack.com">Slack</a> collaboration platform or via email.</p>
+</li>
+</ul>
+<center>
+    <img src="/images/diagrams/apidoc-overview.png" alt="System overview" style="width: 500px;"/>
+</center>
+
+
+
 <h3 id="content-type">Content-type</h3>
 <p>The API uses the JSON format.</p>
 <!--
@@ -80,7 +98,7 @@ HTTP/1.1 400 Bad Request
       p 
        a(href="https://github.com/lotaris/apidoc-seed")=name
        | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
-      p Version: 0.0.1  |  Built January 15, 2015 11:53 AM
+      p Version: 0.0.1  |  Built January 19, 2015 8:30 AM
       
     -->
     <script type="text/javascript" src="/api/js/jquery.min.js"></script>

@@ -28,12 +28,14 @@
           <h3>Resources</h3>
           <ul class="nav subnav">
             <li><a href="/api/reference/#events"><span>/events</span></a></li>
+            <li><a href="/api/reference/#actions"><span>/actions</span></a></li>
+            <li><a href="/api/reference/#rules"><span>/rules</span></a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-pull-3"><a id="top"></a>
           <h1>List of resources</h1>
           <hr>
-          <div class="page-header"><small></small><b>Endpoint: &nbsp;&nbsp;</b>https://api.iflux.io/v0.1/
+          <div class="page-header"><small></small><b>Endpoint: &nbsp;&nbsp;</b>https://api.iflux.io/v0.2/
           </div>
           <div class="panel panel-default">
             <div class="panel-heading">
@@ -119,6 +121,172 @@
             </div>
             <div class="panel-footer"><a href="#top" class="btn">Back to top</a></div>
           </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 id="actions" class="panel-title">
+                /actions
+                
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div class="resource-description"><p>This endpoint is implemented by action targets (e.g. actuators) and invoked by the iFLUX middleware to trigger actions.</p>
+</div>
+              <div class="panel-group">
+                <div class="panel panel-white">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <!-- collapsed "buttons" (on the right side)--><a data-toggle="collapse" href="#panel_actions" class="block collapsed"><span id="post_actions" class="badge badge_post">post  </span><span class="parent"></span>/actions
+                        </a>
+                    </h4>
+                  </div>
+                  <div id="panel_actions" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <!-- extended "buttons" (list)-->
+                      <div class="list-group"><a href="#" data-toggle="modal" data-target="#actions_post" class="list-group-item"><span class="badge badge_post">post  </span><span><p>Trigger a list of actions, after the evaluation of rules and in reaction to the notification of events</p>
+</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="actions_post" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                          <h4 class="modal-title"><span class="badge badge_post">post  </span>&nbsp;&nbsp;<span class="parent"></span>/actions</h4>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Nav tabs-->
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a href="#actions_post_description" data-toggle="tab">Description</a></li>
+                            <li><a href="#actions_post_request" data-toggle="tab">Request</a></li>
+                            <li><a href="#actions_post_response" data-toggle="tab">Response</a></li>
+                          </ul>
+                          <!-- Tab panes-->
+                          <div class="tab-content">
+                            <div id="actions_post_description" class="tab-pane active"><span><p>Trigger a list of actions, after the evaluation of rules and in reaction to the notification of events. The actions can be processes asynchronously.</p>
+</span>
+                            </div>
+                            <div id="actions_post_request" class="tab-pane">
+                              <h3>Body</h3>
+                              <p><strong>Type: application/json</strong></p><strong>Example:</strong>
+                              <pre>[
+  {
+    "<span class="hljs-attribute">context</span>" : <span class="hljs-value">{
+      "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"not used in this version of the api"</span></span>,
+      "<span class="hljs-attribute">rule</span>" : <span class="hljs-value"><span class="hljs-string">"not used in this version of the api"</span></span>,
+    }</span>,
+    "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"/actionTypes/sendAlertViaEmailSchema"</span></span>,
+    "<span class="hljs-attribute">properties</span>" : <span class="hljs-value">{
+      "<span class="hljs-attribute">email</span>" : <span class="hljs-value"><span class="hljs-string">"user.name@iflux.io"</span></span>,
+      "<span class="hljs-attribute">subject</span>" : <span class="hljs-value"><span class="hljs-string">"Alert: something has happened!"</span></span>,
+      "<span class="hljs-attribute">body</span>" : <span class="hljs-value"><span class="hljs-string">"An event has been notified to iFLUX by a source and a rule states that we should inform you about it."</span>
+    </span>}
+  </span>},
+  {
+    "<span class="hljs-attribute">context</span>" : <span class="hljs-value">{
+      "<span class="hljs-attribute">event</span>" : <span class="hljs-value"><span class="hljs-string">"not used in this version of the api"</span></span>,
+      "<span class="hljs-attribute">rule</span>" : <span class="hljs-value"><span class="hljs-string">"not used in this version of the api"</span></span>,
+    }</span>,
+    "<span class="hljs-attribute">type</span>" : <span class="hljs-value"><span class="hljs-string">"/actionTypes/sendAlertViaEmailSchema"</span></span>,
+    "<span class="hljs-attribute">properties</span>" : <span class="hljs-value">{
+      "<span class="hljs-attribute">email</span>" : <span class="hljs-value"><span class="hljs-string">"user.name@iflux.io"</span></span>,
+      "<span class="hljs-attribute">subject</span>" : <span class="hljs-value"><span class="hljs-string">"Alert: something has happened!"</span></span>,
+      "<span class="hljs-attribute">body</span>" : <span class="hljs-value"><span class="hljs-string">"An event has been notified to iFLUX by a source and a rule states that we should inform you about it."</span>
+    </span>}
+  </span>}
+]
+</pre>
+                            </div>
+                            <div id="actions_post_response" class="tab-pane">
+                              <h2>HTTP status code&nbsp;<a href="http://httpstatus.es/202" target="_blank">202</a></h2><p>Accepted</p>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer"><a href="#top" class="btn">Back to top</a></div>
+          </div>
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 id="rules" class="panel-title">
+                /rules
+                
+              </h3>
+            </div>
+            <div class="panel-body">
+              <div class="resource-description"><p>This endpoint is used to manage the rules evaluated by iFLUX when events are notified.</p>
+</div>
+              <div class="panel-group">
+                <div class="panel panel-white">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <!-- collapsed "buttons" (on the right side)--><a data-toggle="collapse" href="#panel_rules" class="block collapsed"><span id="post_rules" class="badge badge_post">post  </span><span class="parent"></span>/rules
+                        </a>
+                    </h4>
+                  </div>
+                  <div id="panel_rules" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <!-- extended "buttons" (list)-->
+                      <div class="list-group"><a href="#" data-toggle="modal" data-target="#rules_post" class="list-group-item"><span class="badge badge_post">post  </span><span><p>Create a new rule</p>
+</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="rules_post" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                          <h4 class="modal-title"><span class="badge badge_post">post  </span>&nbsp;&nbsp;<span class="parent"></span>/rules</h4>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Nav tabs-->
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a href="#rules_post_description" data-toggle="tab">Description</a></li>
+                            <li><a href="#rules_post_request" data-toggle="tab">Request</a></li>
+                            <li><a href="#rules_post_response" data-toggle="tab">Response</a></li>
+                          </ul>
+                          <!-- Tab panes-->
+                          <div class="tab-content">
+                            <div id="rules_post_description" class="tab-pane active"><span><p>Create a new rule.</p>
+</span>
+                            </div>
+                            <div id="rules_post_request" class="tab-pane">
+                              <h3>Body</h3>
+                              <p><strong>Type: application/json</strong></p><strong>Example:</strong>
+                              <pre>{
+  <span class="hljs-string">"description"</span> : <span class="hljs-string">"When a temperature event is received, notify Bob by email."</span>,
+  <span class="hljs-string">"if"</span> : {
+    <span class="hljs-string">"source"</span> : <span class="hljs-string">"/event-sources/JI8928JFK"</span>,
+    <span class="hljs-string">"eventType"</span> : <span class="hljs-string">"/eventTypes/temperatureEventSchema"</span>,
+    <span class="hljs-string">"eventProperties"</span> : {}
+  }
+  <span class="hljs-string">"then"</span> : {
+    <span class="hljs-string">"target"</span> : <span class="hljs-string">"http://mail-gateway.iflux.io/actions/"</span>,
+    <span class="hljs-string">"schema"</span> : <span class="hljs-string">"{\"type\" : \"sendEmail\", \"properties\" : {\"email\" : \"aware\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"</span>
+  }
+}
+</pre>
+                            </div>
+                            <div id="rules_post_response" class="tab-pane">
+                              <h2>HTTP status code&nbsp;<a href="http://httpstatus.es/201" target="_blank">201</a></h2><p>Created</p>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="panel-footer"><a href="#top" class="btn">Back to top</a></div>
+          </div>
         </div>
       </div>
     </div>
@@ -128,7 +296,7 @@
       p 
        a(href="https://github.com/lotaris/apidoc-seed")=name
        | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
-      p Version: 0.0.1  |  Built January 15, 2015 11:53 AM
+      p Version: 0.0.1  |  Built January 19, 2015 8:30 AM
       
     -->
     <script type="text/javascript" src="/api/js/jquery.min.js"></script>
