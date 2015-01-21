@@ -87,13 +87,13 @@ traits:
           {
             "description" : "When a temperature event is received, notify Bob by email.",
             "if" : {
-              "source" : "/event-sources/JI8928JFK",
+              "eventSource" : "/event-sources/JI8928JFK",
               "eventType" : "/eventTypes/temperatureEventSchema",
               "eventProperties" : {}
             }
             "then" : {
-              "target" : "http://mail-gateway.iflux.io/actions/",
-              "schema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"email\" : \"aware\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
+              "actionTarget" : "https://mail-gateway.iflux.io/api",
+              "actionSchema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
             }
           }
     responses:

@@ -262,13 +262,13 @@
                               <pre>{
   <span class="hljs-string">"description"</span> : <span class="hljs-string">"When a temperature event is received, notify Bob by email."</span>,
   <span class="hljs-string">"if"</span> : {
-    <span class="hljs-string">"source"</span> : <span class="hljs-string">"/event-sources/JI8928JFK"</span>,
+    <span class="hljs-string">"eventSource"</span> : <span class="hljs-string">"/event-sources/JI8928JFK"</span>,
     <span class="hljs-string">"eventType"</span> : <span class="hljs-string">"/eventTypes/temperatureEventSchema"</span>,
     <span class="hljs-string">"eventProperties"</span> : {}
   }
   <span class="hljs-string">"then"</span> : {
-    <span class="hljs-string">"target"</span> : <span class="hljs-string">"http://mail-gateway.iflux.io/actions/"</span>,
-    <span class="hljs-string">"schema"</span> : <span class="hljs-string">"{\"type\" : \"sendEmail\", \"properties\" : {\"email\" : \"aware\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"</span>
+    <span class="hljs-string">"actionTarget"</span> : <span class="hljs-string">"https://mail-gateway.iflux.io/api"</span>,
+    <span class="hljs-string">"actionSchema"</span> : <span class="hljs-string">"{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"</span>
   }
 }
 </pre>
@@ -296,7 +296,7 @@
       p 
        a(href="https://github.com/lotaris/apidoc-seed")=name
        | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
-      p Version: 0.0.1  |  Built January 19, 2015 8:30 AM
+      p Version: 0.0.1  |  Built January 21, 2015 7:39 AM
       
     -->
     <script type="text/javascript" src="/api/js/jquery.min.js"></script>
