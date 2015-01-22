@@ -225,15 +225,63 @@
                 <div class="panel panel-white">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <!-- collapsed "buttons" (on the right side)--><a data-toggle="collapse" href="#panel_rules" class="block collapsed"><span id="post_rules" class="badge badge_post">post  </span><span class="parent"></span>/rules
+                      <!-- collapsed "buttons" (on the right side)--><a data-toggle="collapse" href="#panel_rules" class="block collapsed"><span id="get_rules" class="badge badge_get">get  </span><span id="post_rules" class="badge badge_post">post  </span><span class="parent"></span>/rules
                         </a>
                     </h4>
                   </div>
                   <div id="panel_rules" class="panel-collapse collapse">
                     <div class="panel-body">
                       <!-- extended "buttons" (list)-->
-                      <div class="list-group"><a href="#" data-toggle="modal" data-target="#rules_post" class="list-group-item"><span class="badge badge_post">post  </span><span><p>Create a new rule</p>
+                      <div class="list-group"><a href="#" data-toggle="modal" data-target="#rules_get" class="list-group-item"><span class="badge badge_get">get  </span><span><p><p>Get the list of rules</p>
+</span></a><a href="#" data-toggle="modal" data-target="#rules_post" class="list-group-item"><span class="badge badge_post">post  </span><span><p><p>Create a new rule</p>
 </span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="rules_get" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                          <h4 class="modal-title"><span class="badge badge_get">get  </span>&nbsp;&nbsp;<span class="parent"></span>/rules</h4>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Nav tabs-->
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a href="#rules_get_description" data-toggle="tab">Description</a></li>
+                            <li><a href="#rules_get_request" data-toggle="tab">Request</a></li>
+                            <li><a href="#rules_get_response" data-toggle="tab">Response</a></li>
+                          </ul>
+                          <!-- Tab panes-->
+                          <div class="tab-content">
+                            <div id="rules_get_description" class="tab-pane active"><span><p>Get the list of rules.</p>
+</span>
+                            </div>
+                            <div id="rules_get_request" class="tab-pane">
+                            </div>
+                            <div id="rules_get_response" class="tab-pane">
+                              <h2>HTTP status code&nbsp;<a href="http://httpstatus.es/200" target="_blank">200</a></h2>
+                              <h3>Body</h3>
+                              <p><strong>Type: application/json</strong></p><strong>Example:</strong>
+                              <pre>[
+    {
+        "<span class="hljs-attribute">description</span>": <span class="hljs-value"><span class="hljs-string">"If any event is notified, then write a message in Slack"</span></span>,
+        "<span class="hljs-attribute">if</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">eventSource</span>": <span class="hljs-value"><span class="hljs-string">"*"</span></span>,
+            "<span class="hljs-attribute">eventType</span>": <span class="hljs-value"><span class="hljs-string">"io.iflux.events.current-time-event"</span></span>,
+            "<span class="hljs-attribute">eventProperties</span>": <span class="hljs-value">{}
+        </span>}</span>,
+        "<span class="hljs-attribute">then</span>": <span class="hljs-value">{
+            "<span class="hljs-attribute">actionTarget</span>": <span class="hljs-value"><span class="hljs-string">"https://nova-slack.herokuapp.com"</span></span>,
+            "<span class="hljs-attribute">actionSchema</span>": <span class="hljs-value"><span class="hljs-string">"{\"type\":\"sendSlackMessage\",\"properties\":{\"channel\":\"aware\",\"message\":\"Tic Tac. ({{ timestamp }}) {{ properties.description}} {{ properties.hostname}}.\"}}"</span>
+        </span>}</span>,
+        "<span class="hljs-attribute">id</span>": <span class="hljs-value"><span class="hljs-string">"1"</span>
+    </span>}
+]            
+</pre>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -283,6 +331,56 @@
                     </div>
                   </div>
                 </div>
+                <div class="panel panel-white">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <!-- collapsed "buttons" (on the right side)--><a data-toggle="collapse" href="#panel_rules_id" class="block collapsed"><span id="delete_rules_id" class="badge badge_delete">delete  </span><span class="parent">/rules</span>/{id}
+                        </a>
+                    </h4>
+                  </div>
+                  <div id="panel_rules_id" class="panel-collapse collapse">
+                    <div class="panel-body">
+                      <!-- extended "buttons" (list)-->
+                      <div class="list-group"><a href="#" data-toggle="modal" data-target="#rules_id_delete" class="list-group-item"><span class="badge badge_delete">delete  </span><span><p><p>Delete a rule</p>
+</span></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="rules_id_delete" class="modal fade">
+                    <div class="modal-dialog">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <button type="button" data-dismiss="modal" aria-hidden="true" class="close">×</button>
+                          <h4 class="modal-title"><span class="badge badge_delete">delete  </span>&nbsp;&nbsp;<span class="parent">/rules</span>/{id}</h4>
+                        </div>
+                        <div class="modal-body">
+                          <!-- Nav tabs-->
+                          <ul class="nav nav-tabs">
+                            <li class="active"><a href="#rules_id_delete_description" data-toggle="tab">Description</a></li>
+                            <li><a href="#rules_id_delete_request" data-toggle="tab">Request</a></li>
+                            <li><a href="#rules_id_delete_response" data-toggle="tab">Response</a></li>
+                          </ul>
+                          <!-- Tab panes-->
+                          <div class="tab-content">
+                            <div id="rules_id_delete_description" class="tab-pane active"><span><p>Delete a rule.</p>
+</span>
+                            </div>
+                            <div id="rules_id_delete_request" class="tab-pane">
+                              <h3>URI Parameters</h3>
+                              <ul>
+                                <li><strong>id string</strong></li>
+                              </ul>
+                            </div>
+                            <div id="rules_id_delete_response" class="tab-pane">
+                              <h2>HTTP status code&nbsp;<a href="http://httpstatus.es/204" target="_blank">204</a></h2><p>No Content</p>
+
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
             <div class="panel-footer"><a href="#top" class="btn">Back to top</a></div>
@@ -296,7 +394,7 @@
       p 
        a(href="https://github.com/lotaris/apidoc-seed")=name
        | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
-      p Version: 0.0.1  |  Built January 21, 2015 9:48 AM
+      p Version: 0.0.1  |  Built January 22, 2015 8:57 AM
       
     -->
     <script type="text/javascript" src="/api/js/jquery.min.js"></script>

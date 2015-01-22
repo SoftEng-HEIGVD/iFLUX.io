@@ -79,6 +79,29 @@ traits:
 
 /rules:
   description: This endpoint is used to manage the rules evaluated by iFLUX when events are notified.
+  get:
+    description: Get the list of rules.
+    responses:
+      200:
+        body:
+          application/json:
+            example: |
+              [
+                  {
+                      "description": "If any event is notified, then write a message in Slack",
+                      "if": {
+                          "eventSource": "*",
+                          "eventType": "io.iflux.events.current-time-event",
+                          "eventProperties": {}
+                      },
+                      "then": {
+                          "actionTarget": "https://nova-slack.herokuapp.com",
+                          "actionSchema": "{\"type\":\"sendSlackMessage\",\"properties\":{\"channel\":\"aware\",\"message\":\"Tic Tac. ({{ timestamp }}) {{ properties.description}} {{ properties.hostname}}.\"}}"
+                      },
+                      "id": "1"
+                  }
+              ]            
+
   post:
     description: Create a new rule.
     body:
@@ -99,6 +122,13 @@ traits:
     responses:
       201:
         description: Created
+  /{id}:
+    delete:
+      description: Delete a rule.
+      responses:
+        204:
+          description: No Content
+
 
 
 
