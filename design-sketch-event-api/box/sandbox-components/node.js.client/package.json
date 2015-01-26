@@ -1,0 +1,14 @@
+{
+  "name": "node.js",
+  "version": "0.0.1",
+  "description": "Simple client to demonstrate the event API",
+  "main": "sensor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Olivier Liechti",
+  "license": "ISC",
+  "dependencies": {
+    "node-rest-client": "^1.4.3"
+  }
+}
