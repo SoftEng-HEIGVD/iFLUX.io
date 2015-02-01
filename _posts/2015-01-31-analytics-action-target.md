@@ -2,7 +2,7 @@
 layout: post
 title:  "Analytics with iFLUX: the Metrics Action Target (Part 1)"
 author: Olivier Liechti
-categories: action target, analytics
+categories: action-target
 ---
 
 In most IoT/WoT applications and deployments, there is some sort of **analytics** element. Indeed, if sensors are deployed to collect data, it is often because people and organizations expect to **get insights about a particular domain**. For example, if sensors are deployed to monitor road traffic, one would expect to be able to **detect** traffic jams, to **analyze** when they tend to happen and ultimately to **predict** them. As another example, if sensors are deployed to monitor the affluence of people in certain locations, one would expect be able to **detect** and to **react** to unusual and risky situations. 
