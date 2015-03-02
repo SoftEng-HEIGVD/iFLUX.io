@@ -4,3 +4,4 @@ _site
 /design-sketch-event-api/jax-rs-embedded/event-api-embedded/target/
 node_modules
 *.class
+.idea/
