@@ -22,7 +22,7 @@ html
 			nav#nav
 				ul
 					li(style='white-space: nowrap;')
-						a(href='https://iflux.herokuapp.com') Sandbox
+						a(href='{{site.ifluxserverurl}}') Sandbox
 					li(style='white-space: nowrap;')
 						a(href='/blog.html') Blog
 					li(style='white-space: nowrap;')
@@ -52,11 +52,11 @@ html
 		//
 			.footer
 				.container
-					p 
+					p
 						a(href="https://github.com/lotaris/apidoc-seed")=name
 						| &nbsp;- #{description}
 					p Version: #{version}  |  Built #{creationDate}
-				
+
 
 		if minifyAssets
 			script(type="text/javascript", src="/js/global.js")

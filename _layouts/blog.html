@@ -43,7 +43,7 @@
 				<h1><a href="/">iFlux.io</a></h1>
 				<nav id="nav">
 					<ul>
-						<li><a href="https://iflux.herokuapp.com">Sandbox</a></li>
+						<li><a href="{{site.ifluxserverurl}}">Sandbox</a></li>
 						<li><a href="blog.html">Blog</a></li>
 						<li><a href="/api/">API</a></li>
 					</ul>
@@ -80,10 +80,10 @@
               <p><i>{{post.excerpt}}</i></p>
 						</section>
               {% endfor %}
-          
+
 				</section>
 			</div>
-		
+
 		<!-- Footer -->
 			<footer id="footer">
 				<div class="copyright">
@@ -103,6 +103,6 @@ s.src = '//' + disqus_shortname + '.disqus.com/count.js';
 (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
 }());
 </script>
-    
+
 	</body>
 </html>

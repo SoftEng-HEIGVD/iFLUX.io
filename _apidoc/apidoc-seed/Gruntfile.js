@@ -36,7 +36,7 @@ module.exports = function (grunt) {
 		},
 
 		mkdir: {
-			stylesheets: { options: { mode: 0770, create: [ 'build/css' ] } }
+			stylesheets: { options: { mode: 0775, create: [ 'build/css' ] } }
 		},
 
 		stylus: {
@@ -137,6 +137,9 @@ module.exports = function (grunt) {
               pretty: true,
 							directory: 'templates',
 							minifyAssets: minifyAssets
+						},
+						'metalsmith-jekyll-frontmatter': {
+							pattern: '**/*.html'
 						}
 					}
 				}
@@ -147,23 +150,23 @@ module.exports = function (grunt) {
 			html: {
 				src: [ 'build/**/*.html' ],
 				overwrite: true,
-				replacements: [ 
-					{ from: /href="\//g, to: 'href="' + baseUrl }, 
-					{ from: /src=\"\//g, to: 'src="' + baseUrl } 
+				replacements: [
+					{ from: /href="\//g, to: 'href="' + baseUrl },
+					{ from: /src=\"\//g, to: 'src="' + baseUrl }
 				]
 			},
 			css: {
 				src: [ 'build/**/*.css' ],
 				overwrite: true,
-				replacements: [ 
-					{ from: /url\("\//g, to: 'url(\"' + baseUrl }, 
-					{ from: /url\('\//g, to: 'url(\'' + baseUrl } 
+				replacements: [
+					{ from: /url\("\//g, to: 'url(\"' + baseUrl },
+					{ from: /url\('\//g, to: 'url(\'' + baseUrl }
 				]
 			},
 			googleFonts: {
 				src: [ 'build/**/*.html' ],
 				overwrite: true,
-				replacements: [ 
+				replacements: [
 					{ from: /http:\/\/fonts\.googleapis\.com/g, to: "https://fonts.googleapis.com" } ]
 			}
 		},
