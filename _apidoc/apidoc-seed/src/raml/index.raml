@@ -87,20 +87,22 @@ traits:
           application/json:
             example: |
               [
-                  {
-                      "description": "If any event is notified, then write a message in Slack",
-                      "if": {
-                          "eventSource": "*",
-                          "eventType": "io.iflux.events.current-time-event",
-                          "eventProperties": {}
-                      },
-                      "then": {
-                          "actionTarget": "https://nova-slack.herokuapp.com",
-                          "actionSchema": "{\"type\":\"sendSlackMessage\",\"properties\":{\"channel\":\"aware\",\"message\":\"Tic Tac. ({{ timestamp }}) {{ properties.description}} {{ properties.hostname}}.\"}}"
-                      },
-                      "id": "1"
-                  }
-              ]            
+                {
+                  "description": "If any event is notified, then write a message in Slack",
+                  "reference": "NOVA-TIME-EVENT",
+                  "enabled": true,
+                  "if": {
+                    "eventSource": "*",
+                    "eventType": "io.iflux.events.current-time-event",
+                    "eventProperties": {}
+                  },
+                  "then": {
+                    "actionTarget": "https://nova-slack.herokuapp.com",
+                    "actionSchema": "{\"type\":\"sendSlackMessage\",\"properties\":{\"channel\":\"aware\",\"message\":\"Tic Tac. ({{ timestamp }}) {{ properties.description}} {{ properties.hostname}}.\"}}"
+                  },
+                  "id": "1"
+                }
+              ]
 
   post:
     description: Create a new rule.
@@ -109,6 +111,8 @@ traits:
         example: |
           {
             "description" : "When a temperature event is received, notify Bob by email.",
+            "reference": "TEMPERATURE-EMAIL-NOTIFICATION",
+            "enabled": true,
             "if" : {
               "eventSource" : "/event-sources/JI8928JFK",
               "eventType" : "/eventTypes/temperatureEventSchema",
@@ -123,12 +127,75 @@ traits:
       201:
         description: Created
   /{id}:
+    patch:
+      description: |
+        Update a rule partially. You can provide a partial content for the rule and only the content received
+        will be updated.
+      body:
+        application/json:
+          example: |
+            {
+              "description" : "When a temperature event is received, notify Bob by email.",
+            }
+
+            or
+
+            {
+              "if" : {
+                "eventSource" : "/event-sources/JI8928JFK",
+              }
+            }
+
+      responses:
+        200:
+          description: Ok
     delete:
       description: Delete a rule.
       responses:
         204:
           description: No Content
 
+  /actionSchema:
+    /validate:
+      post:
+        description: |
+          Validates the action schema. A `sample` must be provided and must contains all the fields used in the action
+          schema. The action schema must be a valid JSON format escaped like it is send in the `POST /rules`.
 
-
-
+          The validation process will parse the JSON, convert it through the template engine `Handlebars` and finally
+          a replacement of the placeholders is done through `Handlebars`.
+        body:
+          application/json:
+            example: |
+              {
+                "sample": {
+                  "timestamp": "2015-01-12T05:22:07Z",
+                  "properties": {
+                    "location": "Lausanne",
+                    "temperature": 22.5
+                  }
+                },
+                "actionSchema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
+              }
+        responses:
+          200:
+            description: The result correspond to the action schema processed.
+            body:
+              application/json:
+                example: |
+                  {
+                    "type" : "sendEmail",
+                    "properties" : {
+                      "to" : "bob@iflux.io",
+                      "subject" : "New temperature",
+                      "body\" : "The temperature in Lausanne is now: 22.5."
+                    }
+                  }
+          422:
+            description: A processing error occured.
+            body:
+              application/json:
+                example: |
+                  {
+                    error: "Invalid JSON format"
+                  }

@@ -20,7 +20,6 @@
 	}
 
 		#header h1 {
-		  font-size: 11pt;
 			height: inherit;
 			left: 18.3333339691162px;
 			margin: 0;
@@ -31,6 +30,7 @@
 
 			#header h1 a {
 				font-family: 'Source Sans Pro', Helvetica, sans-serif;
+				font-size: 18px;
 				font-weight: 900;
 				letter-spacing: 0.733333349227905px;
 				text-transform: uppercase;

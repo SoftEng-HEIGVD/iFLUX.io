@@ -1,10 +1,12 @@
+---
+---
 <!DOCTYPE html>
 <html>
   <head>
     <title>Overview</title>
     <meta charset="utf8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="An API documentation project using Grunt, Metalsmith and RAML.">
+    <meta name="description" content="Documentation of the iFLUX API">
     <link rel="stylesheet" href="/api/css/bootstrap.css">
     <link rel="stylesheet" href="/api/css/app.css">
     <link rel="stylesheet" href="/api/css/raml.css">
@@ -13,11 +15,11 @@
   </head>
   <body>
     <header id="header">
-      <h1><a href="/">iFlux.io</a></h1>
+      <h1><a href="/api/">iFlux.io</a></h1>
       <nav id="nav">
         <ul>
-          <li style="white-space: nowrap;"><a href="https://iflux.herokuapp.com">Sandbox</a></li>
-          <li style="white-space: nowrap;"><a href="/blog.html">Blog</a></li>
+          <li style="white-space: nowrap;"><a href="{{site.ifluxserverurl}}">Sandbox</a></li>
+          <li style="white-space: nowrap;"><a href="/api/blog.html">Blog</a></li>
           <li style="white-space: nowrap;"><a href="/api/">API</a></li>
         </ul>
       </nav>
@@ -49,7 +51,7 @@ right to navigate to specific resources.</p>
 </li>
 </ul>
 <center>
-    <img src="/images/diagrams/apidoc-overview.png" alt="System overview" style="width: 500px;"/>
+    <img src="/api/images/diagrams/apidoc-overview.png" alt="System overview" style="width: 500px;"/>
 </center>
 
 
@@ -85,7 +87,6 @@ HTTP/1.1 400 Bad Request
 }
 ```
 -->
-
 <h3 id="dates">Dates</h3>
 <p>All dates used in the API are in UTC and use the <code>ISO-8601</code> format (ex: 
 <code>2015-02-15T05:21:07Z</code>).</p>
@@ -96,10 +97,11 @@ HTTP/1.1 400 Bad Request
     <!--
     .footer
      .container
-      p 
+      p
        a(href="https://github.com/lotaris/apidoc-seed")=name
-       | &nbsp;- An API documentation project using Grunt, Metalsmith and RAML.
-      p Version: 0.0.1  |  Built January 22, 2015 9:02 AM
+       | &nbsp;- Documentation of the iFLUX API
+      p Version: 0.0.1  |  Built March 25, 2015 1:39 PM
+      
       
     -->
     <script type="text/javascript" src="/api/js/jquery.min.js"></script>

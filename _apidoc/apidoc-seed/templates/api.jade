@@ -2,13 +2,13 @@ extends layout
 
 append menu
 	h3 Index
-	a(href='/api/') Overview
+	a(href='/') Overview
 	h3 Resources
 	if resources
 		ul.nav.subnav
 			each resource in resources
 				li
-					a(href='/api/reference/##{resource.uniqueId}')
+					a(href='/reference/##{resource.uniqueId}')
 						span=resource.displayName ? resource.displayName : resource.relativeUri
 						if resource.isPrivate
 							i.glyphicon.glyphicon-lock
