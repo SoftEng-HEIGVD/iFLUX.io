@@ -6,6 +6,7 @@ var pkg = require('./package');
 module.exports = function (grunt) {
 
 	var baseUrl = (grunt.option('baseUrl') || '').replace(/\/$/, '') + '/';
+	var apiUrl = (grunt.option('apiUrl') || '').replace(/\/$/, '') + '/';
 	var minifyAssets = grunt.option('minifyAssets');
 	var scope = grunt.option('private') ? 'private' : 'public';
 
@@ -82,10 +83,10 @@ module.exports = function (grunt) {
 						creationDate: moment().format('LLL'),
 						name: pkg.name,
 						description: pkg.description,
-						version: pkg.version
+						version: pkg.version,
+						apiUrl: apiUrl
 					},
 					plugins: {
-
 						'metalsmith-scoping': {
 							scope: scope,
 							marked: markdown,
@@ -103,6 +104,13 @@ module.exports = function (grunt) {
 							}
 						},
 						'metalsmith-markdown': markdown,
+						'metalsmith-replace': {
+							contents: function(contents) {
+								var transformedContents = contents.toString();
+								transformedContents = transformedContents.split('{{ apiUrl }}').join(apiUrl);
+								return new Buffer(transformedContents);
+							}
+						},
 						'metalsmith-permalinks': {
 							relative: false
 						},
