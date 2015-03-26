@@ -1,0 +1,8 @@
+_apidoc/apidoc-seed/node_modules
+_apidoc/apidoc-seed/.gitignore
+_apidoc/apidoc-seed/build
+.gitignore
+.git
+api
+_config.yml
+_config_local.yml
