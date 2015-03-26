@@ -7,6 +7,8 @@ module.exports = function (grunt) {
 
 	var baseUrl = (grunt.option('baseUrl') || '').replace(/\/$/, '') + '/';
 	var apiUrl = (grunt.option('apiUrl') || '').replace(/\/$/, '') + '/';
+	var ifluxUrl = (grunt.option('ifluxUrl') || '').replace(/\/$/, '') + '/';
+	var blogUrl = (grunt.option('blogUrl') || '/blog.html').replace(/\/$/, '');
 	var minifyAssets = grunt.option('minifyAssets');
 	var scope = grunt.option('private') ? 'private' : 'public';
 
@@ -84,7 +86,9 @@ module.exports = function (grunt) {
 						name: pkg.name,
 						description: pkg.description,
 						version: pkg.version,
-						apiUrl: apiUrl
+						apiUrl: apiUrl,
+						ifluxUrl: ifluxUrl,
+						blogUrl: blogUrl
 					},
 					plugins: {
 						'metalsmith-scoping': {
@@ -124,7 +128,10 @@ module.exports = function (grunt) {
 						'metalsmith-raml': {
 							src: 'src',
 							files: {
-								'myApi': { src: './raml/index.raml', dest: './reference' }
+								'myApi': {
+									src: 'raml/index.raml',
+									dest: 'reference'
+								}
 							},
 							section: 'api',
 							scope: scope,

@@ -5,7 +5,7 @@ module Jekyll
 	class EnvironmentVariablesGenerator < Generator
 
 		def generate(site)
-			site.config['ifluxserverurl'] = ENV['IFLUX_SERVER_URL'] || 'https://iflux.herokuapp.com'
+			site.config['ifluxUrl'] = ENV['IFLUX_SERVER_URL'] || 'https://iflux.herokuapp.com'
 			# Add other environment variables to `site.config` here...
 		end
 

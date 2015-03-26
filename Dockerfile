@@ -65,7 +65,7 @@ RUN mkdir -p /jekyll/iflux-blog/_apidoc/apidoc-seed && cp -a /tmp/node_modules /
 ADD . /jekyll/iflux-blog
 
 RUN cd /jekyll/iflux-blog/_apidoc/apidoc-seed \
-	&& grunt prod --baseUrl=/api \
+	&& grunt prod --baseUrl=/api --apiUrl="{{site.ifluxUrl}}" --ifluxUrl="{{site.ifluxUrl}}" --blogUrl="{{baseUrl}}/blog.html" \
 	&& mkdir /jekyll/iflux-blog/api \
 	&& mv /jekyll/iflux-blog/_apidoc/apidoc-seed/build/* /jekyll/iflux-blog/api \
 	&& rm -rf /jekyll/iflux-blog/_apidoc \
