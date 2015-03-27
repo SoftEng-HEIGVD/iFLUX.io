@@ -21,7 +21,7 @@ An overview of a system built with iFLUX is shown in the diagram below:
 * **Action targets** expose a `/actions` endpoint, used by the iFLUX middleware to trigger actions when rules are evaluated positively. An **action** is defined by a type and a list of properties. The diagram shows two examples of action targets: gateways used to relay user notifications via the [Slack](http://www.slack.com) collaboration platform or via email.
 
 <center>
-	<img src="/images/diagrams/apidoc-overview.png" alt="System overview" style="width: 500px;"/>
+	<img src="{{ blogUrl }}/images/diagrams/apidoc-overview.png" alt="System overview" style="width: 500px;"/>
 </center>
 
 

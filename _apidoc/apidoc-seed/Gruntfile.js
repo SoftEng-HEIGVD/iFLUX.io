@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 	var baseUrl = (grunt.option('baseUrl') || '').replace(/\/$/, '') + '/';
 	var apiUrl = (grunt.option('apiUrl') || '').replace(/\/$/, '') + '/';
 	var ifluxUrl = (grunt.option('ifluxUrl') || '').replace(/\/$/, '') + '/';
-	var blogUrl = (grunt.option('blogUrl') || '/blog.html').replace(/\/$/, '');
+	var blogUrl = (grunt.option('blogUrl') || '').replace(/\/$/, '');
 	var minifyAssets = grunt.option('minifyAssets');
 	var scope = grunt.option('private') ? 'private' : 'public';
 
@@ -112,6 +112,7 @@ module.exports = function (grunt) {
 							contents: function(contents) {
 								var transformedContents = contents.toString();
 								transformedContents = transformedContents.split('{{ apiUrl }}').join(apiUrl);
+								transformedContents = transformedContents.split('{{ blogUrl }}').join(blogUrl);
 								return new Buffer(transformedContents);
 							}
 						},
