@@ -18,8 +18,8 @@
       <h1><a href="/api/">iFlux.io</a></h1>
       <nav id="nav">
         <ul>
-          <li style="white-space: nowrap;"><a href="{{site.ifluxserverurl}}">Sandbox</a></li>
-          <li style="white-space: nowrap;"><a href="/api/blog.html">Blog</a></li>
+          <li style="white-space: nowrap;"><a href="https://iflux.herokuapp.com/">Sandbox</a></li>
+          <li style="white-space: nowrap;"><a href="http://www.iflux.io/blog.html">Blog</a></li>
           <li style="white-space: nowrap;"><a href="/api/">API</a></li>
         </ul>
       </nav>
@@ -38,7 +38,8 @@
         <div class="col-sm-9 col-sm-pull-3"><a id="top"></a>
           <h1>Overview</h1>
           <hr>
-          <div><p>This pages contains general documentation about the API. Use the links on the
+          <div><p>This documentation presents the iFLUX API. You can reach the API at: <a href="https://iflux.herokuapp.com/">https://iflux.herokuapp.com/</a></p>
+<p>This pages contains general documentation about the API. Use the links on the
 right to navigate to specific resources.</p>
 <h3 id="system-components">System components</h3>
 <p>An overview of a system built with iFLUX is shown in the diagram below:</p>
@@ -68,9 +69,9 @@ To interact with the API, your client will need to be authenticated. This is don
 
 ### Errors
 
-In case of error, the API will send a JSON response with the list of errors. 
-Each error has a human-readable message and a code. The code identifies the 
-error type and can be used to handle specific errors differently or for 
+In case of error, the API will send a JSON response with the list of errors.
+Each error has a human-readable message and a code. The code identifies the
+error type and can be used to handle specific errors differently or for
 translation purposes.
 
 
@@ -79,7 +80,7 @@ HTTP/1.1 400 Bad Request
 
 {
   "errors": [
-    { 
+    {
       "message": "JSON parsing error.",
       "code": 10000
     }
@@ -88,7 +89,7 @@ HTTP/1.1 400 Bad Request
 ```
 -->
 <h3 id="dates">Dates</h3>
-<p>All dates used in the API are in UTC and use the <code>ISO-8601</code> format (ex: 
+<p>All dates used in the API are in UTC and use the <code>ISO-8601</code> format (ex:
 <code>2015-02-15T05:21:07Z</code>).</p>
 </div>
         </div>
@@ -100,7 +101,7 @@ HTTP/1.1 400 Bad Request
       p
        a(href="https://github.com/lotaris/apidoc-seed")=name
        | &nbsp;- Documentation of the iFLUX API
-      p Version: 0.0.1  |  Built March 25, 2015 1:39 PM
+      p Version: 0.0.2  |  Built March 27, 2015 11:06 AM
       
       
     -->
