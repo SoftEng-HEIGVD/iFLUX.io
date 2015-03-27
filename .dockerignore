@@ -3,6 +3,6 @@ _apidoc/apidoc-seed/.gitignore
 _apidoc/apidoc-seed/build
 .gitignore
 .git
-api
+api/
 _config.yml
 _config_local.yml
