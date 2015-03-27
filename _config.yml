@@ -8,6 +8,8 @@ description: > # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://www.iflux.io" # the base hostname & protocol for your site
 
+ifluxUrl: https://iflux.herokuapp.com
+
 # Build settings
 markdown: kramdown
 exclude: _apidoc
