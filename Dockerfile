@@ -66,6 +66,7 @@ ADD . /jekyll/iflux-blog
 
 RUN cd /jekyll/iflux-blog/_apidoc/apidoc-seed \
 	&& grunt prod --baseUrl=/api --apiUrl="{{site.ifluxUrl}}" --ifluxUrl="{{site.ifluxUrl}}" --blogUrl="{{baseUrl}}" \
+ && cd /jekyll/iflux-blog \
 	&& mkdir /jekyll/iflux-blog/api \
 	&& mv /jekyll/iflux-blog/_apidoc/apidoc-seed/build/* /jekyll/iflux-blog/api \
 	&& rm -rf /jekyll/iflux-blog/_apidoc \
