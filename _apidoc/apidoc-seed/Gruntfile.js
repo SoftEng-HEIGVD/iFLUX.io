@@ -6,6 +6,9 @@ var pkg = require('./package');
 module.exports = function (grunt) {
 
 	var baseUrl = (grunt.option('baseUrl') || '').replace(/\/$/, '') + '/';
+	var apiUrl = (grunt.option('apiUrl') || '').replace(/\/$/, '') + '/';
+	var ifluxUrl = (grunt.option('ifluxUrl') || '').replace(/\/$/, '') + '/';
+	var blogUrl = (grunt.option('blogUrl') || '/blog.html').replace(/\/$/, '');
 	var minifyAssets = grunt.option('minifyAssets');
 	var scope = grunt.option('private') ? 'private' : 'public';
 
@@ -36,7 +39,7 @@ module.exports = function (grunt) {
 		},
 
 		mkdir: {
-			stylesheets: { options: { mode: 0770, create: [ 'build/css' ] } }
+			stylesheets: { options: { mode: 0775, create: [ 'build/css' ] } }
 		},
 
 		stylus: {
@@ -82,10 +85,12 @@ module.exports = function (grunt) {
 						creationDate: moment().format('LLL'),
 						name: pkg.name,
 						description: pkg.description,
-						version: pkg.version
+						version: pkg.version,
+						apiUrl: apiUrl,
+						ifluxUrl: ifluxUrl,
+						blogUrl: blogUrl
 					},
 					plugins: {
-
 						'metalsmith-scoping': {
 							scope: scope,
 							marked: markdown,
@@ -103,6 +108,13 @@ module.exports = function (grunt) {
 							}
 						},
 						'metalsmith-markdown': markdown,
+						'metalsmith-replace': {
+							contents: function(contents) {
+								var transformedContents = contents.toString();
+								transformedContents = transformedContents.split('{{ apiUrl }}').join(apiUrl);
+								return new Buffer(transformedContents);
+							}
+						},
 						'metalsmith-permalinks': {
 							relative: false
 						},
@@ -116,7 +128,10 @@ module.exports = function (grunt) {
 						'metalsmith-raml': {
 							src: 'src',
 							files: {
-								'myApi': { src: './raml/index.raml', dest: './reference' }
+								'myApi': {
+									src: 'raml/index.raml',
+									dest: 'reference'
+								}
 							},
 							section: 'api',
 							scope: scope,
@@ -137,6 +152,9 @@ module.exports = function (grunt) {
               pretty: true,
 							directory: 'templates',
 							minifyAssets: minifyAssets
+						},
+						'metalsmith-jekyll-frontmatter': {
+							pattern: '**/*.html'
 						}
 					}
 				}
@@ -147,23 +165,23 @@ module.exports = function (grunt) {
 			html: {
 				src: [ 'build/**/*.html' ],
 				overwrite: true,
-				replacements: [ 
-					{ from: /href="\//g, to: 'href="' + baseUrl }, 
-					{ from: /src=\"\//g, to: 'src="' + baseUrl } 
+				replacements: [
+					{ from: /href="\//g, to: 'href="' + baseUrl },
+					{ from: /src=\"\//g, to: 'src="' + baseUrl }
 				]
 			},
 			css: {
 				src: [ 'build/**/*.css' ],
 				overwrite: true,
-				replacements: [ 
-					{ from: /url\("\//g, to: 'url(\"' + baseUrl }, 
-					{ from: /url\('\//g, to: 'url(\'' + baseUrl } 
+				replacements: [
+					{ from: /url\("\//g, to: 'url(\"' + baseUrl },
+					{ from: /url\('\//g, to: 'url(\'' + baseUrl }
 				]
 			},
 			googleFonts: {
 				src: [ 'build/**/*.html' ],
 				overwrite: true,
-				replacements: [ 
+				replacements: [
 					{ from: /http:\/\/fonts\.googleapis\.com/g, to: "https://fonts.googleapis.com" } ]
 			}
 		},

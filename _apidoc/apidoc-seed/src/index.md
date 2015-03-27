@@ -5,6 +5,8 @@ template: api.jade
 menuIndex: 4
 ---
 
+This documentation presents the iFLUX API. You can reach the API at: [{{ apiUrl }}]({{ apiUrl }})
+
 This pages contains general documentation about the API. Use the links on the
 right to navigate to specific resources.
 
@@ -38,18 +40,18 @@ To interact with the API, your client will need to be authenticated. This is don
 
 ### Errors
 
-In case of error, the API will send a JSON response with the list of errors. 
-Each error has a human-readable message and a code. The code identifies the 
-error type and can be used to handle specific errors differently or for 
+In case of error, the API will send a JSON response with the list of errors.
+Each error has a human-readable message and a code. The code identifies the
+error type and can be used to handle specific errors differently or for
 translation purposes.
 
 
 ```
 HTTP/1.1 400 Bad Request
- 
+
 {
   "errors": [
-    { 
+    {
       "message": "JSON parsing error.",
       "code": 10000
     }
@@ -60,5 +62,5 @@ HTTP/1.1 400 Bad Request
 
 ### Dates
 
-All dates used in the API are in UTC and use the `ISO-8601` format (ex: 
+All dates used in the API are in UTC and use the `ISO-8601` format (ex:
 `2015-02-15T05:21:07Z`).
