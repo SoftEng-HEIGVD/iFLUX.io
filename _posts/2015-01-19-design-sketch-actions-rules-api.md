@@ -5,7 +5,7 @@ author: Olivier Liechti
 categories: design-sketch
 ---
 
-We have just updated the [API specification](http://www.iflux.io/api/) with two endpoints, which complement the `/events` endpoint that we have [recently]({% post_url 2015-01-12-design-sketch-event-api %}) presented. Together, the three endpoints provide the core functionality of the iFLUX model:
+We have just updated the [API specification]({{ site.baseurl }}/api/) with two endpoints, which complement the `/events` endpoint that we have [recently]({{ site.baseurl }}{% post_url 2015-01-12-design-sketch-event-api %}) presented. Together, the three endpoints provide the core functionality of the iFLUX model:
 
 * **events** are notified via the `/events` endpoint
 * **rules** are configured via the `/rules` endpoint and evaluated whenever a new event is reported

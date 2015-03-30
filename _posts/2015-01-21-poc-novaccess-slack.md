@@ -25,10 +25,10 @@ Applied to the **context of a Novalight deployment**, awareness means that the N
 
 The first version of the awareness support system at Novaccess is based on the following components:
 
-* At one end, **software sensors embedded in the Novalight components** collect various events (user activity, processed commands, faults, etc.). 
+* At one end, **software sensors embedded in the Novalight components** collect various events (user activity, processed commands, faults, etc.).
 
 * On the other end, the Novaccess team uses the [Slack](http://www.slack.com) collaborative tool as a way to **receive a representation of the ongoing activity**. They subscribe to chat channels dedicated to various dimensions.
- 
+
 * In the middle, **iFLUX** is used to collect events and, based on a set of rules, to generate the text messages that are pushed to the team via Slack. At a high level, the implemented model can be described with the following rule: ***IF** something interesting happens in Novalight, **THEN** push a message in a relevant Slack channel*. As a matter of fact, the flexibility of the setup comes from the fact that it is possible to configure more than a rule. This allows the team to fine tune the amount and destination of the generated awareness messsages.
 
 ### System architecture
@@ -36,9 +36,9 @@ The first version of the awareness support system at Novaccess is based on the f
 The architecture of the system deployed for the proof-of-concept is shown in the diagram below. It shows the various components and the interactions between them.
 
 {:.image.fit}
-![System architecture]({{ baseurl }}/images/diagrams/poc-novaccess-slack.png)
+![System architecture]({{ site.baseurl }}/images/diagrams/poc-novaccess-slack.png)
 
-1. The **Novaccess team** configures the iFLUX server and **decides how the events emitted by the Novalight components should be notified via Slack**. They may decide to use one or more Slack channels. They may also decide to ignore some of the event sources (perhaps because they are too noisy or not relevant). They also have means to specify what the messages posted in the Slack channel should contain (typically, a human-readable summary of the event posted to iFLUX). In terms of API, this step is done by POSTing rule payloads to the `/rules` endpoint (see [online documentation](http://localhost:4000/api/reference/#rules)). To make this process easier, we have implemented a [simple rule editor](https://iflux.herokuapp.com) as part of the proof-of-concept.
+1. The **Novaccess team** configures the iFLUX server and **decides how the events emitted by the Novalight components should be notified via Slack**. They may decide to use one or more Slack channels. They may also decide to ignore some of the event sources (perhaps because they are too noisy or not relevant). They also have means to specify what the messages posted in the Slack channel should contain (typically, a human-readable summary of the event posted to iFLUX). In terms of API, this step is done by POSTing rule payloads to the `/rules` endpoint (see [online documentation]({{ site.baseurl }}/api/reference/#rules)). To make this process easier, we have implemented a [simple rule editor]({{ site.ifluxUrl }}) as part of the proof-of-concept.
 
 2. A collection of **event sources** emit events and issue HTTP POST requests to the `/events` endpoint. The proof-of-concept illustrates **different types of event sources**:
 	* The first one (**2a**) is an application, which emits events that correspond to user actions (*user has logged in*, *user has changed a configuration setting*, *user has sent a command to a street light*, etc.)
@@ -49,7 +49,7 @@ The architecture of the system deployed for the proof-of-concept is shown in the
 
 4. In the proof-of-concept setup, there is only one type of action. The action consists in **posting** a *message* into a *Slack channel* (these are the two properties associated to the action). The content of the message is defined in a template (in the rule). Hence, the message can include event properties. The action payloads are POSTed by the iFLUX server to the **Slack Gateway**, which implements the `/actions` endpoint.
 
-5. Finally, the Slack Gateway uses the Slack API to push the notification towards the Novaccess team. This last step is not in the scope of the iFLUX model. 
+5. Finally, the Slack Gateway uses the Slack API to push the notification towards the Novaccess team. This last step is not in the scope of the iFLUX model.
 
 
 ### REST API Calls
@@ -58,7 +58,7 @@ In an upcoming article, we will give more details about the implementation of th
 
 #### Sending events to the iFLUX server
 
-For sensors, it is very easy to send events to the iFLUX server. They send a payload to the `/events` endpoint, as described in the [API documentation](http://www.iflux.io/api/reference/#events). Several comments can be made about the example show below:
+For sensors, it is very easy to send events to the iFLUX server. They send a payload to the `/events` endpoint, as described in the [API documentation]({{ site.baseurl }}/api/reference/#events). Several comments can be made about the example show below:
 
 * The client sends an **array of events**, even if it sends a single event.
 

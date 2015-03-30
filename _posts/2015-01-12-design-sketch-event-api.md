@@ -6,7 +6,7 @@ date:   2015-01-12 12:35:00
 categories: design-sketch
 ---
 
-In a [previous design sketch]({% post_url 2015-01-09-design-sketch-events-actions %}), we have introduced the high-level programming model for iFLUX. We have discussed the notions of **event sources** and **action targets** and explained how Event-Condition-Action **rules** are used to integrate them.
+In a [previous design sketch]({{ site.baseurl }}{% post_url 2015-01-09-design-sketch-events-actions %}), we have introduced the high-level programming model for iFLUX. We have discussed the notions of **event sources** and **action targets** and explained how Event-Condition-Action **rules** are used to integrate them.
 
 In this new sketch, we take a first look at the **Event REST API**, which is used by event sources (sensors, data processing services, etc.) to report the occurrence of events (measures, alerts, etc.). At this stage, there are two important elements to be aware of:
 
@@ -21,13 +21,13 @@ The first version of the Event API is very simple. The only thing that we need i
 
 * The payload POSTed to the endpoint is a **list of event payloads**, even if the event source wants to report a single event.
 * Every event should contain a **timestamp**.
-* Event event should contain the reference of an **event source**. We propose to use URLs for this, following the [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle. 
+* Event event should contain the reference of an **event source**. We propose to use URLs for this, following the [HATEOAS](http://en.wikipedia.org/wiki/HATEOAS) principle.
 * Every event should contain the reference of an **event type**. We plan use [JSON schemas](http://json-schema.org/) here, but that is not a requirement initially.
 * Every event should contain a **list of properties**. When we use JSON schemas, we will be able to validate that the list of properties sent with an event payload are valid.
 * In the initial version of the API, we **do not consider security constraints**.
 
 
-As described in the [online API documentation](http://www.iflux.io/api/reference/#events), here is an example of HTTP request that could be sent by an event source:
+As described in the [online API documentation]({{ site.baseurl }}/api/reference/#events), here is an example of HTTP request that could be sent by an event source:
 
 {% highlight http %}
 POST /events/ HTTP/1.1
@@ -64,7 +64,7 @@ Later in the project, we plan to make extensive use of [Docker](http://www.docke
 
 #### Vagrant box
 
-The sandbox is packaged as a virtual machine that can be launched with VirtualBox. The VM is based on a Ubuntu 14.04 image. We use Vagrant to provision the VM and install the required software components (Oracle JDK 8, Glassfish 4.1, Node.js, maven and various utilities). With this approach, it is very easy for someone to get a fully configured environment on a development machine. We will describe the procedure in an upcoming post. 
+The sandbox is packaged as a virtual machine that can be launched with VirtualBox. The VM is based on a Ubuntu 14.04 image. We use Vagrant to provision the VM and install the required software components (Oracle JDK 8, Glassfish 4.1, Node.js, maven and various utilities). With this approach, it is very easy for someone to get a fully configured environment on a development machine. We will describe the procedure in an upcoming post.
 
 #### Java EE server implementation
 
@@ -92,10 +92,10 @@ The implementation is pretty straightforward. One requirement in the area of JSO
     "riskLevel" : "medium",
     "location" : "Stadium - main gate"
   }
-}  
+}
 {% endhighlight %}
 
-To achieve this, we have used a special featured of the [Jackson](https://github.com/FasterXML/jackson) JSON serializer: the [@AnyGetter](http://wiki.fasterxml.com/JacksonFeatureAnyGetter) annotation (see [here](https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations) also). This means that we also had to configure our JAX-RS application so that it would use Jackson for JSON serialization, which is not the default behavior. 
+To achieve this, we have used a special featured of the [Jackson](https://github.com/FasterXML/jackson) JSON serializer: the [@AnyGetter](http://wiki.fasterxml.com/JacksonFeatureAnyGetter) annotation (see [here](https://github.com/FasterXML/jackson-annotations/wiki/Jackson-Annotations) also). This means that we also had to configure our JAX-RS application so that it would use Jackson for JSON serialization, which is not the default behavior.
 
 The first thing that we had to to was to add two dependencies in our `pom.xml` maven project file. Watch out for the `<groupId>`and `<version>` values: there are different artifacts published in different maven repositories and it can be a bit painful to get the right combination. Be also aware that there might be issues with other versions of Glassfish (we use 4.1).
 
@@ -137,7 +137,7 @@ public class ApplicationConfig extends Application {
     } catch (ClassNotFoundException ex) {
       Logger.getLogger(ApplicationConfig.class.getName()).log(Level.SEVERE, "*** Problem while configuring JSON!", ex);
     }
-    
+
     return resources;
   }
 
@@ -178,25 +178,25 @@ public class JacksonConfigurationProvider implements ContextResolver<ObjectMappe
 {% endhighlight %}
 
 
-Thanks to the previous configuration, we were finally able to implement the Data Transfer Object used as a payload for the `/events` endpoint. 
+Thanks to the previous configuration, we were finally able to implement the Data Transfer Object used as a payload for the `/events` endpoint.
 
 {% highlight java %}
 public class Event {
 
   public class EventProperties {
-    
+
     private final Map<String, Object> dynamicProperties = new HashMap<>();
-    
+
     @JsonAnySetter
     public void addProperty(String name, Object value) {
       dynamicProperties.put(name, value);
     }
-    
+
     @JsonAnyGetter
     public Map<String,Object> any() {
         return dynamicProperties;
     }
-    
+
     public Object get(String name) {
       return dynamicProperties.get(name);
     }
@@ -204,14 +204,14 @@ public class Event {
   }
 
   private Date timestamp;
-  
+
   private String source;
-  
+
   private String type;
-  
+
   @JsonProperty("properties")
   private EventProperties properties = new EventProperties();
-  
+
 
   public Date getTimestamp() {
     return timestamp;
@@ -224,12 +224,12 @@ public class Event {
   public String getType() {
     return type;
   }
-  
+
   @JsonIgnore
   public List<String> getPropertyNames() {
     return new ArrayList(properties.dynamicProperties.keySet());
   }
-    
+
   public Object get(String name) {
     return properties.get(name);
   }
@@ -302,7 +302,7 @@ events.push(event);
 
 var args = {
   data: events,
-  headers:{"Content-Type": "application/json"} 
+  headers:{"Content-Type": "application/json"}
 };
 
 client.post("http://localhost:3000/events/", args, function(data, response) {

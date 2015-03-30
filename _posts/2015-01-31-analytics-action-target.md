@@ -5,15 +5,15 @@ author: Olivier Liechti
 categories: action-target
 ---
 
-In most IoT/WoT applications and deployments, there is some sort of **analytics** element. Indeed, if sensors are deployed to collect data, it is often because people and organizations expect to **get insights about a particular domain**. For example, if sensors are deployed to monitor road traffic, one would expect to be able to **detect** traffic jams, to **analyze** when they tend to happen and ultimately to **predict** them. As another example, if sensors are deployed to monitor the affluence of people in certain locations, one would expect be able to **detect** and to **react** to unusual and risky situations. 
+In most IoT/WoT applications and deployments, there is some sort of **analytics** element. Indeed, if sensors are deployed to collect data, it is often because people and organizations expect to **get insights about a particular domain**. For example, if sensors are deployed to monitor road traffic, one would expect to be able to **detect** traffic jams, to **analyze** when they tend to happen and ultimately to **predict** them. As another example, if sensors are deployed to monitor the affluence of people in certain locations, one would expect be able to **detect** and to **react** to unusual and risky situations.
 
-To illustrate this point, consider [Urban Engines](https://urbanengines.com), a startup that processes various data streams (commuter fare card data, bus GPS traces, etc) to compute metrics and present synthetic information to transport system operators and commuters. The insights that people get from the metrics allow them to adjust their routes and schedules, so that they spend less time commuting. 
+To illustrate this point, consider [Urban Engines](https://urbanengines.com), a startup that processes various data streams (commuter fare card data, bus GPS traces, etc) to compute metrics and present synthetic information to transport system operators and commuters. The insights that people get from the metrics allow them to adjust their routes and schedules, so that they spend less time commuting.
 
 {:.image.fit}
-![Urban engines]({{ baseurl }}/images/screenshots/urban-engines.jpg)
+![Urban engines]({{ site.baseurl }}/images/screenshots/urban-engines.jpg)
 
 
-**Analytics** is defined as the *information resulting from the systematic analysis of data or statistics*. It is all about **processing** raw data, about **inferring** information and about **presenting** this information in ways that help people better understand what is happening in a specific context. The insights that emerge through an **analytics process** are helpful when it comes to **make decisions** or to **take actions**. 
+**Analytics** is defined as the *information resulting from the systematic analysis of data or statistics*. It is all about **processing** raw data, about **inferring** information and about **presenting** this information in ways that help people better understand what is happening in a specific context. The insights that emerge through an **analytics process** are helpful when it comes to **make decisions** or to **take actions**.
 
 The analytics process is supported by different **tools** (data processing, information management, visualization, presentation, etc.). When these tools are assembled and integrated to work together, one can speak of an **analytics solution** or an **analytics platform**. For end-users, an analytics platform often looks like some kind of personalized **dashboard** that presents facts in various **widgets**. The dashboard allows them to **explore** the information space and to **iteratively** understand what is happening. Under the hood, the analytics platform takes care of **technical issues**: data collection, data processing, scalable information storage, efficient query processing, etc.
 
@@ -36,7 +36,7 @@ In the following paragraphs, we will describe a system that addresses a common u
 
 
 {:.image.fit}
-![Analytics system overview]({{ baseurl }}/images/diagrams/analytics-data-information.png)
+![Analytics system overview]({{ site.baseurl }}/images/diagrams/analytics-data-information.png)
 
 As illustrated in the previous diagram, what we want to do is to build a system that collects a continuous stream of measures, applies some logic to update the aggregate values and makes them available to a dashboard user interface. Measures are a special type of events, so it is easy to see how sensors and measures can be respectively mapped to iFLUX event sources and iFLUX events. In our approach, we have considered the component that computes the aggregate values and makes them available to the dashboard as an iFLUX action target. With this model, we then create iFLUX rules that express that *IF a measure is reported by a sensor, THEN an action is triggered to update the aggregate values for this sensor*. We refer to the aggregate values for a sensor as a **metric**.
 
@@ -58,9 +58,9 @@ An overview of the system is shown in the following diagram. Its components inte
 
 
 {:.image.fit}
-![Analytics system overview]({{ baseurl }}/images/diagrams/analytics-system-overview.png)
+![Analytics system overview]({{ site.baseurl }}/images/diagrams/analytics-system-overview.png)
 
-	
+
 
 #### Computing and archiving aggregates with MongoDB
 
@@ -75,7 +75,7 @@ When using MongoDB to implement a use case such as this one, one decision to mak
 4. **Sub-documents**. In every document, we have the choice to store aggregate values at different levels. For instance, in a document of the yearly collection, we may decide to store the aggregate values for the whole year, but also for each month of that year, or for each day of that year. This highlight a trade-off when designing the MongoDB schema, which would need performance tests in order to be properly assessed. The number of documents that need to be fetched and processed in order to answer a user question, the size of documents, the time required to update the right documents when a new measure is reported are all aspects that need to be considered.
 
 {:.image.fit}
-![MongoJS schema]({{ baseurl }}/images/diagrams/analytics-mongo-documents.png)
+![MongoJS schema]({{ site.baseurl }}/images/diagrams/analytics-mongo-documents.png)
 
 
 

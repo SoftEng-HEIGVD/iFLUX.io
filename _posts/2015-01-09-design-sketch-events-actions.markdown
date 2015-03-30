@@ -18,7 +18,7 @@ The first abstraction in the iFLUX model is the notion of **event source**. As i
 
 * **Software sensors** that capture some kind of activity in a digital system and emit related events. For instance, one can think of a software sensor embedded in a business application that emits an event whenever some condition is met.
 
-* **Data processing services** that emit higher-level events. Typically, a data processing service aggregates several streams of low level events and applies some kind of logic to produce a new stream. 
+* **Data processing services** that emit higher-level events. Typically, a data processing service aggregates several streams of low level events and applies some kind of logic to produce a new stream.
 
 * **User agents** used as proxy to emit human generated events. For instance, think of a mobile application used to report incidents.
 
@@ -30,7 +30,7 @@ The second abstraction in the iFLUX model is the notion of **action target**. An
 
 * **Connected hardware actuators** that can be remotely controlled. A smart street light or a large display located in a stadium are two examples for such installations.
 
-* **Software actuators** that are typically business applications or gateways deployed for integration purposes.  
+* **Software actuators** that are typically business applications or gateways deployed for integration purposes.
 
 * **Data processing services** that use actions as a way to receive events published by event sources. This pattern is described in more details below.
 
@@ -43,14 +43,14 @@ The iFLUX architecture defines a standard API that makes it possible to send **a
 The third abstraction in the iFLUX model is the notion of **rule**. Rules are what bind events and actions together. A rule specifies that **if** an event is notified **and** its properties meet certain criteria **then** an action has to be triggered with a list of arguments (which values are often computed based on the event properties).
 
 {:.image.fit}
-![My helpful screenshot]({{ baseurl }}/images/diagrams/ECA.png)
+![My helpful screenshot]({{ site.baseurl }}/images/diagrams/ECA.png)
 
 
 ### Illustrative scenario
 
 To illustrate the iFLUX model, let us consider a simple scenario and see what components are required to support it. Let us see how these components interact with each other in order to deliver functionality to end-users.
 
-In our scenario, the goal is to detect risk situations in a city and to notify police staff when the current risk evaluation crosses a certain threshold in a particular location. The detection of risk situations is based on a model, which is fed with information coming from smart sensors and voluntary citizen notifications. 
+In our scenario, the goal is to detect risk situations in a city and to notify police staff when the current risk evaluation crosses a certain threshold in a particular location. The detection of risk situations is based on a model, which is fed with information coming from smart sensors and voluntary citizen notifications.
 
 iFLUX enables the decoupling between the information sources and the application used to notify the police staff.
 
@@ -67,7 +67,7 @@ The following components are part of the solution:
 * **the police department information system** which acts as an action target. When alert events are emitted by the risk analysis module, an action should be triggered as a way to notify police staff.
 
 {:.image.fit}
-![My helpful screenshot]({{ baseurl }}/images/diagrams/scenario.png)
+![My helpful screenshot]({{ site.baseurl }}/images/diagrams/scenario.png)
 
 
 #### Processing

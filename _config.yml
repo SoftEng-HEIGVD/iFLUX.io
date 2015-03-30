@@ -12,4 +12,5 @@ ifluxUrl: https://iflux.herokuapp.com
 
 # Build settings
 markdown: kramdown
-exclude: _apidoc
+exclude:
+  - _apidoc

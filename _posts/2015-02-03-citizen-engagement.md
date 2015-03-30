@@ -13,10 +13,10 @@ As a matter of fact, there are quite a few initiatives for deploying this type o
 and [Shareabouts](http://openplans.org/shareabouts/) have been implemented and deployed in a number of cities across the world (see the two screenshots below).
 
 {:.image.fit}
-![FixMyStreet]({{ baseurl }}/images/screenshots/fixmystreet.png)
+![FixMyStreet]({{ site.baseurl }}/images/screenshots/fixmystreet.png)
 
 {:.image.fit}
-![Shareabouts]({{ baseurl }}/images/screenshots/openplans.png)
+![Shareabouts]({{ site.baseurl }}/images/screenshots/openplans.png)
 
 Many things could be done to illustrate the relationship between iFLUX and citizen engagement platforms. One idea would be to modify one of the existing platforms (there are GitHub repos both for the [FixMyStreet](https://github.com/mysociety/fixmystreet) and the [Shareabouts](https://github.com/openplans/shareabouts) platforms) and to send iFLUX events whenever an issue is reported or updated. It would then be possible to define an iFLUX rule to trigger various actions, such as sending a notification in a Slack channel or updating some kind of metric. Another idea would be to consider the platform as an iFLUX action target. In this model, the idea would be to combine human-generated issues with machine-generated issues (sensors could report issues in the system).
 
@@ -64,7 +64,7 @@ This year, we will broaden the scope of the technologies presented to the studen
   * Introduction to [RAML](http://raml.org/) and the [apidoc-seed](https://github.com/lotaris/apidoc-seed/) tool
   * Exercise: clone repo and build api doc, minor customization
   * Exercise: document one resource
-    
+
 ##### Day 1 (afternoon) : Design and documentation of a REST API for the project
 
 * **Analyze the domain model**
@@ -87,7 +87,7 @@ This year, we will broaden the scope of the technologies presented to the studen
   * Spring Framework vs Spring Boot
   * Spring Framework vs Java EE
   * A first tutorial with Spring Boot
-  
+
 * **Implement a REST API with Spring Boot, JAX-RS and MongoDB** (10:30 - 12:00)
   * Replace Spring MVC with JAX-RS and using Jackson
   * Use the provided skeleton as a starting point
@@ -95,8 +95,8 @@ This year, we will broaden the scope of the technologies presented to the studen
   * Implement a first resource of the project
   * Test the resource with [Postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en)
   * Deploy the result on heroku
-  
-  
+
+
 ##### Day 2 (afternoon) : (Partial) implementation of the project API in Java
 
 * Implement (some of) the resources as previously specified in RAML (13:00 - 16:30)
@@ -116,14 +116,14 @@ This year, we will broaden the scope of the technologies presented to the studen
 * **Testing a REST API with Node.js** (09:00 - 09:30)
   * The [node-rest-client](https://www.npmjs.com/package/node-rest-client) module
   * Using the module to write a simple test client
-  
+
 * **The role of Express.js, mongoose, yeoman and Grunt.js** (09:30 - 10:00)
   * Continuous integration and build pipeline with Grunt.js
   * Scaffolding with yo
   * REST API with Express.js
   * Persistence with mongoose
 
-* **First steps with the Node.js stack** (10:30 - 12:00)  
+* **First steps with the Node.js stack** (10:30 - 12:00)
   * Scaffold the project with the [express](https://github.com/petecoop/generator-express) yeoman generator.
   * Implement a first RESTful endpoint
   * Understand how to use and configure Express.js
@@ -159,7 +159,7 @@ This year, we will broaden the scope of the technologies presented to the studen
 Given the time constraints, the REST API should be simple. We are looking at something like 4 or 5 resources. The following features give an idea of the functional scope that we have in mind:
 
 * Both **citizen** and **staff members** are **users** of the service. A user may have one or more of these two **roles**.
- 
+
 * Staff members can define **issue types**, which are used to categorize issues. Examples of issue types include *broken streetlight*, *dangerous crossroad* and *graffiti*. An issue type is defined by a short name and a description.
 
 * All users can create **issues** to report problems and incidents. Every issue is initially defined by an author, an issue type, by a description and by geographic coordinates. Every issue also has a status (created, acknowledged, assigned, in_progress, solved, rejected). When an issue is assigned, it is associated to a staff member who is responsible for working on it.
@@ -168,7 +168,7 @@ Given the time constraints, the REST API should be simple. We are looking at som
 
 * All users can also **tag** issues with the keywords of their choices.
 
-* Staff members can take **actions** on issues. When an action is taken on an issue, its status may change (for instance, if the user takes the action of *solving an issue*, its status is set to solved). 
+* Staff members can take **actions** on issues. When an action is taken on an issue, its status may change (for instance, if the user takes the action of *solving an issue*, its status is set to solved).
 
 * **Adding a comment** on an issue is one particular type of action (in other words, comments are not created directly).
 
