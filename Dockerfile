@@ -65,12 +65,14 @@ RUN mkdir -p /jekyll/iflux-blog/_apidoc/apidoc-seed && cp -a /tmp/node_modules /
 ADD . /jekyll/iflux-blog
 
 RUN cd /jekyll/iflux-blog/_apidoc/apidoc-seed \
-	&& grunt prod --baseUrl=/api --apiUrl="{{site.ifluxUrl}}" --ifluxUrl="{{site.ifluxUrl}}" --blogUrl="{{baseUrl}}"
-
-RUN mkdir /jekyll/iflux-blog/api
-RUN mv /jekyll/iflux-blog/_apidoc/apidoc-seed/build/* /jekyll/iflux-blog/api
-RUN rm -rf /jekyll/iflux-blog/_apidoc
-RUN mv /jekyll/iflux-blog/_config_docker.yml /jekyll/iflux-blog/_config.yml
+	&& grunt prod --baseUrl=/api --apiUrl="{{site.ifluxUrl}}" --ifluxUrl="{{site.ifluxUrl}}" --blogUrl="{{baseUrl}}" \
+	&& mkdir -p /jekyll/iflux-blog/api \
+	&& rm -rf /jekyll/iflux-blog/api/* \
+	&& mv /jekyll/iflux-blog/_apidoc/apidoc-seed/build/* /jekyll/iflux-blog/api \
+	&& rm -rf /jekyll/iflux-blog/_apidoc \
+	&& rm /jekyll/iflux-blog/_config.yml \
+	&& rm /jekyll/iflux-blog/_config_local.yml \
+	&& mv /jekyll/iflux-blog/_config_docker.yml /jekyll/iflux-blog/_config.yml
 
 RUN useradd -m -r -U iflux \
 	&& chown -R iflux:iflux /jekyll/iflux-blog
