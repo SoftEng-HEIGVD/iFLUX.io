@@ -6,8 +6,62 @@ version: v1
 protocols: [HTTPS]
 mediaType: application/json
 
+resourceTypes:
+  - collection: !include resourceTypes/collection.raml
+  - member: !include resourceTypes/member.raml
+
+schemas:
+  - errors: !include schemas/errors.json
+  - organization-get: !include schemas/organizations/response-get.json
+  - organization-patch: !include schemas/organizations/request-patch.json
+  - organization-post: !include schemas/organizations/request-post.json
+  - organizations: !include schemas/organizations/response-array-get.json
+  - user-get: !include schemas/users/response-get.json
+  - user-patch: !include schemas/users/request-patch.json
+  - user-post: !include schemas/users/request-post.json
+  - users: !include schemas/users/response-array-get.json
+
 traits:
-  - private: !include _traits/private.raml
+  - auth: !include traits/authentication.raml
+
+
+/organizations:
+  is: [ auth ]
+  type:
+    collection:
+      exampleGetResponse: !include examples/organizations/response-array-get.json
+      examplePostRequest: !include examples/organizations/request-post.json
+      examplePostError: !include examples/organizations/response-post-error.json
+  post:
+
+  /{id}:
+    is: [ auth ]
+    type:
+      member:
+        exampleGetResponse: !include examples/organizations/response-get.json
+        examplePatchRequest: !include examples/organizations/request-patch.json
+        examplePatchError: !include examples/organizations/response-patch-error.json
+    patch:
+
+/users:
+  is: [ auth ]
+  type:
+    collection:
+      exampleGetResponse: !include examples/users/response-array-get.json
+      examplePostRequest: !include examples/users/request-post.json
+      examplePostError: !include examples/users/response-post-error.json
+  post:
+
+  /{id}:
+    is: [ auth ]
+    type:
+      member:
+        exampleGetResponse: !include examples/users/response-get.json
+        examplePatchRequest: !include examples/users/request-patch.json
+        examplePatchError: !include examples/users/response-patch-error.json
+    patch:
+
+
 
 /events:
   description: This endpoint is used by event sources (e.g. sensors) to notify the occurence of events.

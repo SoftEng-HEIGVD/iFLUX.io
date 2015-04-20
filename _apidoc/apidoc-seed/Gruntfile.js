@@ -16,7 +16,7 @@ module.exports = function (grunt) {
 		gfm: true,
 		smartypants: true,
 		highlight: function(code) {
-			return  require('highlight.js').highlightAuto(code).value;
+			return require('highlight.js').highlightAuto(code).value;
 		}
 	};
 
@@ -223,7 +223,7 @@ module.exports = function (grunt) {
 
 		watch: {
 			documentation: {
-				files: [ 'src/**/*.md', 'src/**/*.raml' ],
+				files: [ 'src/**/*.md', 'src/**/*.raml', 'src/**/*.json' ],
 				tasks: [ 'metalsmith' ],
 				options: {
 					livereload: true

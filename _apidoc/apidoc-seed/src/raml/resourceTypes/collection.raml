@@ -1,0 +1,29 @@
+usage: This resourceType should be used for any collection of items
+description: The collection of <<resourcePathName>>
+
+get:
+  description: Get all <<resourcePathName>>
+  responses:
+    200:
+      body:
+        schema: <<resourcePathName>>
+        example: <<exampleGetResponse>>
+
+post:
+  description: Create a new <<resourcePathName | !singularize>>
+  body:
+    schema: <<resourcePathName | !singularize>>-post
+    example: <<examplePostRequest>>
+  responses:
+    201:
+      description: Created
+      headers:
+        location:
+          description: Use the URL to retrieve the <<resourcePathName | !singularize>> resource.
+          type: string
+          example: "Location: /<<resourcePathName>>/1"
+    422:
+      description: Validation errors
+      body:
+        schema: errors
+        example: <<examplePostError>>

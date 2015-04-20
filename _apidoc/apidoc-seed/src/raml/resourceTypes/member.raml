@@ -1,0 +1,49 @@
+usage: This resourceType should be used for any member of collection.
+
+uriParameters:
+  id:
+    displayName: <<resourcePathName | !singularize>> ID
+    type: integer
+
+description: The <<resourcePathName | !singularize>>
+
+get:
+  description: Get the specific <<resourcePathName | !singularize>>
+  responses:
+    200:
+      body:
+        schema: <<resourcePathName | !singularize>>-get
+        example: <<exampleGetResponse>>
+    404:
+      description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.
+
+patch?:
+  description: Patch the specific <<resourcePathName | !singularize>>
+  body:
+    schema: <<resourcePathName | !singularize>>-patch
+    example: <<examplePatchRequest>>
+  responses:
+    201:
+      description: Returned when at least one field is updated on the resource <<resourcePathName | !singularize>>.
+      headers:
+        location:
+          description: Use the URL to retrieve the <<resourcePathName | !singularize>> resource.
+          type: string
+          example: "Location: /<<resourcePathName>>/1"
+    304:
+      description: Returned when the resource <<resourcePathName | !singularize>> is not modified.
+    404:
+      description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.
+    422:
+      description: Validation errors
+      body:
+        schema: errors
+        example: <<examplePatchError>>
+
+delete?:
+  description: Delete the specific <<resourcePathName | !singularize>>
+  responses:
+    200:
+      description: Returned when the resource <<resourcePathName | !singularize>> is deleted.
+    404:
+      description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.

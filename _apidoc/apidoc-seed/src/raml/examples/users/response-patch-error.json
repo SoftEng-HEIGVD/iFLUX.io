@@ -1,0 +1,8 @@
+{
+  "firstName": [
+    "Name is already taken."
+  ],
+  "lastName": [
+    "The lastName must be at least 2 characters long"
+  ]
+}

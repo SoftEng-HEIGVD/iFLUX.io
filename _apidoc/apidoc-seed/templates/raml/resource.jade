@@ -52,16 +52,13 @@ mixin resource(resource)
 									.tab-pane.active(id='#{resource.uniqueId}_#{method.method}_description')
 										span!=method.description
 										- if (method.is && ~method.is.indexOf('batchCreationFriendly'))
-											.well You can also post a list of objects instead of a single object to this
-												| resource. For more details, see <a href="/api/restpatterns/#batch-creation">Batch
-												| Creation</a>.
 									.tab-pane(id='#{resource.uniqueId}_#{method.method}_request')
 										if resource.allUriParameters && resource.allUriParameters.length > 0
 											h3 URI Parameters
 											ul
 												each param in resource.allUriParameters
 													li: strong=param.displayName
-														|  #{param.type}
+													|  #{param.type}
 
 										if method.queryParameters
 											h3 Query Parameters
@@ -80,15 +77,15 @@ mixin resource(resource)
 																|  &mdash; Default: <code>#{param.default}</code>
 
 														| !{param.description}
+														if param.example
+															p: small
+																strong Example:
+																code!=param.example
 														if param.schema
 															p: small
 																strong Schema:
 																code!=param.schema
 
-														if param.example
-															p: small
-																strong Example:
-																code!=param.example
 
 										if method.headers
 											h3 Headers
@@ -105,11 +102,15 @@ mixin resource(resource)
 																|  (#{header.type})
 														if header.description
 															| !{header.description}
+														if header.example
+															p: small
+																strong Example:
+																pre!=header.example
 
 										if method.body
 											h3 Body
 											each b, key in method.body
-												p: strong Type: #{key}
+												p: strong Content-Type: #{key}
 												if formParameters
 													strong Form Parameters
 													ul
@@ -124,21 +125,20 @@ mixin resource(resource)
 																	else
 																		|  (#{param.type})
 																| !{description}
-																if param.schema
-																	p:small
-																		strong Schema:
-																		code!=param.schema
 																if param.example
 																	p: small
 																		strong Example:
 																		code!=param.example
-												if b.schema
-													strong Schema:
-													pre!=helpers.highlight(b.schema)
-
+																if param.schema
+																	p:small
+																		strong Schema:
+																		code!=param.schema
 												if b.example
 													strong Example:
 													pre!=helpers.highlight(b.example)
+												if b.schema
+													strong Schema:
+													pre!=helpers.highlight(b.schema)
 
 									if method.responses
 										.tab-pane(id='#{resource.uniqueId}_#{method.method}_response')
@@ -153,17 +153,23 @@ mixin resource(resource)
 														each header, headername in response.headers
 															li: strong=headername
 																| : #{header.type}
+															if header.example
+																p: small
+																	strong Example:
+																	pre!=header.example
+
 												if response.body
 													h3 Body
 													each rb, contentType in response.body
 														p
-															strong Type: #{contentType}
-														if rb && rb.schema
-															strong Schema:
-															pre!=helpers.highlight(rb.schema)
+															strong Content-Type: #{contentType}
 														if rb && rb.example
 															strong Example:
 															pre!=helpers.highlight(rb.example)
+														if rb && rb.schema
+															strong Schema:
+															pre!=helpers.highlight(rb.schema)
+
 	//- recursively traverse sub-resources
 	if resource.resources
 		each subResource in resource.resources
