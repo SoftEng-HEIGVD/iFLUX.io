@@ -2,38 +2,38 @@ usage: This resourceType should be used for any member of collection.
 
 uriParameters:
   id:
-    displayName: <<resourcePathName | !singularize>> ID
+    displayName: <<humanName>> ID
     type: integer
 
-description: The <<resourcePathName | !singularize>>
+description: The <<humanName>>
 
 get:
-  description: Get the specific <<resourcePathName | !singularize>>
+  description: Get the specific <<humanName>>
   responses:
     200:
       body:
-        schema: <<resourcePathName | !singularize>>-get
+        schema: <<schemaBaseName>>-get
         example: <<exampleGetResponse>>
     404:
       description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.
 
 patch?:
-  description: Patch the specific <<resourcePathName | !singularize>>
+  description: Patch the specific <<humanName>>
   body:
-    schema: <<resourcePathName | !singularize>>-patch
+    schema: <<schemaBaseName>>-patch
     example: <<examplePatchRequest>>
   responses:
     201:
-      description: Returned when at least one field is updated on the resource <<resourcePathName | !singularize>>.
+      description: Returned when at least one field is updated on the resource <<humanName | !pluralize>>.
       headers:
         location:
-          description: Use the URL to retrieve the <<resourcePathName | !singularize>> resource.
+          description: Use the URL to retrieve the <<humanName>> resource.
           type: string
-          example: "Location: /<<resourcePathName>>/1"
+          example: "Location: <<resourcePath>>"
     304:
-      description: Returned when the resource <<resourcePathName | !singularize>> is not modified.
+      description: Returned when the resource <<humanName>> is not modified.
     404:
-      description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.
+      description: Returned when the ID for the resource <<humanName>> is not found.
     422:
       description: Validation errors
       body:
@@ -41,9 +41,9 @@ patch?:
         example: <<examplePatchError>>
 
 delete?:
-  description: Delete the specific <<resourcePathName | !singularize>>
+  description: Delete the specific <<humanName>>
   responses:
     200:
-      description: Returned when the resource <<resourcePathName | !singularize>> is deleted.
+      description: Returned when the resource <<humanName>> is deleted.
     404:
-      description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.
+      description: Returned when the ID for the resource <<humanName>> is not found.

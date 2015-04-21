@@ -12,14 +12,18 @@ resourceTypes:
 
 schemas:
   - errors: !include schemas/errors.json
+  - eventSourceTemplate-get: !include schemas/templates/eventSources/response-get.json
+  - eventSourceTemplate-patch: !include schemas/templates/eventSources/request-patch.json
+  - eventSourceTemplate-post: !include schemas/templates/eventSources/request-post.json
+  - eventSourceTemplate-getAll: !include schemas/templates/eventSources/response-array-get.json
   - organization-get: !include schemas/organizations/response-get.json
   - organization-patch: !include schemas/organizations/request-patch.json
   - organization-post: !include schemas/organizations/request-post.json
-  - organizations: !include schemas/organizations/response-array-get.json
+  - organization-getAll: !include schemas/organizations/response-array-get.json
   - user-get: !include schemas/users/response-get.json
   - user-patch: !include schemas/users/request-patch.json
   - user-post: !include schemas/users/request-post.json
-  - users: !include schemas/users/response-array-get.json
+  - user-getAll: !include schemas/users/response-array-get.json
 
 traits:
   - auth: !include traits/authentication.raml
@@ -29,33 +33,74 @@ traits:
   is: [ auth ]
   type:
     collection:
+      humanName: organization
+      schemaBaseName: organization
       exampleGetResponse: !include examples/organizations/response-array-get.json
       examplePostRequest: !include examples/organizations/request-post.json
       examplePostError: !include examples/organizations/response-post-error.json
-  post:
 
   /{id}:
     is: [ auth ]
     type:
       member:
+        humanName: organization
+        schemaBaseName: organization
         exampleGetResponse: !include examples/organizations/response-get.json
         examplePatchRequest: !include examples/organizations/request-patch.json
         examplePatchError: !include examples/organizations/response-patch-error.json
     patch:
 
-/users:
-  is: [ auth ]
-  type:
-    collection:
-      exampleGetResponse: !include examples/users/response-array-get.json
-      examplePostRequest: !include examples/users/request-post.json
-      examplePostError: !include examples/users/response-post-error.json
-  post:
+/templates:
+  description: Manage different tempaltes
+
+  /eventSources:
+    is: [ auth ]
+    type:
+      collection:
+        humanName: event source template
+        schemaBaseName: eventSourceTemplate
+        exampleGetResponse: !include examples/templates/eventSources/response-array-get.json
+        examplePostRequest: !include examples/templates/eventSources/request-post.json
+        examplePostError: !include examples/templates/eventSources/response-post-error.json
+    post:
+      queryParameters:
+        _remark:
+          description: |
+            `configurationSchema`, `callbackUrl` and `callbackToken` are mandatory once at least one of them is filled.
 
   /{id}:
     is: [ auth ]
     type:
       member:
+        humanName: event source template
+        schemaBaseName: eventSourceTemplate
+        exampleGetResponse: !include examples/templates/eventSources/response-get.json
+        examplePatchRequest: !include examples/templates/eventSources/request-patch.json
+        examplePatchError: !include examples/templates/eventSources/response-patch-error.json
+    patch:
+      queryParameters:
+        _remark:
+          description: |
+            `configurationSchema`, `callbackUrl` and `callbackToken` are mandatory. In the `PATCH` method, it means
+            that the result saved MUST contain all the three information. If they are already present, patchin one at a time is
+            possible.
+
+/users:
+  is: [ auth ]
+  type:
+    collection:
+      humanName: user
+      schemaBaseName: user
+      exampleGetResponse: !include examples/users/response-array-get.json
+      examplePostRequest: !include examples/users/request-post.json
+      examplePostError: !include examples/users/response-post-error.json
+
+  /{id}:
+    is: [ auth ]
+    type:
+      member:
+        humanName: user
+        schemaBaseName: user
         exampleGetResponse: !include examples/users/response-get.json
         examplePatchRequest: !include examples/users/request-patch.json
         examplePatchError: !include examples/users/response-patch-error.json

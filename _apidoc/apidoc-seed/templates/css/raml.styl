@@ -1,111 +1,198 @@
 
-.markdown *:last-child
-	margin-bottom 0
-
-
 .parent
-	color #999
+  color #999
 
-.list-group-item
-	& > .badge
-		float none
-		margin-right 6px
+.child
+  color #000
 
-.panel-title
-	& > .block
-		& > .badge
-			float right
-			margin-left 5px
+.toggle-all
+  i
+    cursor pointer
 
-.badge
-	border-radius 0
-	text-transform uppercase
-	min-width 70px
-	font-weight normal
-	color #f3f3f6
-	line-height normal
+res(i, max)
+  if i < max
+    & > .resource
+      background lighten(#EEE, i * 35%)
+      border-left-color lighten(#EEE, i * 35%)
+
+      .resource-title
+        background-color lighten(#EEE, i * 35%)
+
+      res(i + 1, max)
 
 
-.block
-	display block
-	.badge
-		visibility hidden
-	&.collapsed
-		.badge
-			visibility visible
+.method
+  border-left 10px solid darken(#EEE, 20%)
+  flex-direction column
+  background #EEE
+  display flex
+
+  .method-title
+    align-items baseline
+    flex-direction row
+    display flex
+    margin 0
+    flex 1
+
+    span.verb
+      text-transform uppercase
+      font-weight bold
+      padding 10px 0
+      font-size 1em
+      color #f3f3f6
+      display flex
+
+    span.url
+      display flex
+      color black
+
+  .description
+    padding 15px 0
+    margin 0
+
+    p
+      margin 0
+
+  ul.nav-tabs
+    border-bottom-width 3px
+
+    li
+      margin-bottom 0
+
+      a
+        border none !important
+        border-radius 0
+        outline 0
+
+  .tab-content
+    padding 0 10px
+
+.resource
+  border-top 1px solid darken(#EEE, 20%)
+  flex-direction column
+  padding-left 10px
+  background #EEE
+  display flex
+
+  &:last-child.resource-level-1
+    border-bottom 1px solid darken(#EEE, 20%)
+
+  res(1, 5)
+
+  .resource-title
+    background-color #EEE
+    padding 10px 0
+    margin 0
+
+    a
+      text-decoration none !important
+      cursor pointer
+
+    .badge
+      text-transform uppercase
+      line-height normal
+      font-weight bold
+      margin-right 5px
+      border-radius 0
+      min-width 70px
+      padding 5px 0
+      color #f3f3f6
+      float right
+
+methods = {
+  get: #63a8e2,
+  post: #6cbd7d,
+  patch: #bd9368,
+  put: #22bac4,
+  delete: #d26460
+}
+
+for k, v in methods
+  .badge-{k}
+    background-color v
+
+  .method-{k}
+    border-left-color v
+    background lighten(v, 85%)
+
+    .method-title
+      background v
+
+    ul.nav-tabs
+      border-bottom 1px solid v
+
+
+
+
+
+.markdown *:last-child
+  margin-bottom 0
+
+/*.list-group-item*/
+  /*& > .badge*/
+    /*float none*/
+    /*margin-right 6px*/
+
 
 .block .glyphicon, .panel-heading > h3 .glyphicon
-		font-size 12px
-		margin-left 5px
-		color #555
+  font-size 12px
+  margin-left 5px
+  color #555
 
 .panel-warning .panel-heading > h3 .glyphicon
-		font-size 12px
-		margin-left 5px
-		color #8a6d3b
+  font-size 12px
+  margin-left 5px
+  color #8a6d3b
 
 .badge > .glyphicon
-	color white
-	margin-left 5px
-	margin-right 1px
-
-.badge_get
-	background-color #63a8e2
-
-.badge_post
-	background-color #6cbd7d
-
-.badge_put
-	background-color #22bac4
-
-.badge_delete
-	background-color #d26460
+  color white
+  margin-left 5px
+  margin-right 1px
 
 .list-group, .panel-group
-	margin-bottom 0
+  margin-bottom 0
 
 .panel-group
-	.panel
-		& + .panel-white
-			margin-top 0
-	.panel-white
-		border-bottom 1px solid #F5F5F5
-		border-radius 0
+  .panel
+    & + .panel-white
+      margin-top 0
+  .panel-white
+    border-bottom 1px solid #F5F5F5
+    border-radius 0
 
 .panel-white
-	&:last-child
-		border-bottom-color white
-		-webkit-box-shadow none
-		box-shadow none
-	.panel-heading
-		background white
+  &:last-child
+    border-bottom-color white
+    -webkit-box-shadow none
+    box-shadow none
+  .panel-heading
+    background white
 
 .tab-pane
-	ul
-		padding-left 2em
-	h2
-		font-size 1.2em
-		padding-bottom 4px
-		border-bottom 1px solid #ddd
-	h3
-		font-size 1.1em
+  ul
+    padding-left 2em
+  h2
+    font-size 1.2em
+    padding-bottom 4px
+    border-bottom 1px solid #ddd
+  h3
+    font-size 1.1em
 
 .tab-content
-	border-left 1px solid #ddd
-	border-right 1px solid #ddd
-	border-bottom 1px solid #ddd
-	padding 10px
+  border-left 1px solid #ddd
+  border-right 1px solid #ddd
+  border-bottom 1px solid #ddd
+  padding 10px
 
 .resource-description
-	border-bottom 1px solid #ddd
-	background #fcfcfc
-	padding 15px 15px 0 15px
-	margin -15px -15px 10px -15px
+  border-bottom 1px solid #ddd
+  background #fcfcfc
+  padding 15px 15px 0 15px
+  margin -15px -15px 10px -15px
 
 .modal .well
-	margin-bottom 0
+  margin-bottom 0
 
 .panel-warning
-	.panel-footer
-		border-top solid 1px #faebcc
-	
+  .panel-footer
+    border-top solid 1px #faebcc

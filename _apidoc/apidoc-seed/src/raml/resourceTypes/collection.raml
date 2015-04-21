@@ -1,27 +1,27 @@
 usage: This resourceType should be used for any collection of items
-description: The collection of <<resourcePathName>>
+description: The collection of <<humanName | !pluralize>>
 
 get:
-  description: Get all <<resourcePathName>>
+  description: Get all <<humanName | !pluralize>>
   responses:
     200:
       body:
-        schema: <<resourcePathName>>
+        schema: <<schemaBaseName>>-getAll
         example: <<exampleGetResponse>>
 
 post:
-  description: Create a new <<resourcePathName | !singularize>>
+  description: Create a new <<humanName>>
   body:
-    schema: <<resourcePathName | !singularize>>-post
+    schema: <<schemaBaseName>>-post
     example: <<examplePostRequest>>
   responses:
     201:
       description: Created
       headers:
         location:
-          description: Use the URL to retrieve the <<resourcePathName | !singularize>> resource.
+          description: Use the URL to retrieve the <<humanName>> resource.
           type: string
-          example: "Location: /<<resourcePathName>>/1"
+          example: "Location: <<resourcePath>>/{id}"
     422:
       description: Validation errors
       body:

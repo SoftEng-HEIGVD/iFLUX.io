@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Event source templates",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "string"
+      },
+      "public": {
+        "type": "boolean"
+      },
+      "organizationId": {
+        "type": "integer"
+      }
+    },
+    "required": [ "id", "name", "public", "organizationId" ]
+  }
+}

@@ -1,69 +1,65 @@
-mixin resource(resource)
-	.panel.panel-white
-		.panel-heading
-			h4.panel-title
-				// collapsed "buttons" (on the right side)
-				a.block.collapsed(data-toggle='collapse', href='#panel_#{resource.uniqueId}')
-					if resource.methods
-						each method in resource.methods
-							span.badge(id='#{method.method}_#{resource.uniqueId}', class="badge_#{method.method}") #{method.method} #{helpers.lock(method.securedBy)} !{helpers.lock(method.isPrivate || resource.isPrivate)}
-						span.parent=resource.parentUrl
-						| #{resource.relativeUri}
-						| !{helpers.lock(resource.isPrivate)}
-		.panel-collapse.collapse(id='panel_#{resource.uniqueId}')
-			.panel-body
-				// extended "buttons" (list)
-				.list-group
-					if resource.methods
-						each method in resource.methods
-							a.list-group-item(href='#', data-toggle='modal', data-target='##{resource.uniqueId}_#{method.method}')
-								span.badge(class='badge_#{method.method}') #{method.method} #{helpers.lock(method.securedBy)} !{helpers.lock(method.isPrivate || resource.isPrivate)}
-								span!=method.descriptionShort
+mixin resource(resource, level)
+	.resource(class='resource-level-#{level}', id='#{resource.uniqueId}')
+		h4.resource-title
+			a.toggle(data-ref='##{resource.uniqueId} > .collapse-level-#{level}')
+				//data-toggle='collapse', data-target='')
+				span.parent=resource.parentUrl
+				span.child=resource.relativeUri
+				if resource.description
+					a(data-toggle='collapse', data-target='##{resource.uniqueId}-description')
+						span.badge descr.
+				| !{helpers.lock(resource.isPrivate)}
+
+			if resource.methods
+				each method in resource.methods
+					a(data-toggle='collapse', data-target='##{resource.uniqueId}-#{method.method}')
+						span.pull-right.badge(id='#{method.method}_#{resource.uniqueId}', class="badge-#{method.method}") #{method.method} #{helpers.lock(method.securedBy)} !{helpers.lock(method.isPrivate || resource.isPrivate)}
+
+		if resource.description
+			.panel-collapse.collapse(id='#{resource.uniqueId}-description', class='collapse-level-#{level}', data-ref='##{resource.uniqueId} > .collapse-level-#{level}')
+				.description!= resource.description
 
 		if resource.methods
 			each method in resource.methods
-				.modal.fade(id='#{resource.uniqueId}_#{method.method}')
-					.modal-dialog
-						.modal-content
-							.modal-header
-								button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-								h4.modal-title
-									span.badge(class='badge_#{method.method}') #{method.method} #{helpers.lock(method.securedBy)} !{helpers.lock(method.isPrivate || resource.isPrivate)}
-									| &nbsp;&nbsp;
-									span.parent=resource.parentUrl
-									| #{resource.relativeUri}
-							.modal-body
-								if method.is
-									each is in method.is
-										if is.protected
-											.alert.alert-warning: p: small
-												|Scope required:&nbsp;
-												b= is.protected.scope
+				.panel-collapse.collapse(id='#{resource.uniqueId}-#{method.method}', class="collapse-level-#{level}", data-ref='##{resource.uniqueId} > .collapse-level-#{level}')
+					.method(class="method-#{method.method}")
+						h4.method-title
+							span.verb(class='badge-#{method.method}') #{method.method} #{helpers.lock(method.securedBy)} !{helpers.lock(method.isPrivate || resource.isPrivate)}
+							| &nbsp;&nbsp;
+							span.url #{resource.parentUrl}#{resource.relativeUri}
 
-								// Nav tabs
-								ul.nav.nav-tabs
-									li.active: a(href='##{resource.uniqueId}_#{method.method}_description', data-toggle='tab') Description
-									li: a(href='##{resource.uniqueId}_#{method.method}_request', data-toggle='tab') Request
-									if method.responses
-										li: a(href='##{resource.uniqueId}_#{method.method}_response', data-toggle='tab') Response
+						.method-body
+							if method.is
+								each is in method.is
+									if is.protected
+										.alert.alert-warning: p: small
+											|Scope required:&nbsp;
+											b= is.protected.scope
 
-								// Tab panes
-								.tab-content
-									.tab-pane.active(id='#{resource.uniqueId}_#{method.method}_description')
-										span!=method.description
-										- if (method.is && ~method.is.indexOf('batchCreationFriendly'))
-									.tab-pane(id='#{resource.uniqueId}_#{method.method}_request')
-										if resource.allUriParameters && resource.allUriParameters.length > 0
-											h3 URI Parameters
-											ul
-												each param in resource.allUriParameters
-													li: strong=param.displayName
-													|  #{param.type}
+							// Nav tabs
+							ul.nav.nav-tabs
+								li.active: a(href='##{resource.uniqueId}_#{method.method}_description', data-toggle='tab') Description
+								li: a(href='##{resource.uniqueId}_#{method.method}_request', data-toggle='tab') Request
+								if method.responses
+									li: a(href='##{resource.uniqueId}_#{method.method}_response', data-toggle='tab') Response
 
-										if method.queryParameters
-											h3 Query Parameters
-											ul
-												each param, key in method.queryParameters
+							// Tab panes
+							.tab-content
+								.tab-pane.active(id='#{resource.uniqueId}_#{method.method}_description')
+									.description!=method.description
+								.tab-pane(id='#{resource.uniqueId}_#{method.method}_request')
+									if resource.allUriParameters && resource.allUriParameters.length > 0
+										h3 URI Parameters
+										ul
+											each param in resource.allUriParameters
+												li: strong=param.displayName
+												|  #{param.type}
+
+									if helpers.hasQueryParameters(method.queryParameters)
+										h3 Query Parameters
+										ul
+											each param, key in method.queryParameters
+												if !helpers.isSpecialRemarkKey(key)
 													li.markdown
 														strong=key
 														em
@@ -87,90 +83,94 @@ mixin resource(resource)
 																code!=param.schema
 
 
-										if method.headers
-											h3 Headers
-											ul
-												each header, headername in method.headers
-													li.markdown
-														strong=(header.displayName ? header.displayName : headername)
-														em
-															if header.required
-																|  required
-															if header.enum
-																|  one of (#{header.enum})
-															else
-																|  (#{header.type})
-														if header.description
-															| !{header.description}
+									if method.headers
+										h3 Headers
+										ul
+											each header, headername in method.headers
+												li.markdown
+													strong=(header.displayName ? header.displayName : headername)
+													em
+														if header.required
+															|  required
+														if header.enum
+															|  one of (#{header.enum})
+														else
+															|  (#{header.type})
+													if header.description
+														| !{header.description}
+													if header.example
+														p: small
+															strong Example:
+															pre!=header.example
+
+									if method.body
+										h3 Body
+										each b, key in method.body
+											//p: strong Content-Type: #{key}
+											if helpers.hasSpecialRemark(method.queryParameters)
+												strong Remark:
+												| !{helpers.getSpecialQueryParameter(method.queryParameters).description}
+
+											if formParameters
+												strong Form Parameters
+												ul
+													each param in formParameters
+														li.markdown
+															strong=key
+															em
+																if param.required
+																	|  required
+																if param.enum
+																	|  one of (#{param.enum})
+																else
+																	|  (#{param.type})
+															| !{description}
+															if param.example
+																p: small
+																	strong Example:
+																	code!=param.example
+															if param.schema
+																p:small
+																	strong Schema:
+																	code!=param.schema
+											if b.schema
+												//strong Schema:
+												//pre!=helpers.highlight(b.schema)
+												+jsonSchema(b.schema, resource.uniqueId + '_' + method.method + '_request')
+											if b.example
+												//strong Example:
+												pre!=helpers.highlight(b.example)
+
+								if method.responses
+									.tab-pane(id='#{resource.uniqueId}_#{method.method}_response')
+										each response, key in method.responses
+											h2 HTTP status code&nbsp;
+												a(href='http://httpstatus.es/#{key}', target='_blank')=key
+											| !{response.description}
+
+											if response.headers
+												h3 Headers
+												ul
+													each header, headername in response.headers
+														li: strong=headername
+															| : #{header.type}
 														if header.example
 															p: small
 																strong Example:
 																pre!=header.example
 
-										if method.body
-											h3 Body
-											each b, key in method.body
-												p: strong Content-Type: #{key}
-												if formParameters
-													strong Form Parameters
-													ul
-														each param in formParameters
-															li.markdown
-																strong=key
-																em
-																	if param.required
-																		|  required
-																	if param.enum
-																		|  one of (#{param.enum})
-																	else
-																		|  (#{param.type})
-																| !{description}
-																if param.example
-																	p: small
-																		strong Example:
-																		code!=param.example
-																if param.schema
-																	p:small
-																		strong Schema:
-																		code!=param.schema
-												if b.example
-													strong Example:
-													pre!=helpers.highlight(b.example)
-												if b.schema
-													strong Schema:
-													pre!=helpers.highlight(b.schema)
+											if response.body
+												h3 Body
+												each rb, contentType in response.body
+													//p: strong Content-Type: #{contentType}
+													if rb && rb.example
+														strong Example:
+														pre!=helpers.highlight(rb.example)
+													if rb && rb.schema
+														strong Schema:
+														pre!=helpers.highlight(rb.schema)
 
-									if method.responses
-										.tab-pane(id='#{resource.uniqueId}_#{method.method}_response')
-											each response, key in method.responses
-												h2 HTTP status code&nbsp;
-													a(href='http://httpstatus.es/#{key}', target='_blank')=key
-												| !{response.description}
-
-												if response.headers
-													h3 Headers
-													ul
-														each header, headername in response.headers
-															li: strong=headername
-																| : #{header.type}
-															if header.example
-																p: small
-																	strong Example:
-																	pre!=header.example
-
-												if response.body
-													h3 Body
-													each rb, contentType in response.body
-														p
-															strong Content-Type: #{contentType}
-														if rb && rb.example
-															strong Example:
-															pre!=helpers.highlight(rb.example)
-														if rb && rb.schema
-															strong Schema:
-															pre!=helpers.highlight(rb.schema)
-
-	//- recursively traverse sub-resources
-	if resource.resources
-		each subResource in resource.resources
-			+resource(subResource)
+		//- recursively traverse sub-resources
+		if resource.resources
+			each subResource in resource.resources
+				+resource(subResource, level + 1)

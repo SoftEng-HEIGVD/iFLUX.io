@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Event source template",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "configurationSchema": {
+      "type": "string"
+    },
+    "callbackUrl": {
+      "type": "string"
+    },
+    "callbackToken": {
+      "type": "string"
+    },
+    "public": {
+      "type": "boolean"
+    }
+  }
+}

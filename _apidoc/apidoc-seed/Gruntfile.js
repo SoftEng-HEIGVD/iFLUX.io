@@ -1,7 +1,8 @@
-var marked = require('marked');
-var moment = require('moment');
-
-var pkg = require('./package');
+var
+	_ = require('underscore'),
+	marked = require('marked'),
+	moment = require('moment'),
+	pkg = require('./package');
 
 module.exports = function (grunt) {
 
@@ -141,6 +142,21 @@ module.exports = function (grunt) {
 								file: 'templates/raml/template.jade',
 								params: {
 									pretty: true
+								},
+								helpers: {
+									hasSpecialRemark: function(queryParameters) {
+										return _.contains(_.keys(queryParameters), '_remark');
+									},
+									hasQueryParameters: function(queryParameters) {
+										var size = _.keys(queryParameters).length;
+										return size == 1 && !this.hasSpecialRemark(queryParameters) || size > 1;
+									},
+									isSpecialRemarkKey: function(key) {
+										return key === '_remark';
+									},
+									getSpecialQueryParameter: function(queryParameters) {
+										return queryParameters._remark;
+									}
 								},
 								minifyAssets: minifyAssets
 							},
