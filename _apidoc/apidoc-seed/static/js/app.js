@@ -9,8 +9,6 @@ function load() {
 var allToggled = false;
 var toggles = {};
 
-console.log(toggles);
-
 $('.toggle').on('click', function(event) {
 	var ref = $(event.currentTarget).attr('data-ref');
 
@@ -40,5 +38,20 @@ $('.toggle-all').on('click', function(event) {
 
 	for (var key in toggles) {
 		toggles[key] = allToggled;
+	}
+});
+
+$('.description-link').on('click', function(event) {
+	var
+		content = $(event.currentTarget),
+		shortDescription = content.closest('.resource-title-description').find('span');
+
+	if (shortDescription.is(':visible')) {
+		shortDescription.hide();
+		content.text('hide full description.');
+	}
+	else {
+		shortDescription.show();
+		content.text('show full description.');
 	}
 });

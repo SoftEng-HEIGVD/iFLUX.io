@@ -1,7 +1,7 @@
 doctype html
 html
 	head
-		title= title
+		title API in details
 		meta(charset='utf8')
 		meta(name="viewport", content="width=device-width, initial-scale=1")
 		meta(name='description', content= description)
@@ -28,9 +28,15 @@ html
 					li(style='white-space: nowrap;')
 						a(href='/') API
 
-		.container#content
-			.row
-				.col-sm-3.col-sm-push-9
+		.api-container
+			.api-content
+				a(id="top")
+				h1 API in details
+				hr
+				block body
+					div!= contents
+			.api-menu
+				.api-menu-content(data-spy='affix')
 					block menu
 						if section && subsections[section]
 							h1 Sections
@@ -42,12 +48,6 @@ html
 											| #{subsection.title}
 											if subsection.private
 												i.glyphicon.glyphicon-lock
-				.col-sm-9.col-sm-pull-3
-					a(id="top")
-					h1= title
-					hr
-					block body
-						div!= contents
 
 		//
 			.footer

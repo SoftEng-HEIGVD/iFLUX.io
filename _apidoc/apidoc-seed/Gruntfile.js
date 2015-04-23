@@ -1,6 +1,6 @@
 var
 	_ = require('underscore'),
-	marked = require('marked'),
+	helpers = require('./utils/jade.helpers'),
 	moment = require('moment'),
 	pkg = require('./package');
 
@@ -12,24 +12,6 @@ module.exports = function (grunt) {
 	var blogUrl = (grunt.option('blogUrl') || '').replace(/\/$/, '');
 	var minifyAssets = grunt.option('minifyAssets');
 	var scope = grunt.option('private') ? 'private' : 'public';
-
-	var markdown = {
-		gfm: true,
-		smartypants: true,
-		highlight: function(code) {
-			return require('highlight.js').highlightAuto(code).value;
-		}
-	};
-
-	var privateProcess = function(contents) {
-		return contents.replace(/[\r\n]<private>([\s\S]*?)<\/private>/gi, function(match, md) {
-			return '<div class="private"><div class="private--vertical-bar"><span class="glyphicon glyphicon-lock"></span></div>' + marked(md, markdown) + '</div>';
-		});
-	};
-
-	var publicProcess = function(contents) {
-		return contents.replace(/[\r\n]<private>[\s\S]*?<\/private>/gi, '')
-	};
 
 	// configure the tasks
 	var config = {
@@ -92,12 +74,12 @@ module.exports = function (grunt) {
 						blogUrl: blogUrl
 					},
 					plugins: {
-						'metalsmith-scoping': {
-							scope: scope,
-							marked: markdown,
-							privateProcess: privateProcess,
-							publicProcess: publicProcess
-						},
+						//'metalsmith-scoping': {
+						//	scope: scope,
+						//	marked: helpers.marked,
+						//	privateProcess: privateProcess,
+						//	publicProcess: publicProcess
+						//},
 						'metalsmith-collections': {
 							sections: {
 								pattern: '*/index.md',
@@ -108,7 +90,7 @@ module.exports = function (grunt) {
 								sortBy: 'date'
 							}
 						},
-						'metalsmith-markdown': markdown,
+						'metalsmith-markdown': helpers.marked,
 						'metalsmith-replace': {
 							contents: function(contents) {
 								var transformedContents = contents.toString();
@@ -143,26 +125,12 @@ module.exports = function (grunt) {
 								params: {
 									pretty: true
 								},
-								helpers: {
-									hasSpecialRemark: function(queryParameters) {
-										return _.contains(_.keys(queryParameters), '_remark');
-									},
-									hasQueryParameters: function(queryParameters) {
-										var size = _.keys(queryParameters).length;
-										return size == 1 && !this.hasSpecialRemark(queryParameters) || size > 1;
-									},
-									isSpecialRemarkKey: function(key) {
-										return key === '_remark';
-									},
-									getSpecialQueryParameter: function(queryParameters) {
-										return queryParameters._remark;
-									}
-								},
+								helpers: helpers.helpers,
 								minifyAssets: minifyAssets
-							},
-							marked: markdown,
-							privateProcess: privateProcess,
-							publicProcess: publicProcess
+							}
+							//,
+							//privateProcess: privateProcess,
+							//publicProcess: publicProcess
 						},
 						'metalsmith-templates': {
 							engine: 'jade',

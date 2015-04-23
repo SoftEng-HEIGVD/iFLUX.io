@@ -4,9 +4,11 @@
   "type": "object",
   "properties": {
     "name": {
-      "type": "string"
+      "type": "string",
+      "minimum": 1
     },
     "configuration": {
+      "description": "Providing a schema aims to help the WUI to configure the instances.",
       "type": "object",
       "properties": {
         "schema": {
@@ -17,6 +19,19 @@
         },
         "callbackToken": {
           "type": "string"
+        },
+        "t": {
+          "type": "object",
+          "properties": {
+            "t2": {
+              "type": "object",
+              "properties": {
+                "t3": {
+                  "type": "string"
+                }
+              }
+            }
+          }
         }
       },
       "required": [ "schema", "callbackUrl", "callbackToken" ]
