@@ -1,23 +1,64 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Event source templates",
+  "description": "The collection of event source templates",
   "type": "array",
   "items": {
+    "description": "Collection of event source templates.",
     "type": "object",
     "properties": {
       "id": {
+        "description": "Unique identifier given by the server",
         "type": "integer"
       },
       "name": {
+        "description": "A name to identify the event source template",
         "type": "string"
       },
-      "public": {
-        "type": "boolean"
+      "test": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "test": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
       },
-      "organizationId": {
-        "type": "integer"
+      "configuration": {
+        "description": "Providing a schema aims to help the WUI to configure the instances.",
+        "type": "object",
+        "properties": {
+          "schema": {
+            "description": "A valid JSON Schema.",
+            "type": "string"
+          },
+          "callbackUrl": {
+            "description": "The configuration callback URL.",
+            "type": "string"
+          },
+          "callbackToken": {
+            "description": "JSON Web Token to be authenticated when contacting the callback URL.",
+            "type": "string"
+          }
+        },
+        "required": [ "schema",  "callbackUrl", "callbackToken" ]
+      },
+      "public": {
+        "description": "Make the event source template available to everybody.",
+        "type": "boolean"
       }
-    },
-    "required": [ "id", "name", "public", "organizationId" ]
-  }
+    }
+  },
+  "required": [ "name" ]
 }

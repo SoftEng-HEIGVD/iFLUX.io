@@ -1,5 +1,6 @@
 var
 	_ = require('underscore'),
+	autoprefixer = require('autoprefixer-core'),
 	helpers = require('./utils/jade.helpers'),
 	moment = require('moment'),
 	pkg = require('./package');
@@ -11,7 +12,8 @@ module.exports = function (grunt) {
 	var ifluxUrl = (grunt.option('ifluxUrl') || '').replace(/\/$/, '') + '/';
 	var blogUrl = (grunt.option('blogUrl') || '').replace(/\/$/, '');
 	var minifyAssets = grunt.option('minifyAssets');
-	var scope = grunt.option('private') ? 'private' : 'public';
+	var devMode = (grunt.option('devMode'));
+	var schemaIndentBordered = (grunt.option('schemaIndentBordered'));
 
 	// configure the tasks
 	var config = {
@@ -36,6 +38,15 @@ module.exports = function (grunt) {
 					ext: '.css'
 				} ]
 			}
+		},
+
+		postcss: {
+			options: {
+				processors: [
+					autoprefixer({ browsers: ['last 2 version'] }).postcss
+				]
+			},
+			dist: { src: 'build/css/*.css' }
 		},
 
 		copy: {
@@ -74,12 +85,6 @@ module.exports = function (grunt) {
 						blogUrl: blogUrl
 					},
 					plugins: {
-						//'metalsmith-scoping': {
-						//	scope: scope,
-						//	marked: helpers.marked,
-						//	privateProcess: privateProcess,
-						//	publicProcess: publicProcess
-						//},
 						'metalsmith-collections': {
 							sections: {
 								pattern: '*/index.md',
@@ -118,19 +123,20 @@ module.exports = function (grunt) {
 								}
 							},
 							section: 'api',
-							scope: scope,
 							template: {
 								engine: 'jade',
 								file: 'templates/raml/template.jade',
 								params: {
 									pretty: true
 								},
-								helpers: helpers.helpers,
+								helpers: _.extend(helpers.helpers, {
+									toggleStateClass: function() {
+										return devMode ? 'in' : '';
+									},
+									isSchemaIndentBordered: schemaIndentBordered
+								}),
 								minifyAssets: minifyAssets
 							}
-							//,
-							//privateProcess: privateProcess,
-							//publicProcess: publicProcess
 						},
 						'metalsmith-templates': {
 							engine: 'jade',
@@ -272,6 +278,7 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-http-server');
 	grunt.loadNpmTasks('grunt-metalsmith');
 	grunt.loadNpmTasks('grunt-text-replace');
+	grunt.loadNpmTasks('grunt-postcss');
 
 	grunt.registerTask(
 		'build-stylesheets',

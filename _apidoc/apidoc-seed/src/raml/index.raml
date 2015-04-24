@@ -62,11 +62,6 @@ traits:
         exampleGetResponse: !include examples/templates/eventSources/response-array-get.json
         examplePostRequest: !include examples/templates/eventSources/request-post.json
         examplePostError: !include examples/templates/eventSources/response-post-error.json
-    post:
-      queryParameters:
-        _remark:
-          description: |
-            `configurationSchema`, `callbackUrl` and `callbackToken` are mandatory once at least one of them is filled.
 
   /{id}:
     is: [ auth ]
