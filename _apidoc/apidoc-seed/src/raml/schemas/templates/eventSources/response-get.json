@@ -2,28 +2,39 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Event source template",
   "type": "object",
+  "description": "Event source templates.",
   "properties": {
     "id": {
+      "description": "Unique identifier given by the server",
       "type": "integer"
     },
     "name": {
+      "description": "A name to identify the event source template",
       "type": "string"
     },
-    "configurationSchema": {
-      "type": "string"
-    },
-    "callbackUrl": {
-      "type": "string"
-    },
-    "callbackToken": {
-      "type": "string"
+    "configuration": {
+      "description": "Providing a schema aims to help the WUI to configure the instances.",
+      "type": "object",
+      "properties": {
+        "schema": {
+          "description": "A valid JSON Schema.",
+          "type": "string"
+        },
+        "callbackUrl": {
+          "description": "The configuration callback URL.",
+          "type": "string"
+        },
+        "callbackToken": {
+          "description": "JSON Web Token to be authenticated when contacting the callback URL.",
+          "type": "string"
+        }
+      },
+      "required": [ "schema",  "callbackUrl", "callbackToken" ]
     },
     "public": {
+      "description": "Make the event source template available to everybody.",
       "type": "boolean"
-    },
-    "organizationId": {
-      "type": "integer"
     }
   },
-  "required": [ "id", "name", "configurationSchema", "callbackUrl", "callbackToken", "public", "organizationId" ]
+  "required": [ "id", "name", "public", "organizationId" ]
 }

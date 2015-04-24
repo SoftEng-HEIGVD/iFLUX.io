@@ -4,7 +4,7 @@
   "description": "The collection of event source templates",
   "type": "array",
   "items": {
-    "description": "Collection of event source templates.",
+    "description": "Event source templates.",
     "type": "object",
     "properties": {
       "id": {
@@ -14,26 +14,6 @@
       "name": {
         "description": "A name to identify the event source template",
         "type": "string"
-      },
-      "test": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "integer"
-              },
-              "test": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
       },
       "configuration": {
         "description": "Providing a schema aims to help the WUI to configure the instances.",
@@ -58,7 +38,7 @@
         "description": "Make the event source template available to everybody.",
         "type": "boolean"
       }
-    }
-  },
-  "required": [ "name" ]
+    },
+    "required": [ "id", "name", "public", "organizationId" ]
+  }
 }
