@@ -15,6 +15,10 @@
         "description": "A name to identify the event source template",
         "type": "string"
       },
+      "public": {
+        "description": "Make the event source template available to everybody.",
+        "type": "boolean"
+      },
       "configuration": {
         "description": "Providing a schema aims to help the WUI to configure the instances.",
         "type": "object",
@@ -33,10 +37,6 @@
           }
         },
         "required": [ "schema",  "callbackUrl", "callbackToken" ]
-      },
-      "public": {
-        "description": "Make the event source template available to everybody.",
-        "type": "boolean"
       }
     },
     "required": [ "id", "name", "public", "organizationId" ]

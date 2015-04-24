@@ -1,6 +1,8 @@
 {
   "id": 1,
   "name": "iFlux thermometer",
+  "public": false,
+  "organizationId": 1,
   "configuration": {
     "schema": {
       "$schema": "http://json-schema.org/draft-04/schema#",
@@ -13,7 +15,5 @@
     },
     "callbackUrl": "http://some.cool.weather.service/configuration",
     "callbackToken": "<JSON Web Token>"
-  },
-  "public": false,
-  "organizationId": 1
+  }
 }
