@@ -28,6 +28,8 @@
         responses:
           200:
             description: List of event source templates related from all the organizations of the user.
+          404:
+            description: When organization is not found.
 
   /{id}/templates:
     description: Management of the iFLUX templates.
@@ -54,4 +56,5 @@
         responses:
           200:
             description: List of event source templates related to the specific organization.
-
+          404:
+            description: When organization is not found.

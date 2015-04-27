@@ -52,7 +52,7 @@ res(i, max)
   if i < max
     & > .resource
       background lighten(#EEE, i * 35%)
-      border-left-color lighten(#EEE, i * 35%)
+      /*border-left-color lighten(#EEE, i * 35%)*/
 
       .resource-title
         background-color lighten(#EEE, i * 35%)
@@ -152,6 +152,7 @@ res(i, max)
     padding 0
 
 .resource
+  border-left 1px solid darken(#EEE, 20%)
   border-top 1px solid darken(#EEE, 20%)
   flex-direction column
   padding-left 10px
