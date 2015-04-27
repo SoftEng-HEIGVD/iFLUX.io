@@ -1,0 +1,19 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: organization
+    schemaBaseName: organization
+    exampleGetResponse: !include ../examples/organizations/response-array-get.json
+    examplePostRequest: !include ../examples/organizations/request-post.json
+    examplePostError: !include ../examples/organizations/response-post-error.json
+
+/{id}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: organization
+      schemaBaseName: organization
+      exampleGetResponse: !include ../examples/organizations/response-get.json
+      examplePatchRequest: !include ../examples/organizations/request-patch.json
+      examplePatchError: !include ../examples/organizations/response-patch-error.json
+  patch:

@@ -8,6 +8,7 @@ mediaType: application/json
 
 resourceTypes:
   - collection: !include resourceTypes/collection.raml
+  - collection-optional: !include resourceTypes/collection-optional.raml
   - member: !include resourceTypes/member.raml
 
 schemas:
@@ -29,78 +30,10 @@ traits:
   - auth: !include traits/authentication.raml
 
 
-/organizations:
-  is: [ auth ]
-  type:
-    collection:
-      humanName: organization
-      schemaBaseName: organization
-      exampleGetResponse: !include examples/organizations/response-array-get.json
-      examplePostRequest: !include examples/organizations/request-post.json
-      examplePostError: !include examples/organizations/response-post-error.json
-
-  /{id}:
-    is: [ auth ]
-    type:
-      member:
-        humanName: organization
-        schemaBaseName: organization
-        exampleGetResponse: !include examples/organizations/response-get.json
-        examplePatchRequest: !include examples/organizations/request-patch.json
-        examplePatchError: !include examples/organizations/response-patch-error.json
-    patch:
-
-/templates:
-  description: Manage different tempaltes
-
-  /eventSources:
-    is: [ auth ]
-    type:
-      collection:
-        humanName: event source template
-        schemaBaseName: eventSourceTemplate
-        exampleGetResponse: !include examples/templates/eventSources/response-array-get.json
-        examplePostRequest: !include examples/templates/eventSources/request-post.json
-        examplePostError: !include examples/templates/eventSources/response-post-error.json
-
-  /{id}:
-    is: [ auth ]
-    type:
-      member:
-        humanName: event source template
-        schemaBaseName: eventSourceTemplate
-        exampleGetResponse: !include examples/templates/eventSources/response-get.json
-        examplePatchRequest: !include examples/templates/eventSources/request-patch.json
-        examplePatchError: !include examples/templates/eventSources/response-patch-error.json
-    patch:
-      queryParameters:
-        _remark:
-          description: |
-            `configurationSchema`, `callbackUrl` and `callbackToken` are mandatory. In the `PATCH` method, it means
-            that the result saved MUST contain all the three information. If they are already present, patchin one at a time is
-            possible.
-
-/users:
-  is: [ auth ]
-  type:
-    collection:
-      humanName: user
-      schemaBaseName: user
-      exampleGetResponse: !include examples/users/response-array-get.json
-      examplePostRequest: !include examples/users/request-post.json
-      examplePostError: !include examples/users/response-post-error.json
-
-  /{id}:
-    is: [ auth ]
-    type:
-      member:
-        humanName: user
-        schemaBaseName: user
-        exampleGetResponse: !include examples/users/response-get.json
-        examplePatchRequest: !include examples/users/request-patch.json
-        examplePatchError: !include examples/users/response-patch-error.json
-    patch:
-
+/me: !include resources/me.raml
+/organizations: !include resources/organizations.raml
+/templates: !include resources/templates.raml
+/users: !include resources/users.raml
 
 
 /events:

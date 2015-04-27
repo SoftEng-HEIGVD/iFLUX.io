@@ -1,0 +1,30 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: event source template
+    schemaBaseName: eventSourceTemplate
+    exampleGetResponse: !include ../../examples/templates/eventSources/response-array-get.json
+    examplePostRequest: !include ../../examples/templates/eventSources/request-post.json
+    examplePostError: !include ../../examples/templates/eventSources/response-post-error.json
+get:
+  description: Get all public event source templates.
+  responses:
+    200:
+      description: List of event source templates or empty list `[]`. Only the `public` event source templates are returned.
+
+/{id}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: event source template
+      schemaBaseName: eventSourceTemplate
+      exampleGetResponse: !include ../../examples/templates/eventSources/response-get.json
+      examplePatchRequest: !include ../../examples/templates/eventSources/request-patch.json
+      examplePatchError: !include ../../examples/templates/eventSources/response-patch-error.json
+  patch:
+    queryParameters:
+      _remark:
+        description: |
+          `configurationSchema`, `callbackUrl` and `callbackToken` are mandatory. In the `PATCH` method, it means
+          that the result saved MUST contain all the three information. If they are already present, patchin one at a time is
+          possible.

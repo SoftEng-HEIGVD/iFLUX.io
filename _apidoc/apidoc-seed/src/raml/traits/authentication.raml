@@ -4,3 +4,9 @@ headers:
     type: string
     required: true
     example: 'Authorization: Bearer {Repalce by a real JSON Web Token}'
+
+responses:
+  401:
+    description: Authorization required. Your credentials seems to be wrong or missing.
+  403:
+    description: You don't have the permission to access to this resource.

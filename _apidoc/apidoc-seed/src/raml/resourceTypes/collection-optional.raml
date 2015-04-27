@@ -1,7 +1,7 @@
 usage: This resourceType should be used for any collection of items
 description: The collection of <<humanName | !pluralize>>.
 
-get:
+get?:
   description: |
     Get all <<humanName | !pluralize>>
   responses:
@@ -11,7 +11,7 @@ get:
         schema: <<schemaBaseName>>-getAll
         example: <<exampleGetResponse>>
 
-post:
+post?:
   description: Create a new <<humanName>>
   body:
     schema: <<schemaBaseName>>-post
