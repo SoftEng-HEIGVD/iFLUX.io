@@ -11,9 +11,11 @@
     description: Retrieve the list of all organization where the user is part of.
 
   /templates:
-    description: Management of the iFLUX templates.
+    description: Management of the iFLUX templates for all user's organizations.
 
     /eventSources:
+      description: The collection of event source templates for all the user's organizations.
+
       is: [ auth ]
       type:
         collection-optional:
@@ -32,7 +34,7 @@
             description: When organization is not found.
 
   /{id}/templates:
-    description: Management of the iFLUX templates.
+    description: Management of the iFLUX templates by organization.
 
     uriParameters:
       id:
@@ -42,6 +44,8 @@
         minimum: 1
 
     /eventSources:
+      description: The collection of event source templates for the specific organization.
+
       is: [ auth ]
       type:
         collection-optional:
