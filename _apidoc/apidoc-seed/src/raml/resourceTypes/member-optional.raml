@@ -1,0 +1,51 @@
+usage: This resourceType should be used for any member of collection.
+
+uriParameters:
+  id:
+    description: The unique identifier of the <<humanName>> resource.
+    type: integer
+    example: 1
+    minimum: 1
+
+description: The <<humanName>>
+
+get?:
+  description: Get the specific <<humanName>>
+  responses:
+    200:
+      body:
+        schema: <<schemaBaseName>>-get
+        example: <<exampleGetResponse>>
+    404:
+      description: Returned when the ID for the resource <<resourcePathName | !singularize>> is not found.
+
+patch?:
+  description: Patch the specific <<humanName>>
+  body:
+    schema: <<schemaBaseName>>-patch
+    example: <<examplePatchRequest>>
+  responses:
+    201:
+      description: Returned when at least one field is updated on the resource <<humanName | !pluralize>>.
+      headers:
+        location:
+          description: Use the URL to retrieve the <<humanName>> resource.
+          type: string
+          example: "Location: <<resourcePath>>"
+    304:
+      description: Returned when the resource <<humanName>> is not modified.
+    404:
+      description: Returned when the ID for the resource <<humanName>> is not found.
+    422:
+      description: Validation errors
+      body:
+        schema: errors
+        example: <<examplePatchError>>
+
+delete?:
+  description: Delete the specific <<humanName>>
+  responses:
+    200:
+      description: Returned when the resource <<humanName>> is deleted.
+    404:
+      description: Returned when the ID for the resource <<humanName>> is not found.

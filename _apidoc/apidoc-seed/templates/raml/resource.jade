@@ -80,7 +80,7 @@ mixin resource(resource, level)
 		h4.resource-title
 			.resource-title-uri
 				a.toggle(data-ref='##{resource.uniqueId} > .collapse-level-#{level}')
-					span.parent=resource.parentUrl
+					//span.parent=resource.parentUrl
 					span.child=resource.relativeUri
 
 			if resource.description

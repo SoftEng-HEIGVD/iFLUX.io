@@ -9,3 +9,49 @@
       examplePostError: !include ../examples/organizations/response-post-error.json
   get:
     description: Retrieve the list of all organization where the user is part of.
+
+  /templates:
+    description: Management of the iFLUX templates.
+
+    /eventSources:
+      is: [ auth ]
+      type:
+        collection-optional:
+          humanName: event source template
+          schemaBaseName: eventSourceTemplate
+          exampleGetResponse: !include ../examples/templates/eventSources/response-array-get.json
+          examplePostRequest: !include ../examples/templates/eventSources/request-post.json
+          examplePostError: !include ../examples/templates/eventSources/response-post-error.json
+      get:
+        description: Get all tempaltes of the user's organizations.
+
+        responses:
+          200:
+            description: List of event source templates related from all the organizations of the user.
+
+  /{id}/templates:
+    description: Management of the iFLUX templates.
+
+    uriParameters:
+      id:
+        description: The unique identifier of the organization.
+        type: integer
+        example: 1
+        minimum: 1
+
+    /eventSources:
+      is: [ auth ]
+      type:
+        collection-optional:
+          humanName: event source template
+          schemaBaseName: eventSourceTemplate
+          exampleGetResponse: !include ../examples/templates/eventSources/response-array-get.json
+          examplePostRequest: !include ../examples/templates/eventSources/request-post.json
+          examplePostError: !include ../examples/templates/eventSources/response-post-error.json
+      get:
+        description: Get all tempaltes for the specified organization.
+
+        responses:
+          200:
+            description: List of event source templates related to the specific organization.
+
