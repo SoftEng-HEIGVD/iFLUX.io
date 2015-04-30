@@ -8,8 +8,9 @@ mediaType: application/json
 
 resourceTypes:
   - collection: !include resourceTypes/collection.raml
-  - collection-optional: !include resourceTypes/collection-optional.raml
+  - collection-optional: !include resourceTypes/collectionOptional.raml
   - member: !include resourceTypes/member.raml
+  - member-optional: !include resourceTypes/memberOptional.raml
 
 schemas:
   - errors: !include schemas/errors.json
@@ -17,6 +18,10 @@ schemas:
   - eventSourceTemplate-patch: !include schemas/templates/eventSources/request-patch.json
   - eventSourceTemplate-post: !include schemas/templates/eventSources/request-post.json
   - eventSourceTemplate-getAll: !include schemas/templates/eventSources/response-array-get.json
+  - eventType-get: !include schemas/templates/eventTypes/response-get.json
+  - eventType-patch: !include schemas/templates/eventTypes/request-patch.json
+  - eventType-post: !include schemas/templates/eventTypes/request-post.json
+  - eventType-getAll: !include schemas/templates/eventTypes/response-array-get.json
   - organization-get: !include schemas/organizations/response-get.json
   - organization-patch: !include schemas/organizations/request-patch.json
   - organization-post: !include schemas/organizations/request-post.json
@@ -30,7 +35,7 @@ traits:
   - auth: !include traits/authentication.raml
 
 
-/me: !include resources/me.raml
+/me: !include resources/me/organizations.raml
 /organizations: !include resources/organizations.raml
 /templates: !include resources/templates.raml
 /users: !include resources/users.raml

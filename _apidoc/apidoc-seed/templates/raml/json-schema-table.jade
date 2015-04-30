@@ -124,7 +124,7 @@ mixin enum(property)
 					code= value
 
 
-mixin constraints(property, name, required)
+mixin jsonSchemaConstraints(property, name, required)
 	if required && required.indexOf(name) > -1
 		.badge.badge-required required
 
@@ -157,7 +157,7 @@ mixin propertyRowContent(name, property, required, level)
 						| item
 		.flex-table-cell.center= property.type
 		.flex-table-cell.s2
-			+constraints(property, name, required)
+			+jsonSchemaConstraints(property, name, required)
 		.flex-table-cell.s2!= helpers.marked(property.description)
 
 mixin propertyRow(name, property, required, level)
@@ -198,7 +198,7 @@ mixin jsonSchemaTable(schema)
 				.flex-table-headers
 					.flex-table-header Property
 					.flex-table-header.center Type
-					.flex-table-header.s2 Constraints
+					.flex-table-header.s2 jsonSchemaConstraints
 					.flex-table-header.s2 Description
 
 				if schema.title || schema.description

@@ -1,6 +1,6 @@
 is: [ auth ]
 type:
-  collection:
+  collection-optional:
     humanName: event source template
     schemaBaseName: eventSourceTemplate
     exampleGetResponse: !include ../../examples/templates/eventSources/response-array-get.json
@@ -12,19 +12,16 @@ get:
     200:
       description: List of event source templates or empty list `[]`. Only the `public` event source templates are returned.
 
-/{id}:
+/{eventSourceId}:
   is: [ auth ]
   type:
     member:
       humanName: event source template
       schemaBaseName: eventSourceTemplate
+      identifierName: eventSourceTemplateId
       exampleGetResponse: !include ../../examples/templates/eventSources/response-get.json
       examplePatchRequest: !include ../../examples/templates/eventSources/request-patch.json
       examplePatchError: !include ../../examples/templates/eventSources/response-patch-error.json
-  patch:
-    queryParameters:
-      _remark:
-        description: |
-          `configurationSchema`, `callbackUrl` and `callbackToken` are mandatory. In the `PATCH` method, it means
-          that the result saved MUST contain all the three information. If they are already present, patchin one at a time is
-          possible.
+  get:
+
+  /eventTypes: !include eventTypes.raml

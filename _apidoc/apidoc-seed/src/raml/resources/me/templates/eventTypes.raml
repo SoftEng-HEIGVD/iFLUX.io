@@ -1,0 +1,25 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: event type
+    schemaBaseName: eventType
+    exampleGetResponse: !include ../../../examples/templates/eventTypes/response-array-get.json
+    examplePostRequest: !include ../../../examples/templates/eventTypes/request-post.json
+    examplePostError: !include ../../../examples/templates/eventTypes/response-post-error.json
+get:
+  description: Get all event types for the event source template.
+  responses:
+    200:
+      description: List of event types or empty list `[]`. Only the associated types for the event source template are retrieved..
+
+/{eventTypeId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: event types
+      schemaBaseName: eventType
+      identifierName: eventTypeId
+      exampleGetResponse: !include ../../../examples/templates/eventTypes/response-get.json
+      examplePatchRequest: !include ../../../examples/templates/eventTypes/request-patch.json
+      examplePatchError: !include ../../../examples/templates/eventTypes/response-patch-error.json
+  patch:

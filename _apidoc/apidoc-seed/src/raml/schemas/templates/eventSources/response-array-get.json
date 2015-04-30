@@ -25,7 +25,7 @@
         "properties": {
           "schema": {
             "description": "A valid JSON Schema.",
-            "type": "string"
+            "type": "json"
           },
           "callbackUrl": {
             "description": "The configuration callback URL.",

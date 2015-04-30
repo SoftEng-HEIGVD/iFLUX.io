@@ -1,0 +1,18 @@
+description: The collection of event source templates for all the user's organizations.
+
+is: [ auth ]
+type:
+  collection-optional:
+    humanName: event source template
+    schemaBaseName: eventSourceTemplate
+    exampleGetResponse: !include ../../examples/templates/eventSources/response-array-get.json
+    examplePostRequest: !include ../../examples/templates/eventSources/request-post.json
+    examplePostError: !include ../../examples/templates/eventSources/response-post-error.json
+get:
+  description: Get all tempaltes of the user's organizations.
+
+  responses:
+    200:
+      description: List of event source templates related from all the organizations of the user.
+    404:
+      description: When organization is not found.

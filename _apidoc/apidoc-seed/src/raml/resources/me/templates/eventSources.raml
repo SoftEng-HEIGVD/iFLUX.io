@@ -1,0 +1,32 @@
+description: The collection of event source templates for the specific organization.
+
+is: [ auth ]
+type:
+  collection:
+    humanName: event source template
+    schemaBaseName: eventSourceTemplate
+    exampleGetResponse: !include ../../../examples/templates/eventSources/response-array-get.json
+    examplePostRequest: !include ../../../examples/templates/eventSources/request-post.json
+    examplePostError: !include ../../../examples/templates/eventSources/response-post-error.json
+get:
+  description: Get all tempaltes for the specified organization.
+
+  responses:
+    200:
+      description: List of event source templates related to the specific organization.
+    404:
+      description: When organization is not found.
+
+/{eventSourceId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: event source template
+      schemaBaseName: eventSourceTemplate
+      identifierName: eventSourceTemplateId
+      exampleGetResponse: !include ../../../examples/templates/eventSources/response-get.json
+      examplePatchRequest: !include ../../../examples/templates/eventSources/request-patch.json
+      examplePatchError: !include ../../../examples/templates/eventSources/response-patch-error.json
+  patch:
+
+  /eventTypes: !include eventTypes.raml
