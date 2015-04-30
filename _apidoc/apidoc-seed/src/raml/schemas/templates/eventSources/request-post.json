@@ -7,10 +7,6 @@
       "description": "A name to identify the event source template",
       "type": "string"
     },
-    "organizationId": {
-      "description": "The organization that propose the event source template.",
-      "type": "integer"
-    },
     "configuration": {
       "description": "Providing a schema aims to help the WUI to configure the instances.",
       "type": "object",
