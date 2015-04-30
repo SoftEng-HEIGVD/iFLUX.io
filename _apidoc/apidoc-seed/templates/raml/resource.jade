@@ -107,7 +107,8 @@ mixin resource(resource, level)
 							span.url #{resource.parentUrl}#{resource.relativeUri}
 
 						.method-body
-							.description!= helpers.marked(method.description)
+							if method.description
+								.description!= helpers.marked(method.description)
 
 							.method-section
 								h3(data-toggle='collapse', href='##{resource.uniqueId}-#{method.method}-request') Request

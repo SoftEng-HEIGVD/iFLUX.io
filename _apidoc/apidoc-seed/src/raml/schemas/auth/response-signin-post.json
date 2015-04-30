@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Authentication successful result",
+  "type": "object",
+  "properties": {
+    "token": {
+      "description": "The JSON Web Token.",
+      "type": "string"
+    }
+  },
+  "required": [ "token" ]
+}

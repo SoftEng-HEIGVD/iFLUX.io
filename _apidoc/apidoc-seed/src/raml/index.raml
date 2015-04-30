@@ -13,6 +13,8 @@ resourceTypes:
   - member-optional: !include resourceTypes/memberOptional.raml
 
 schemas:
+  - auth-signin-post-req: !include schemas/auth/request-signin-post.json
+  - auth-signin-post-res: !include schemas/auth/response-signin-post.json
   - errors: !include schemas/errors.json
   - eventSourceTemplate-get: !include schemas/templates/eventSources/response-get.json
   - eventSourceTemplate-patch: !include schemas/templates/eventSources/request-patch.json
@@ -34,7 +36,7 @@ schemas:
 traits:
   - auth: !include traits/authentication.raml
 
-
+/auth: !include resources/auth.raml
 /me: !include resources/me/organizations.raml
 /organizations: !include resources/organizations.raml
 /templates: !include resources/templates.raml
