@@ -12,3 +12,18 @@
           example: !include ../examples/auth/response-signin-post.json
       401:
         description: Most probably bad credentials were provided.
+
+/register:
+  description: Allow a user to create his account.
+  post:
+    body:
+      schema: auth-register-post-req
+      example: !include ../examples/auth/request-register-post.json
+    responses:
+      200:
+        description: Account created correctly.
+      422:
+        description: Most probably bad credentials were provided.
+        body:
+          schema: errors
+          example: !include ../examples/auth/response-register-post-error.json

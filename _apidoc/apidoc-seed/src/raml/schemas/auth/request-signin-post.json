@@ -3,7 +3,7 @@
   "title": "Authentication Signin",
   "type": "object",
   "properties": {
-    "username": {
+    "email": {
       "type": "string"
     },
     "password": {

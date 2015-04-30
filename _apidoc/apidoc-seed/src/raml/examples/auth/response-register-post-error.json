@@ -1,0 +1,11 @@
+{
+  "firstName": [
+    "The firstName must be at least 2 characters long"
+  ],
+  "password": [
+    "Password does not match"
+  ],
+  "email": [
+    "Address email is already taken."
+  ]
+}
