@@ -1,6 +1,7 @@
 /signin:
   description: Allow the users to authenticate and retrieve the JSON Web Token
   post:
+    securedBy: [ test ]
     body:
       schema: auth-signin-post-req
       example: !include ../examples/auth/request-signin-post.json
@@ -16,6 +17,7 @@
 /register:
   description: Allow a user to create his account.
   post:
+    securedBy: [ test ]
     body:
       schema: auth-register-post-req
       example: !include ../examples/auth/request-register-post.json

@@ -6,6 +6,11 @@ type:
     exampleGetResponse: !include ../examples/organizations/response-array-get.json
     examplePostRequest: !include ../examples/organizations/request-post.json
     examplePostError: !include ../examples/organizations/response-post-error.json
+get:
+  securedBy: [ test ]
+post:
+  securedBy: [ test ]
+  description: Create a new organization and assign the signed in user.
 
 /{organizationId}:
   is: [ auth ]
@@ -17,4 +22,12 @@ type:
       exampleGetResponse: !include ../examples/organizations/response-get.json
       examplePatchRequest: !include ../examples/organizations/request-patch.json
       examplePatchError: !include ../examples/organizations/response-patch-error.json
+  get:
+    securedBy: [ test ]
+
   patch:
+    securedBy: [ jwt: { type: 'owner' }, test ]
+    description: Patch the organization. **Can only be done by a user associated to the organization.**
+    responses:
+      404:
+        description: When the organization is not found or is not associated with the singned in user.

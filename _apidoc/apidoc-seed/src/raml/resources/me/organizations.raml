@@ -16,13 +16,7 @@
     /eventSources: !include eventSources.raml
 
   /{organizationId}/templates:
+    is: [ auth ]
     description: Management of the iFLUX templates by organization.
-
-    uriParameters:
-      organizationId:
-        description: The unique identifier of the organization.
-        type: integer
-        example: 1
-        minimum: 1
 
     /eventSources: !include templates/eventSources.raml

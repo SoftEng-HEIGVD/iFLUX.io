@@ -92,7 +92,14 @@ mixin resource(resource, level)
 				if resource.methods
 					each method in resource.methods
 						a(data-toggle='collapse', data-target='##{resource.uniqueId}-#{method.method}')
-							span.badge(id='#{method.method}_#{resource.uniqueId}', class="badge-#{method.method}") #{method.method}
+							span.badge(id='#{method.method}_#{resource.uniqueId}', class="badge-#{method.method}")
+								| #{method.method}
+								if helpers.is(resource, method, 'auth')
+									i.glyphicon.glyphicon-lock
+								if helpers.isSecuredBy(method, 'jwt', 'owner')
+									i.glyphicon.glyphicon-user
+								if helpers.isSecuredBy(method, 'test', null)
+									i.glyphicon.glyphicon-ok
 
 		if resource.description && helpers.isShortable(resource.description)
 			.description.panel-collapse.collapse(id='#{resource.uniqueId}-description', class='#{helpers.toggleStateClass()}')!= helpers.marked(resource.description)

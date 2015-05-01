@@ -6,6 +6,30 @@ version: v1
 protocols: [HTTPS]
 mediaType: application/json
 
+securitySchemes:
+  - jwt:
+      description: JSON Web Token authentication.
+      type: "x-{jwt}"
+  - test:
+      description: Marker for tested resources.
+      type: "x-{test}"
+#      describedBy:
+#        headers:
+#          Authorization:
+#            description: JSON Web Token for authentication.
+#            type: string
+#            required: true
+#            example: 'Authorization: Bearer {Repalce by a real JSON Web Token}'
+#
+#        responses:
+#          401:
+#            description: Authorization required. Your credentials seems to be wrong or missing.
+#          403:
+#            description: You don't have the permission to access to this resource.
+#
+#      settings:
+#        roles: <<roles>>
+
 resourceTypes:
   - collection: !include resourceTypes/collection.raml
   - collection-optional: !include resourceTypes/collectionOptional.raml
@@ -36,6 +60,8 @@ schemas:
 
 traits:
   - auth: !include traits/authentication.raml
+
+
 
 /auth: !include resources/auth.raml
 /me: !include resources/me/organizations.raml
