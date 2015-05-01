@@ -7,6 +7,7 @@ type:
     examplePostRequest: !include ../examples/eventSourceTemplates/request-post.json
     examplePostError: !include ../examples/eventSourceTemplates/response-post-error.json
 get:
+  securedBy: [ test ]
   description: |
     By default, retrieve all the public event source template that a user can visualize.
 
