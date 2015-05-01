@@ -41,14 +41,14 @@ schemas:
   - auth-signin-post-res: !include schemas/auth/response-signin-post.json
   - auth-register-post-req: !include schemas/auth/request-register-post.json
   - errors: !include schemas/errors.json
-  - eventSourceTemplate-get: !include schemas/templates/eventSources/response-get.json
-  - eventSourceTemplate-patch: !include schemas/templates/eventSources/request-patch.json
-  - eventSourceTemplate-post: !include schemas/templates/eventSources/request-post.json
-  - eventSourceTemplate-getAll: !include schemas/templates/eventSources/response-array-get.json
-  - eventType-get: !include schemas/templates/eventTypes/response-get.json
-  - eventType-patch: !include schemas/templates/eventTypes/request-patch.json
-  - eventType-post: !include schemas/templates/eventTypes/request-post.json
-  - eventType-getAll: !include schemas/templates/eventTypes/response-array-get.json
+  - eventSourceTemplate-get: !include schemas/eventSourceTemplates/response-get.json
+  - eventSourceTemplate-patch: !include schemas/eventSourceTemplates/request-patch.json
+  - eventSourceTemplate-post: !include schemas/eventSourceTemplates/request-post.json
+  - eventSourceTemplate-getAll: !include schemas/eventSourceTemplates/response-array-get.json
+  - eventType-get: !include schemas/eventTypes/response-get.json
+  - eventType-patch: !include schemas/eventTypes/request-patch.json
+  - eventType-post: !include schemas/eventTypes/request-post.json
+  - eventType-getAll: !include schemas/eventTypes/response-array-get.json
   - organization-get: !include schemas/organizations/response-get.json
   - organization-patch: !include schemas/organizations/request-patch.json
   - organization-post: !include schemas/organizations/request-post.json
@@ -64,9 +64,9 @@ traits:
 
 
 /auth: !include resources/auth.raml
+/eventSourceTemplates: !include resources/eventSourceTemplates.raml
 /me: !include resources/me/organizations.raml
 /organizations: !include resources/organizations.raml
-/templates: !include resources/templates.raml
 /users: !include resources/users.raml
 
 

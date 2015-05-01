@@ -1,0 +1,53 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: event source template
+    schemaBaseName: eventSourceTemplate
+    exampleGetResponse: !include ../examples/eventSourceTemplates/response-array-get.json
+    examplePostRequest: !include ../examples/eventSourceTemplates/request-post.json
+    examplePostError: !include ../examples/eventSourceTemplates/response-post-error.json
+get:
+  description: |
+    By default, retrieve all the public event source template that a user can visualize.
+
+    - If an `organizationId` is provided, then all the event source templates of the organization are
+    retrieved. The user must be a member of the organization, otherwise, he will get a `403`.
+
+    - If `allOrganizations` is used, therfore, all the event source templates for all the organizations where the user
+    is member are retrived.
+
+    - If `organizationId` and `allOrganizations` are specified together, then only `organizationId` take effect.
+  queryParameters:
+    organizationId:
+      description: Filter the event source template by organization. The user **MUST** be member of the organization.
+      type: boolean
+      required: false
+      example: |
+        `organizationId=1`
+    allOrganizations:
+      description: Filter the event source template to retrieve all of them accross all the organizations where the user is member of.
+      type: boolean
+      required: false
+      example: |
+        `allOrganizations` or `allOrganizations=true`
+
+  responses:
+    403:
+      description: If the user is not a member of the organization that owns the event source template.
+post:
+  securedBy: [ test ]
+
+
+/{eventSourceId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: event source template
+      schemaBaseName: eventSourceTemplate
+      identifierName: eventSourceTemplateId
+      exampleGetResponse: !include ../examples/eventSourceTemplates/response-get.json
+      examplePatchRequest: !include ../examples/eventSourceTemplates/request-patch.json
+      examplePatchError: !include ../examples/eventSourceTemplates/response-patch-error.json
+  get:
+
+  /eventTypes: !include eventTypes.raml

@@ -12,11 +12,13 @@ mixin minConstraint(minimum, maximum)
 mixin constraints(item)
 	.constraints
 		.constraint
-			if item.required || item.repeat
+			if item.required || item.repeat || item.default != undefined
 				if item.required
 					.badge.badge-required required
 				if item.repeat
 					.badge.badge-repeat repeat
+				if item.default != undefined
+					.badge.badge-repeat default: #{item.default}
 
 			if item.minimum || item.maximum
 				+minConstraint(item.minimum, item.maximum)

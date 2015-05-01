@@ -20,7 +20,7 @@
         "type": "boolean"
       },
       "organizationId": {
-        "description": "The organization that propose the event source template.",
+        "description": "The organization that offer the event source template.",
         "type": "integer"
       },
       "configuration": {

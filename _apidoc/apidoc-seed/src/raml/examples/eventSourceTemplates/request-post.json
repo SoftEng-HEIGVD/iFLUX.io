@@ -1,6 +1,7 @@
 {
   "name": "iFlux thermometer",
   "public": true,
+  "organizationId": 1,
   "configuration": {
     "schema": {
       "$schema": "http://json-schema.org/draft-04/schema#",

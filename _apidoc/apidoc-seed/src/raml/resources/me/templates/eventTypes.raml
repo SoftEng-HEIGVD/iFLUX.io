@@ -3,9 +3,9 @@ type:
   collection:
     humanName: event type
     schemaBaseName: eventType
-    exampleGetResponse: !include ../../../examples/templates/eventTypes/response-array-get.json
-    examplePostRequest: !include ../../../examples/templates/eventTypes/request-post.json
-    examplePostError: !include ../../../examples/templates/eventTypes/response-post-error.json
+    exampleGetResponse: !include ../../../examples/eventTypes/response-array-get.json
+    examplePostRequest: !include ../../../examples/eventTypes/request-post.json
+    examplePostError: !include ../../../examples/eventTypes/response-post-error.json
 get:
   description: Get all event types for the event source template.
   responses:
@@ -19,7 +19,7 @@ get:
       humanName: event types
       schemaBaseName: eventType
       identifierName: eventTypeId
-      exampleGetResponse: !include ../../../examples/templates/eventTypes/response-get.json
-      examplePatchRequest: !include ../../../examples/templates/eventTypes/request-patch.json
-      examplePatchError: !include ../../../examples/templates/eventTypes/response-patch-error.json
+      exampleGetResponse: !include ../../../examples/eventTypes/response-get.json
+      examplePatchRequest: !include ../../../examples/eventTypes/request-patch.json
+      examplePatchError: !include ../../../examples/eventTypes/response-patch-error.json
   patch:

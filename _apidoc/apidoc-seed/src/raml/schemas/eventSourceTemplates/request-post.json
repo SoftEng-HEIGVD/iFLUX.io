@@ -2,22 +2,13 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Event source template",
   "type": "object",
-  "description": "Event source templates.",
   "properties": {
-    "id": {
-      "description": "Unique identifier given by the server",
-      "type": "integer"
-    },
     "name": {
       "description": "A name to identify the event source template",
       "type": "string"
     },
-    "public": {
-      "description": "Make the event source template available to everybody.",
-      "type": "boolean"
-    },
     "organizationId": {
-      "description": "The organization that propose the event source template.",
+      "description": "The organization to link the event source template",
       "type": "integer"
     },
     "configuration": {
@@ -37,8 +28,12 @@
           "type": "string"
         }
       },
-      "required": [ "schema",  "callbackUrl", "callbackToken" ]
+      "required": [ "schema", "callbackUrl", "callbackToken" ]
+    },
+    "public": {
+      "description": "Make the event source template available to everybody.",
+      "type": "boolean"
     }
   },
-  "required": [ "id", "name", "public", "organizationId" ]
+  "required": [ "name", "organizationId" ]
 }
