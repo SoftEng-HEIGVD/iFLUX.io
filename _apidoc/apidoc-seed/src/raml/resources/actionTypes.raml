@@ -1,0 +1,56 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: action type
+    schemaBaseName: actionType
+    exampleGetResponse: !include ../examples/actionTypes/response-array-get.json
+    examplePostRequest: !include ../examples/actionTypes/request-post.json
+    examplePostError: !include ../examples/actionTypes/response-post-error.json
+get:
+  securedBy: [ jwt: { type: 'owner' } ]
+  description: |
+    You cannot retrieve all the action types accross all the action target templates. You **MUST** provide
+    the `actionTargetTemplateId` to get all the action types from it.
+  queryParameters:
+    actionTargetTemplateId:
+      description: |
+        Filter the action type by action target template.
+
+        The user **MUST** be a member of the organization where the action target template is defined.
+      type: boolean
+      required: true
+      example: |
+        `actionTargetTemplateId=1`
+  responses:
+    200:
+      description: List of action types or empty list `[]`.
+    422:
+      description: If the `actionTargetTemplateId` is not provided.
+    403:
+      description: If the user is not a member of the organization that owns the action target template.
+post:
+  securedBy: [ jwt: { type: 'owner' } ]
+  responses:
+    403:
+      description: If the user is not a member of the organization that owns the action target template.
+
+/{actionTypeId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: action types
+      schemaBaseName: actionType
+      identifierName: actionTypeId
+      exampleGetResponse: !include ../examples/actionTypes/response-get.json
+      examplePatchRequest: !include ../examples/actionTypes/request-patch.json
+      examplePatchError: !include ../examples/actionTypes/response-patch-error.json
+  get:
+    securedBy: [ jwt: { type: 'owner' } ]
+    responses:
+      403:
+        description: If the user is not a member of the organization that owns the action target template.
+  patch:
+    securedBy: [ jwt: { type: 'owner' } ]
+    responses:
+      403:
+        description: If the user is not a member of the organization that owns the action target template.

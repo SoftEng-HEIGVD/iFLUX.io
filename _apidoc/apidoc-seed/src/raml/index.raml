@@ -49,6 +49,10 @@ schemas:
   - actionTargetTemplate-patch: !include schemas/actionTargetTemplates/request-patch.json
   - actionTargetTemplate-post: !include schemas/actionTargetTemplates/request-post.json
   - actionTargetTemplate-getAll: !include schemas/actionTargetTemplates/response-array-get.json
+  - actionType-get: !include schemas/actionTypes/response-get.json
+  - actionType-patch: !include schemas/actionTypes/request-patch.json
+  - actionType-post: !include schemas/actionTypes/request-post.json
+  - actionType-getAll: !include schemas/actionTypes/response-array-get.json
   - eventSourceInstance-get: !include schemas/eventSourceInstances/response-get.json
   - eventSourceInstance-patch: !include schemas/eventSourceInstances/request-patch.json
   - eventSourceInstance-post: !include schemas/eventSourceInstances/request-post.json
@@ -65,6 +69,10 @@ schemas:
   - organization-patch: !include schemas/organizations/request-patch.json
   - organization-post: !include schemas/organizations/request-post.json
   - organization-getAll: !include schemas/organizations/response-array-get.json
+  - rule-get: !include schemas/rules/response-get.json
+  - rule-patch: !include schemas/rules/request-patch.json
+  - rule-post: !include schemas/rules/request-post.json
+  - rule-getAll: !include schemas/rules/response-array-get.json
   - user-get: !include schemas/users/response-get.json
   - user-patch: !include schemas/users/request-patch.json
   - user-post: !include schemas/users/request-post.json
@@ -78,10 +86,12 @@ traits:
 /auth: !include resources/auth.raml
 /actionTargetInstances: !include resources/actionTargetInstances.raml
 /actionTargetTemplates: !include resources/actionTargetTemplates.raml
+/actionTypes: !include resources/actionTypes.raml
 /eventSourceInstances: !include resources/eventSourceInstances.raml
 /eventSourceTemplates: !include resources/eventSourceTemplates.raml
 /eventTypes: !include resources/eventTypes.raml
 /organizations: !include resources/organizations.raml
+/rules: !include resources/rules.raml
 /users: !include resources/users.raml
 
 
@@ -116,162 +126,166 @@ traits:
       202:
         description: Accepted
 
-/actions:
-  description: This endpoint is implemented by action targets (e.g. actuators) and invoked by the iFLUX middleware to trigger actions.
-  post:
-    description: Trigger a list of actions, after the evaluation of rules and in reaction to the notification of events. The actions can be processes asynchronously.
-    body:
-      application/json:
-        example: |
-          [
-            {
-              "context" : {
-                "event" : "not used in this version of the api",
-                "rule" : "not used in this version of the api",
-              },
-              "type" : "/actionTypes/sendAlertViaEmailSchema",
-              "properties" : {
-                "email" : "user.name@iflux.io",
-                "subject" : "Alert: something has happened!",
-                "body" : "An event has been notified to iFLUX by a source and a rule states that we should inform you about it."
-              }
-            },
-            {
-              "context" : {
-                "event" : "not used in this version of the api",
-                "rule" : "not used in this version of the api",
-              },
-              "type" : "/actionTypes/sendAlertViaEmailSchema",
-              "properties" : {
-                "email" : "user.name@iflux.io",
-                "subject" : "Alert: something has happened!",
-                "body" : "An event has been notified to iFLUX by a source and a rule states that we should inform you about it."
-              }
-            }
-          ]
-    responses:
-      202:
-        description: Accepted
+# ######################################################################################################################
+# LEGACY
+# ######################################################################################################################
 
-/rules:
-  description: This endpoint is used to manage the rules evaluated by iFLUX when events are notified.
-  get:
-    description: Get the list of rules.
-    responses:
-      200:
-        body:
-          application/json:
-            example: |
-              [
-                {
-                  "description": "If any event is notified, then write a message in Slack",
-                  "reference": "NOVA-TIME-EVENT",
-                  "enabled": true,
-                  "if": {
-                    "eventSource": "*",
-                    "eventType": "io.iflux.events.current-time-event",
-                    "eventProperties": {}
-                  },
-                  "then": {
-                    "actionTarget": "https://nova-slack.herokuapp.com",
-                    "actionSchema": "{\"type\":\"sendSlackMessage\",\"properties\":{\"channel\":\"aware\",\"message\":\"Tic Tac. ({{ timestamp }}) {{ properties.description}} {{ properties.hostname}}.\"}}"
-                  },
-                  "id": "1"
-                }
-              ]
-
-  post:
-    description: Create a new rule.
-    body:
-      application/json:
-        example: |
-          {
-            "description" : "When a temperature event is received, notify Bob by email.",
-            "reference": "TEMPERATURE-EMAIL-NOTIFICATION",
-            "enabled": true,
-            "if" : {
-              "eventSource" : "/event-sources/JI8928JFK",
-              "eventType" : "/eventTypes/temperatureEventSchema",
-              "eventProperties" : {}
-            }
-            "then" : {
-              "actionTarget" : "https://mail-gateway.iflux.io/api",
-              "actionSchema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
-            }
-          }
-    responses:
-      201:
-        description: Created
-  /{id}:
-    patch:
-      description: |
-        Update a rule partially. You can provide a partial content for the rule and only the content received
-        will be updated.
-      body:
-        application/json:
-          example: |
-            {
-              "description" : "When a temperature event is received, notify Bob by email.",
-            }
-
-            or
-
-            {
-              "if" : {
-                "eventSource" : "/event-sources/JI8928JFK",
-              }
-            }
-
-      responses:
-        200:
-          description: Ok
-    delete:
-      description: Delete a rule.
-      responses:
-        204:
-          description: No Content
-
-  /actionSchema:
-    /validate:
-      post:
-        description: |
-          Validates the action schema. A `sample` must be provided and must contains all the fields used in the action
-          schema. The action schema must be a valid JSON format escaped like it is send in the `POST /rules`.
-
-          The validation process will parse the JSON, convert it through the template engine `Handlebars` and finally
-          a replacement of the placeholders is done through `Handlebars`.
-        body:
-          application/json:
-            example: |
-              {
-                "sample": {
-                  "timestamp": "2015-01-12T05:22:07Z",
-                  "properties": {
-                    "location": "Lausanne",
-                    "temperature": 22.5
-                  }
-                },
-                "actionSchema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
-              }
-        responses:
-          200:
-            description: The result correspond to the action schema processed.
-            body:
-              application/json:
-                example: |
-                  {
-                    "type" : "sendEmail",
-                    "properties" : {
-                      "to" : "bob@iflux.io",
-                      "subject" : "New temperature",
-                      "body\" : "The temperature in Lausanne is now: 22.5."
-                    }
-                  }
-          422:
-            description: A processing error occured.
-            body:
-              application/json:
-                example: |
-                  {
-                    error: "Invalid JSON format"
-                  }
+#/actions:
+#  description: This endpoint is implemented by action targets (e.g. actuators) and invoked by the iFLUX middleware to trigger actions.
+#  post:
+#    description: Trigger a list of actions, after the evaluation of rules and in reaction to the notification of events. The actions can be processes asynchronously.
+#    body:
+#      application/json:
+#        example: |
+#          [
+#            {
+#              "context" : {
+#                "event" : "not used in this version of the api",
+#                "rule" : "not used in this version of the api",
+#              },
+#              "type" : "/actionTypes/sendAlertViaEmailSchema",
+#              "properties" : {
+#                "email" : "user.name@iflux.io",
+#                "subject" : "Alert: something has happened!",
+#                "body" : "An event has been notified to iFLUX by a source and a rule states that we should inform you about it."
+#              }
+#            },
+#            {
+#              "context" : {
+#                "event" : "not used in this version of the api",
+#                "rule" : "not used in this version of the api",
+#              },
+#              "type" : "/actionTypes/sendAlertViaEmailSchema",
+#              "properties" : {
+#                "email" : "user.name@iflux.io",
+#                "subject" : "Alert: something has happened!",
+#                "body" : "An event has been notified to iFLUX by a source and a rule states that we should inform you about it."
+#              }
+#            }
+#          ]
+#    responses:
+#      202:
+#        description: Accepted
+#
+#/rules:
+#  description: This endpoint is used to manage the rules evaluated by iFLUX when events are notified.
+#  get:
+#    description: Get the list of rules.
+#    responses:
+#      200:
+#        body:
+#          application/json:
+#            example: |
+#              [
+#                {
+#                  "description": "If any event is notified, then write a message in Slack",
+#                  "reference": "NOVA-TIME-EVENT",
+#                  "enabled": true,
+#                  "if": {
+#                    "eventSource": "*",
+#                    "eventType": "io.iflux.events.current-time-event",
+#                    "eventProperties": {}
+#                  },
+#                  "then": {
+#                    "actionTarget": "https://nova-slack.herokuapp.com",
+#                    "actionSchema": "{\"type\":\"sendSlackMessage\",\"properties\":{\"channel\":\"aware\",\"message\":\"Tic Tac. ({{ timestamp }}) {{ properties.description}} {{ properties.hostname}}.\"}}"
+#                  },
+#                  "id": "1"
+#                }
+#              ]
+#
+#  post:
+#    description: Create a new rule.
+#    body:
+#      application/json:
+#        example: |
+#          {
+#            "description" : "When a temperature event is received, notify Bob by email.",
+#            "reference": "TEMPERATURE-EMAIL-NOTIFICATION",
+#            "enabled": true,
+#            "if" : {
+#              "eventSource" : "/event-sources/JI8928JFK",
+#              "eventType" : "/eventTypes/temperatureEventSchema",
+#              "eventProperties" : {}
+#            }
+#            "then" : {
+#              "actionTarget" : "https://mail-gateway.iflux.io/api",
+#              "actionSchema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
+#            }
+#          }
+#    responses:
+#      201:
+#        description: Created
+#  /{id}:
+#    patch:
+#      description: |
+#        Update a rule partially. You can provide a partial content for the rule and only the content received
+#        will be updated.
+#      body:
+#        application/json:
+#          example: |
+#            {
+#              "description" : "When a temperature event is received, notify Bob by email.",
+#            }
+#
+#            or
+#
+#            {
+#              "if" : {
+#                "eventSource" : "/event-sources/JI8928JFK",
+#              }
+#            }
+#
+#      responses:
+#        200:
+#          description: Ok
+#    delete:
+#      description: Delete a rule.
+#      responses:
+#        204:
+#          description: No Content
+#
+#  /actionSchema:
+#    /validate:
+#      post:
+#        description: |
+#          Validates the action schema. A `sample` must be provided and must contains all the fields used in the action
+#          schema. The action schema must be a valid JSON format escaped like it is send in the `POST /rules`.
+#
+#          The validation process will parse the JSON, convert it through the template engine `Handlebars` and finally
+#          a replacement of the placeholders is done through `Handlebars`.
+#        body:
+#          application/json:
+#            example: |
+#              {
+#                "sample": {
+#                  "timestamp": "2015-01-12T05:22:07Z",
+#                  "properties": {
+#                    "location": "Lausanne",
+#                    "temperature": 22.5
+#                  }
+#                },
+#                "actionSchema" : "{\"type\" : \"sendEmail\", \"properties\" : {\"to\" : \"bob@iflux.io\", \"subject\" : \"New temperature\", \"body\" : \"The temperature in {{ properties.location }} is now: {{ properties.temperature }}.\" }}"
+#              }
+#        responses:
+#          200:
+#            description: The result correspond to the action schema processed.
+#            body:
+#              application/json:
+#                example: |
+#                  {
+#                    "type" : "sendEmail",
+#                    "properties" : {
+#                      "to" : "bob@iflux.io",
+#                      "subject" : "New temperature",
+#                      "body\" : "The temperature in Lausanne is now: 22.5."
+#                    }
+#                  }
+#          422:
+#            description: A processing error occured.
+#            body:
+#              application/json:
+#                example: |
+#                  {
+#                    error: "Invalid JSON format"
+#                  }

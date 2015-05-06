@@ -1,0 +1,56 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: rule
+    schemaBaseName: rule
+    exampleGetResponse: !include ../examples/rules/response-array-get.json
+    examplePostRequest: !include ../examples/rules/request-post.json
+    examplePostError: !include ../examples/rules/response-post-error.json
+get:
+  securedBy: [ jwt: { type: 'owner' } ]
+#  description: |
+#    You cannot retrieve all the event types accross all the event source templates. You **MUST** provide
+#    the `eventSourceTemplateId` to get all the event types from it.
+#  queryParameters:
+#    eventSourceTemplateId:
+#      description: |
+#        Filter the event type by event source template.
+#
+#        The user **MUST** be a member of the organization where the event source template is defined.
+#      type: boolean
+#      required: true
+#      example: |
+#        `eventSourceTemplateId=1`
+#  responses:
+#    200:
+#      description: List of event types or empty list `[]`.
+#    422:
+#      description: If the `eventSourceTemplateId` is not provided.
+#    403:
+#      description: If the user is not a member of the organization that owns the event source template.
+post:
+  securedBy: [ jwt: { type: 'owner' } ]
+#  responses:
+#    403:
+#      description: If the user is not a member of the organization that owns the event source template.
+#
+#/{ruleId}:
+#  is: [ auth ]
+#  type:
+#    member:
+#      humanName: event types
+#      schemaBaseName: eventType
+#      identifierName: eventTypeId
+#      exampleGetResponse: !include ../examples/eventTypes/response-get.json
+#      examplePatchRequest: !include ../examples/eventTypes/request-patch.json
+#      examplePatchError: !include ../examples/eventTypes/response-patch-error.json
+#  get:
+#    securedBy: [ jwt: { type: 'owner' } ]
+#    responses:
+#      403:
+#        description: If the user is not a member of the organization that owns the event source template.
+#  patch:
+#    securedBy: [ jwt: { type: 'owner' } ]
+#    responses:
+#      403:
+#        description: If the user is not a member of the organization that owns the event source template.

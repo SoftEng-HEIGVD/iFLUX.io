@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Action types.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "description": "Unique identifier given by the server",
+      "type": "integer"
+    },
+    "name": {
+      "description": "A name to identify the action type.",
+      "type": "string"
+    },
+    "description": {
+      "description": "A human description of the action type.",
+      "type": "string"
+    },
+    "actionTargetTemplateId": {
+      "description": "The action target template id to link with the action type",
+      "type": "integer"
+    },
+    "schema": {
+      "description": "A valid JSON Schema.",
+      "type": "json"
+    }
+  },
+  "required": [ "id", "name", "actionTargetTemplateId", "schema" ]
+}

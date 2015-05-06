@@ -1,0 +1,19 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Action type",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A name to identify the action type.",
+      "type": "string"
+    },
+    "description": {
+      "description": "A human description of the action type.",
+      "type": "string"
+    },
+    "schema": {
+      "description": "A valid JSON Schema.",
+      "type": "json"
+    }
+  }
+}

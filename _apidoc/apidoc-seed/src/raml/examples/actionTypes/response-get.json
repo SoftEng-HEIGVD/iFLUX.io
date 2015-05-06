@@ -1,0 +1,15 @@
+{
+  "id": 1,
+  "name": "slack/message",
+  "description": "Send a message to slack.",
+  "actionTargetTemplateId": 1,
+  "schema": {
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+      "message": {
+        "type": "string"
+      }
+    }
+  }
+}
