@@ -1,0 +1,69 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: event source instance
+    schemaBaseName: eventSourceInstance
+    exampleGetResponse: !include ../examples/eventSourceInstances/response-array-get.json
+    examplePostRequest: !include ../examples/eventSourceInstances/request-post.json
+    examplePostError: !include ../examples/eventSourceInstances/response-post-error.json
+get:
+  securedBy: [ jwt: { type: 'owner' } ]
+  description: |
+    You cannot retrieve all the event source instances accross all the event source templates or organzitions.
+
+    You **MUST** provide the `eventSourceTemplateId` or `organizationId` to get all the event source instances.
+
+    - If both `eventSourceTemplateId` and `organizationId` are provided, only the `eventSourceTemplateId`is taken
+    into account for the filtering.
+  queryParameters:
+    eventSourceTemplateId:
+      description: |
+        Filter the event source instance by event source template.
+
+        The user **MUST** be a member of the organization where the event source instance is configured.
+      type: boolean
+      required: true
+      example: |
+        `eventSourceTemplateId=1`
+    organizationId:
+      description: |
+        Filter the event source instance by organization.
+
+        The user **MUST** be a member of the organization where the event source instance is configured.
+      type: boolean
+      required: true
+      example: |
+        `organizationId=1`
+  responses:
+    200:
+      description: List of event types or empty list `[]`.
+    422:
+      description: If the `eventSourceTemplateId` or `organizationId` is not provided.
+    403:
+      description: If the user is not a member of the organization that owns the event source instance.
+post:
+  securedBy: [ jwt: { type: 'owner' } ]
+  responses:
+    403:
+      description: If the user is not a member of the organization that owns the event source instance.
+
+/{eventSourceInstanceId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: event source instances
+      schemaBaseName: eventSourceInstance
+      identifierName: eventSourceInstanceId
+      exampleGetResponse: !include ../examples/eventSourceInstances/response-get.json
+      examplePatchRequest: !include ../examples/eventSourceInstances/request-patch.json
+      examplePatchError: !include ../examples/eventSourceInstances/response-patch-error.json
+  get:
+    securedBy: [ jwt: { type: 'owner' } ]
+    responses:
+      403:
+        description: If the user is not a member of the organization that owns the event source instance.
+  patch:
+    securedBy: [ jwt: { type: 'owner' } ]
+    responses:
+      403:
+        description: If the user is not a member of the organization that owns the event source instance.

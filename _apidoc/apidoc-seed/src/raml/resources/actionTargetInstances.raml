@@ -1,0 +1,69 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: action target instance
+    schemaBaseName: actionTargetInstance
+    exampleGetResponse: !include ../examples/actionTargetInstances/response-array-get.json
+    examplePostRequest: !include ../examples/actionTargetInstances/request-post.json
+    examplePostError: !include ../examples/actionTargetInstances/response-post-error.json
+get:
+  securedBy: [ jwt: { type: 'owner' } ]
+  description: |
+    You cannot retrieve all the action target instances accross all the action target templates or organzitions.
+
+    You **MUST** provide the `actionTargetTemplateId` or `organizationId` to get all the action target instances.
+
+    - If both `actionTargetTemplateId` and `organizationId` are provided, only the `actionTargetTemplateId`is taken
+    into account for the filtering.
+  queryParameters:
+    actionTargetTemplateId:
+      description: |
+        Filter the action target instance by action target template.
+
+        The user **MUST** be a member of the organization where the action target instance is configured.
+      type: boolean
+      required: true
+      example: |
+        `actionTargetTemplateId=1`
+    organizationId:
+      description: |
+        Filter the action target instance by organization.
+
+        The user **MUST** be a member of the organization where the action target instance is configured.
+      type: boolean
+      required: true
+      example: |
+        `organizationId=1`
+  responses:
+    200:
+      description: List of event types or empty list `[]`.
+    422:
+      description: If the `actionTargetTemplateId` or `organizationId` is not provided.
+    403:
+      description: If the user is not a member of the organization that owns the action target instance.
+post:
+  securedBy: [ jwt: { type: 'owner' } ]
+  responses:
+    403:
+      description: If the user is not a member of the organization that owns the action target instance.
+
+/{actionTargetInstanceId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: action target instances
+      schemaBaseName: actionTargetInstance
+      identifierName: actionTargetInstanceId
+      exampleGetResponse: !include ../examples/actionTargetInstances/response-get.json
+      examplePatchRequest: !include ../examples/actionTargetInstances/request-patch.json
+      examplePatchError: !include ../examples/actionTargetInstances/response-patch-error.json
+  get:
+    securedBy: [ jwt: { type: 'owner' } ]
+    responses:
+      403:
+        description: If the user is not a member of the organization that owns the action target instance.
+  patch:
+    securedBy: [ jwt: { type: 'owner' } ]
+    responses:
+      403:
+        description: If the user is not a member of the organization that owns the action target instance.

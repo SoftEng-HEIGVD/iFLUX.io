@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Action target instance",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A name to identify the action target instance.",
+      "type": "string"
+    },
+    "configuration": {
+      "description": "A valid JSON Schema.",
+      "type": "json"
+    }
+  }
+}

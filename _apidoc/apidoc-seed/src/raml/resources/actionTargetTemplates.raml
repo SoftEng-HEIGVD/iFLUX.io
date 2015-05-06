@@ -1,0 +1,55 @@
+is: [ auth ]
+type:
+  collection:
+    humanName: action target template
+    schemaBaseName: actionTargetTemplate
+    exampleGetResponse: !include ../examples/actionTargetTemplates/response-array-get.json
+    examplePostRequest: !include ../examples/actionTargetTemplates/request-post.json
+    examplePostError: !include ../examples/actionTargetTemplates/response-post-error.json
+get:
+#  securedBy: [ test ]
+  description: |
+    By default, retrieve all the public action target template that a user can visualize.
+
+    - If an `organizationId` is provided, then all the action target templates of the organization are
+    retrieved. The user must be a member of the organization, otherwise, he will get a `403`.
+
+    - If `allOrganizations` is used, therfore, all the action target templates for all the organizations where the user
+    is member are retrived.
+
+    - If `organizationId` and `allOrganizations` are specified together, then only `organizationId` take effect.
+  queryParameters:
+    organizationId:
+      description: Filter the action target template by organization. The user **MUST** be member of the organization.
+      type: boolean
+      required: false
+      example: |
+        `organizationId=1`
+    allOrganizations:
+      description: Filter the action target template to retrieve all of them accross all the organizations where the user is member of.
+      type: boolean
+      required: false
+      example: |
+        `allOrganizations` or `allOrganizations=true`
+
+  responses:
+    403:
+      description: If the user is not a member of the organization that owns the action target template.
+post:
+  securedBy: [ jwt: { type: 'owner' } ]
+
+
+/{actionTargetId}:
+  is: [ auth ]
+  type:
+    member:
+      humanName: action target template
+      schemaBaseName: actionTargetTemplate
+      identifierName: actionTargetTemplateId
+      exampleGetResponse: !include ../examples/actionTargetTemplates/response-get.json
+      examplePatchRequest: !include ../examples/actionTargetTemplates/request-patch.json
+      examplePatchError: !include ../examples/actionTargetTemplates/response-patch-error.json
+  get:
+    securedBy: [ jwt: { type: 'owner' } ]
+  patch:
+    securedBy: [ jwt: { type: 'owner' } ]

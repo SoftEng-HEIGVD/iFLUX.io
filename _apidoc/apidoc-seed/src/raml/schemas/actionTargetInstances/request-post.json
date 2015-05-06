@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Action target instance",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A name to identify the action target instance.",
+      "type": "string"
+    },
+    "actionTargetTemplateId": {
+      "description": "The action target template to instantiate.",
+      "type": "integer"
+    },
+    "description": {
+      "description": "A human description of the action target instance.",
+      "type": "string"
+    },
+    "configuration": {
+      "description": "A valid JSON object.",
+      "type": "json"
+    }
+  },
+  "required": [ "name", "actionTargetTemplateId", "configuration" ]
+}

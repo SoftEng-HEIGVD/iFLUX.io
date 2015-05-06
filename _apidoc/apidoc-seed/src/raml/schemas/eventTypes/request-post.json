@@ -7,6 +7,10 @@
       "description": "A name to identify the event type.",
       "type": "string"
     },
+    "eventSourceTemplateId": {
+      "description": "The event source template id to link with the event type",
+      "type": "integer"
+    },
     "description": {
       "description": "A human description of the event type.",
       "type": "string"
@@ -15,5 +19,6 @@
       "description": "A valid JSON Schema.",
       "type": "json"
     }
-  }
+  },
+  "required": [ "name", "eventSourceTemplateId", "schema" ]
 }

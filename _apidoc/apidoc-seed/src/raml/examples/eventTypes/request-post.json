@@ -1,6 +1,7 @@
 {
   "name": "ifluxTemperatureCaptor/increase",
   "description": "Temperature increase",
+  "eventSourceTemplateId": 1,
   "schema": {
     "$schema": "http://json-schema.org/draft-04/schema#",
     "type": "object",

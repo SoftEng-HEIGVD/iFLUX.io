@@ -36,7 +36,7 @@ get:
     403:
       description: If the user is not a member of the organization that owns the event source template.
 post:
-  securedBy: [ test ]
+  securedBy: [ jwt: { type: 'owner' }, test ]
 
 
 /{eventSourceId}:
@@ -50,5 +50,6 @@ post:
       examplePatchRequest: !include ../examples/eventSourceTemplates/request-patch.json
       examplePatchError: !include ../examples/eventSourceTemplates/response-patch-error.json
   get:
-
-  /eventTypes: !include eventTypes.raml
+    securedBy: [ jwt: { type: 'owner' } ]
+  patch:
+    securedBy: [ jwt: { type: 'owner' } ]

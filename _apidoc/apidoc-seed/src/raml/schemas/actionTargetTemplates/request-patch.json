@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Action target template",
+  "type": "object",
+  "properties": {
+    "name": {
+      "description": "A name to identify the action target template",
+      "type": "string"
+    },
+    "public": {
+      "description": "Make the action target template available to everybody.",
+      "type": "boolean"
+    },
+    "configuration": {
+      "description": "Providing a schema aims to help the WUI to configure the instances.",
+      "type": "object",
+      "properties": {
+        "schema": {
+          "description": "A valid JSON Schema.",
+          "type": "json"
+        },
+        "callbackUrl": {
+          "description": "The configuration callback URL.",
+          "type": "string"
+        },
+        "callbackToken": {
+          "description": "JSON Web Token to be authenticated when contacting the callback URL.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

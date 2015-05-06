@@ -1,0 +1,7 @@
+{
+  "name": "my Temperature Instance",
+  "eventSourceTemplateId": 1,
+  "configuration": {
+    "captorId": "abcdef"
+  }
+}

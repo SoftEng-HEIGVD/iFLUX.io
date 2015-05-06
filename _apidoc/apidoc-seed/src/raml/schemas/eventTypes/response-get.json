@@ -15,10 +15,14 @@
       "description": "A human description of the event type.",
       "type": "string"
     },
+    "eventSourceTemplateId": {
+      "description": "The event source template id to link with the event type",
+      "type": "integer"
+    },
     "schema": {
       "description": "A valid JSON Schema.",
       "type": "json"
     }
   },
-  "required": [ "id", "name", "type", "schema" ]
+  "required": [ "id", "name", "eventSourceTemplateId", "schema" ]
 }

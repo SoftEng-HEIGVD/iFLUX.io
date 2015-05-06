@@ -41,6 +41,18 @@ schemas:
   - auth-signin-post-res: !include schemas/auth/response-signin-post.json
   - auth-register-post-req: !include schemas/auth/request-register-post.json
   - errors: !include schemas/errors.json
+  - actionTargetInstance-get: !include schemas/actionTargetInstances/response-get.json
+  - actionTargetInstance-patch: !include schemas/actionTargetInstances/request-patch.json
+  - actionTargetInstance-post: !include schemas/actionTargetInstances/request-post.json
+  - actionTargetInstance-getAll: !include schemas/actionTargetInstances/response-array-get.json
+  - actionTargetTemplate-get: !include schemas/actionTargetTemplates/response-get.json
+  - actionTargetTemplate-patch: !include schemas/actionTargetTemplates/request-patch.json
+  - actionTargetTemplate-post: !include schemas/actionTargetTemplates/request-post.json
+  - actionTargetTemplate-getAll: !include schemas/actionTargetTemplates/response-array-get.json
+  - eventSourceInstance-get: !include schemas/eventSourceInstances/response-get.json
+  - eventSourceInstance-patch: !include schemas/eventSourceInstances/request-patch.json
+  - eventSourceInstance-post: !include schemas/eventSourceInstances/request-post.json
+  - eventSourceInstance-getAll: !include schemas/eventSourceInstances/response-array-get.json
   - eventSourceTemplate-get: !include schemas/eventSourceTemplates/response-get.json
   - eventSourceTemplate-patch: !include schemas/eventSourceTemplates/request-patch.json
   - eventSourceTemplate-post: !include schemas/eventSourceTemplates/request-post.json
@@ -64,8 +76,11 @@ traits:
 
 
 /auth: !include resources/auth.raml
+/actionTargetInstances: !include resources/actionTargetInstances.raml
+/actionTargetTemplates: !include resources/actionTargetTemplates.raml
+/eventSourceInstances: !include resources/eventSourceInstances.raml
 /eventSourceTemplates: !include resources/eventSourceTemplates.raml
-/me: !include resources/me/organizations.raml
+/eventTypes: !include resources/eventTypes.raml
 /organizations: !include resources/organizations.raml
 /users: !include resources/users.raml
 

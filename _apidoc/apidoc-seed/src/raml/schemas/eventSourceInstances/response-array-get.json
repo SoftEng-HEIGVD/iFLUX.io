@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Event source instance collection",
+  "type": "array",
+  "items": {
+    "title": "Event source instance",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "Unique identifier given by the server",
+        "type": "integer"
+      },
+      "name": {
+        "description": "A name to identify the event source instance.",
+        "type": "string"
+      },
+      "eventSourceTemplateId": {
+        "description": "The event source template instantiated.",
+        "type": "integer"
+      },
+      "configuration": {
+        "description": "A valid JSON object.",
+        "type": "json"
+      }
+    },
+    "required": [ "id", "name", "eventSourceTemplateId", "configuration" ]
+  }
+}
