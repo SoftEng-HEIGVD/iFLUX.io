@@ -12,7 +12,11 @@
         }
       }
     },
-    "callbackUrl": "http://slackgateway.bot.instance/configuration",
-    "callbackToken": "<JSON Web Token>"
+    "url": "http://slackgateway.bot.instance/configuration",
+    "token": "<JSON Web Token>"
+  },
+  "target": {
+    "url": "http://slackgateway.bot.instance/actions",
+    "token": "<JSON Web Token>"
   }
 }

@@ -1,8 +1,13 @@
 [
   {
     "id": 1,
+    "key": "dazimausme",
     "name": "iFlux Slack bot",
     "public": true,
-    "organizationId": 1
+    "organizationId": 1,
+    "target": {
+      "url": "http://slackgateway.bot.instance/actions",
+      "token": "<JSON Web Token>"
+    }
   }
 ]

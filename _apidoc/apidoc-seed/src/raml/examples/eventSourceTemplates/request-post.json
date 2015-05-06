@@ -12,7 +12,7 @@
         }
       }
     },
-    "callbackUrl": "http://some.cool.weather.service/configuration",
-    "callbackToken": "<JSON Web Token>"
+    "url": "http://some.cool.weather.service/configuration",
+    "token": "<JSON Web Token>"
   }
 }

@@ -19,12 +19,26 @@
           "description": "A valid JSON Schema.",
           "type": "json"
         },
-        "callbackUrl": {
-          "description": "The configuration callback URL.",
+        "url": {
+          "description": "The configuration URL.",
           "type": "string"
         },
-        "callbackToken": {
-          "description": "JSON Web Token to be authenticated when contacting the callback URL.",
+        "token": {
+          "description": "JSON Web Token to be authenticated when contacting the configuration URL.",
+          "type": "string"
+        }
+      }
+    },
+    "target": {
+      "description": "The target configuration.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "description": "The action target URL.",
+          "type": "string"
+        },
+        "token": {
+          "description": "JSON Web Token to be authenticated when contacting the action target URL.",
           "type": "string"
         }
       }

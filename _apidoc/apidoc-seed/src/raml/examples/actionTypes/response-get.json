@@ -1,5 +1,6 @@
 {
   "id": 1,
+  "key": "dazimwdsms",
   "name": "slack/message",
   "description": "Send a message to slack.",
   "actionTargetTemplateId": 1,

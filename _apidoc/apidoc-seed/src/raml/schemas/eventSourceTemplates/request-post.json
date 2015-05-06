@@ -11,6 +11,10 @@
       "description": "The organization to link the event source template",
       "type": "integer"
     },
+    "public": {
+      "description": "Make the event source template available to everybody.",
+      "type": "boolean"
+    },
     "configuration": {
       "description": "Providing a schema aims to help the WUI to configure the instances.",
       "type": "object",
@@ -19,20 +23,16 @@
           "description": "A valid JSON Schema.",
           "type": "json"
         },
-        "callbackUrl": {
-          "description": "The configuration callback URL.",
+        "url": {
+          "description": "The configuration URL.",
           "type": "string"
         },
-        "callbackToken": {
-          "description": "JSON Web Token to be authenticated when contacting the callback URL.",
+        "token": {
+          "description": "JSON Web Token to be authenticated when contacting the configuration URL.",
           "type": "string"
         }
       },
-      "required": [ "schema", "callbackUrl", "callbackToken" ]
-    },
-    "public": {
-      "description": "Make the event source template available to everybody.",
-      "type": "boolean"
+      "required": [ "schema", "url" ]
     }
   },
   "required": [ "name", "organizationId" ]

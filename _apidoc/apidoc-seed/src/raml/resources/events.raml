@@ -1,0 +1,9 @@
+description: This endpoint is used by event sources (e.g. sensors) to notify the occurence of events.
+post:
+  description: Notify a list of events that have been captured by an event source. The events are processed asynchronously by the iFLUX service. The client must always send a list, even if it wants to notify a single event.
+  body:
+    application/json:
+      example: !include ../examples/events/request-post.json
+  responses:
+    202:
+      description: Accepted
