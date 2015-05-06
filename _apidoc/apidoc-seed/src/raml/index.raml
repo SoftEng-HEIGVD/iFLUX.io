@@ -81,8 +81,6 @@ schemas:
 traits:
   - auth: !include traits/authentication.raml
 
-
-
 /auth: !include resources/auth.raml
 /actionTargetInstances: !include resources/actionTargetInstances.raml
 /actionTargetTemplates: !include resources/actionTargetTemplates.raml
@@ -93,7 +91,6 @@ traits:
 /organizations: !include resources/organizations.raml
 /rules: !include resources/rules.raml
 /users: !include resources/users.raml
-
 
 /events:
   description: This endpoint is used by event sources (e.g. sensors) to notify the occurence of events.
