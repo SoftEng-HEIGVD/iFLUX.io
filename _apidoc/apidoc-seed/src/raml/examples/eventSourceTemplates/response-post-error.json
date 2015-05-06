@@ -3,10 +3,9 @@
     "The name must be at least 2 characters long",
     "Name is already taken."
   ],
-  "callbackUrl": [
-    "Callback URL is mandatory when configuration schema or callback token are specified"
-  ],
-  "callbackToken": [
-    "Callback token is mandatory when configuration schema or callback URL are specified"
-  ]
+  "configuration": {
+    "url": [
+      "Configuration URL is mandatory when configuration schema is present."
+    ]
+  }
 }

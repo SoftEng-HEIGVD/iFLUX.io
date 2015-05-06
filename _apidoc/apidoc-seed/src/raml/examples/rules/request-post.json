@@ -1,21 +1,19 @@
 {
   "name": "My temperature rule",
   "active": true,
+  "organizationId": 1,
   "conditionsEvaluation": "or",
   "conditions": [{
     "description": "Match if a temperature has changed for a certain captor and a temperature event",
-    "basic": "abcdefghij/jihgfedcba",
     "sourceInstanceId": 1,
     "eventTypeId": 1,
     "fn": "function(event, eventType, eventSourceInstance) { return event.temperature.old != event.temperature.new; }"
   }, {
     "description": "Match if a temperature has changed for any captor and a temperature event",
-    "basic": "*/jihgfedcba",
     "eventTypeId": 1,
     "fn": "function(event, eventType, eventSourceInstance) { return event.temperature.old != event.temperature.new; }"
   }, {
     "description": "Match if a temperature has changed for a specific captor and any event from this captor",
-    "basic": "abcdefghij/*",
     "sourceInstanceId": 1,
     "fn": "function(event, eventType, eventSourceInstance) { return event.captorId == 42 || event.captorId == 53; }"
   }],

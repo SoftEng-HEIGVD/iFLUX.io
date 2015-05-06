@@ -156,9 +156,9 @@ mixin propertyRowContent(name, property, required, level)
 					else
 						| item
 		.flex-table-cell.center= property.type
-		.flex-table-cell.s2
+		.flex-table-cell
 			+jsonSchemaConstraints(property, name, required)
-		.flex-table-cell.s2!= helpers.marked(property.description)
+		.flex-table-cell.s3!= helpers.marked(property.description)
 
 mixin propertyRow(name, property, required, level)
 	if helpers.isSchemaIndentBordered
@@ -198,8 +198,8 @@ mixin jsonSchemaTable(schema)
 				.flex-table-headers
 					.flex-table-header Property
 					.flex-table-header.center Type
-					.flex-table-header.s2 jsonSchemaConstraints
-					.flex-table-header.s2 Description
+					.flex-table-header.center JSON Schema Constraints
+					.flex-table-header.s3 Description
 
 				if schema.title || schema.description
 

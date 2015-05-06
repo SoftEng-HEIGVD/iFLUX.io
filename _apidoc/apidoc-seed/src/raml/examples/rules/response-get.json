@@ -1,0 +1,33 @@
+{
+  "id": 1,
+  "name": "My temperature rule",
+  "active": true,
+  "organizationId": 1,
+  "conditionsEvaluation": "or",
+  "conditions": [{
+    "description": "Match if a temperature has changed for a certain captor and a temperature event",
+    "sourceInstanceId": 1,
+    "eventTypeId": 1,
+    "fn": "function(event, eventType, eventSourceInstance) { return event.temperature.old != event.temperature.new; }"
+  }, {
+    "description": "Match if a temperature has changed for any captor and a temperature event",
+    "eventTypeId": 1,
+    "fn": "function(event, eventType, eventSourceInstance) { return event.temperature.old != event.temperature.new; }"
+  }, {
+    "description": "Match if a temperature has changed for a specific captor and any event from this captor",
+    "sourceInstanceId": 1,
+    "fn": "function(event, eventType, eventSourceInstance) { return event.captorId == 42 || event.captorId == 53; }"
+  }],
+  "transformations": [{
+    "description": "Transform the event of the specific type for the slack action target with the specific action type.",
+    "actionInstanceId": 1,
+    "eventTypeId": 1,
+    "actonTypeId": 1,
+    "fn": "function(event, eventType, actionType, actionTargetInstance) { return { message: 'The temp. changed from ' + event.temperature.old + ' to ' + event.temperature.new + '.' }; }"
+  }, {
+    "description": "Transform the event for the slack action target with the specific action type.",
+    "actionInstanceId": 1,
+    "actionTypeId": 1,
+    "fn": "function(event, eventType, actionType, actionTargetInstance) { return { message: 'The captor ' + event.captorId + ' has sent an event of ' + eventType.name + '.' }; }"
+  }]
+}

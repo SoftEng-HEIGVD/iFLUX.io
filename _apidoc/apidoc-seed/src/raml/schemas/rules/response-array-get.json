@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "Event types",
-  "description": "The collection of event types",
+  "title": "Rules",
+  "description": "The collection of rules",
   "type": "array",
   "items": {
-    "title": "Event types.",
+    "title": "Rule.",
     "type": "object",
     "properties": {
       "id": {
@@ -12,22 +12,77 @@
         "type": "integer"
       },
       "name": {
-        "description": "A name to identify the event type.",
+        "description": "A name to identify the rule.",
         "type": "string"
       },
-      "description": {
-        "description": "A human description of the event type.",
-        "type": "string"
+      "active": {
+        "description": "Enable/Disable a rule. When disabled, the rule is not evaluated on events received.",
+        "type": "boolean"
       },
-      "eventSourceTemplateId": {
-        "description": "The event source template id to link with the event type",
+      "organizationId": {
+        "description": "The organization for which the rule is configured.",
         "type": "integer"
       },
-      "schema": {
-        "description": "A valid JSON Schema.",
-        "type": "json"
+      "conditionEvaluation": {
+        "description": "The way that the conditions array is evaluated.",
+        "enum": [ "or", "and" ]
+      },
+      "conditions": {
+        "description": "List of condition to evaluate against events received.",
+        "type": "array",
+        "items": {
+          "description": "Condition to evaluate, **MUST** define at least one of the three condition criteria: `sourceInstanceId`, `eventTypeId` or `fn`.",
+          "type": "object",
+          "properties": {
+            "description": {
+              "description": "Human friendly text to let the possibility to explain what the condition evaluates.",
+              "type": "string"
+            },
+            "sourceInstanceId": {
+              "description": "The event source instance to match on event received. If not present, joker `*` will be used.",
+              "type": "integer"
+            },
+            "eventTypeId": {
+              "description": "The event type to match on event received. If not present, joker `*` will be used.",
+              "type": "integer"
+            },
+            "fn": {
+              "description": "Javascript function to let more complex condition matching. If not present, only `event source` and `event type` will be evaluated. **MUST** be a valid javascript function",
+              "type": "string"
+            }
+          }
+        },
+        "minItems": 1
+      },
+      "transformations": {
+        "description": "List of transformations to apply to an event once the conditions matched.",
+        "type": "array",
+        "items": {
+          "description": "Transformation to apply.",
+          "type": "object",
+          "properties": {
+            "description": {
+              "description": "Human friendly text to let the possibility to explain what the transformation does.",
+              "type": "string"
+            },
+            "actionInstanceId": {
+              "description": "The action instance to send the event transformed.",
+              "type": "integer"
+            },
+            "eventTypeId": {
+              "description": "The event type matched on event received.",
+              "type": "integer"
+            },
+            "fn": {
+              "description": "Javascript function to let transform an event to a different data structure corresponding to the action data on the target. If not present, the event is used as the action data without transformation.",
+              "type": "string"
+            }
+          },
+          "required": [ "actionInstanceId", "actionTypeId" ]
+        },
+        "minItems": 1
       }
     },
-    "required": [ "id", "name", "eventSourceTemplateId", "schema" ]
+    "required": [ "id", "name", "active", "organizationId", "conditionsEvaluation", "conditions", "transformations" ]
   }
 }

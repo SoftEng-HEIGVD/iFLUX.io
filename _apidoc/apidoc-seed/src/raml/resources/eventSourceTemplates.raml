@@ -21,13 +21,13 @@ get:
   queryParameters:
     organizationId:
       description: Filter the event source template by organization. The user **MUST** be member of the organization.
-      type: boolean
+      type: integer
       required: false
       example: |
         `organizationId=1`
     allOrganizations:
       description: Filter the event source template to retrieve all of them accross all the organizations where the user is member of.
-      type: boolean
+      type: integer
       required: false
       example: |
         `allOrganizations` or `allOrganizations=true`

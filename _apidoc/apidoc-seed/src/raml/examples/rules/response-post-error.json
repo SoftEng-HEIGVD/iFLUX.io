@@ -3,10 +3,14 @@
     "The name must be at least 2 characters long",
     "Name is already taken."
   ],
-  "callbackUrl": [
-    "Callback URL is mandatory when configuration schema or callback token are specified"
-  ],
-  "callbackToken": [
-    "Callback token is mandatory when configuration schema or callback URL are specified"
-  ]
+  "configurations": {
+    "0": {
+      "eventSourceId": [
+        "The event source id is required when no event type id provided."
+      ],
+      "eventTypeId": [
+        "The event type id is required when no event source id provided."
+      ]
+    }
+  }
 }
